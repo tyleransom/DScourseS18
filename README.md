@@ -1,5 +1,7 @@
 # ECON 5970: Data Science for Economists (Spring 2018) #
 
+[![Join the chat at https://gitter.im/DScourseS18/Lobby](https://badges.gitter.im/DScourseS18/Lobby.svg)](https://gitter.im/DScourseS18/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 |  | [Tyler Ransom](http://tyleransom.github.io) |
 |--------------|--------------------------------------------------------------|
 | Email | [ransom@ou.edu](mailto:ransom@ou.edu) |
