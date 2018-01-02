@@ -141,6 +141,8 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 
 * [QuantEcon](https://quantecon.org)
 * [Notes on Machine Learning & Artificial Intelligence](https://chrisalbon.com) by Chris Albon
+* [R data wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+* [R tidyverse](https://www.tidyverse.org)
 
 ## Books ##
 
