@@ -11,11 +11,11 @@
 
 * **Meeting day/time**: T,Th 1:30-2:45pm, CCD1, Room 174
 * Office hours also available by appointment
-* This course takes inspiration and borrows materials from similar courses taught by [Jason DeBacker](https://github.com/jdebacker/CompEcon_Fall17) (U of South Carolina) and [Rick Evans](https://github.com/rickecon/OGcourse_F17) (U of Chicago). Thanks to them for providing a framework for using GitHub as a class collaboration tool and for insignts into teaching programming skills.
+* This course takes inspiration and extensively borrows materials from similar courses taught by [Jason DeBacker](https://github.com/jdebacker/CompEcon_Fall17) (U of South Carolina) and [Rick Evans](https://github.com/rickecon/OGcourse_F17) (U of Chicago). Thanks to them for providing a framework for using GitHub as a class collaboration tool and for insignts into teaching programming skills.
 
 ## Course description ##
 
-Data science is a rapidly developing field that combines the recent Big Data revolution with everdeveloping statistical algorithms to inform business and policy decisions. Nearly every company you've heard of uses data science to optimize its services. Netflix uses it to recommend new programs to its viewers, Amazon uses it to determine how much it should charge for its Prime services. This class will provide students with an overview of the data science workflow, from collecting raw data to a set of insights from which a decision maker can make informed decisions. Along the way we will broadly cover a variety of advances in data collection, data storage, machine learning and econometrics topics, as well as teaching and reinforcing good programming practices. The primary goal of this course is to provide you, the student, with a set of skills that will allow you to compete for a data science job.
+Data science is a rapidly developing field that combines the recent Big Data revolution with ever-developing statistical algorithms to inform business and policy decisions. Nearly every company you've heard of uses data science to optimize its services: Netflix uses it to recommend new programs to its viewers, Amazon uses it to determine how much it should charge for its Prime services. This class will provide students with an overview of the data science workflow, from collecting raw data to drawing a set of insights from which a decision maker can make informed decisions. Along the way we will broadly cover a variety of advances in data collection, data storage, visualization, machine learning and econometrics topics, as well as teaching and reinforcing good programming practices. The primary goal of this course is to provide you, the student, with a set of skills that will allow you to compete for a data science job.
 
 ## Course Objectives and Learning Outcomes ##
 
@@ -86,10 +86,15 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 
 * **Final Project:**
     * Collect data on and analyze a research question of your choosing, using methods taught in this course
-    * Write up a ~10 page summary of your findings, including discussion about what prior studies of the same topic have found, as well as citations to prior studies
+    * Write up a ~10 page (12pt font, double spaced, excluding References, Figures, and Tables) summary of your findings, including discussion about what prior studies of the same topic have found, as well as citations to prior studies
     * Turn in the written summary report and a GitHub repository containing all materials required to reproduce the results
-    * Summary report should be written in LaTeX or RMarkdown
+    * Summary report should be written in LaTeX or RMarkdown and turned in as a PDF (source code for the summary report should also be included in your GitHub repository)
+    * An example of what the final product should look like is [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/ExampleProject.pdf), with LaTeX source code [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/ExampleProject.tex) and BibTeX source code [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/References.bib).
 
+## Communication ##
+
+* I will always be available via email, and in person during office hours.
+* Additionally, I have set up a Gitter community (see the badge at the top of this document) where I am hoping you can chat with each other about programming or other questions you have regarding the course. I will also be a participant in that community.
 
 
 ## Daily Course Schedule ##
@@ -141,6 +146,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 
 * The Master Algorithm ([Amazon link](https://www.amazon.com/Master-Algorithm-Ultimate-Learning-Machine-ebook/dp/B012271YB2))
 * Julia for Data Science ([Amazon link](https://www.amazon.com/Julia-Data-Science-Zacharias-Voulgaris/dp/1634621301))
+* R for Data Science ([Free PDF](http://r4ds.had.co.nz/))
 
 ## Academic Integrity: ##
 
