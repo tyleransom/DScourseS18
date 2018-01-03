@@ -11,7 +11,7 @@
 
 * **Meeting day/time**: T,Th 1:30-2:45pm, CCD1, Room 174
 * Office hours also available by appointment
-* This course takes inspiration and extensively borrows materials from similar courses taught by [Jason DeBacker](https://github.com/jdebacker/CompEcon_Fall17) (U of South Carolina) and [Rick Evans](https://github.com/rickecon/OGcourse_F17) (U of Chicago). Thanks to them for providing a framework for using GitHub as a class collaboration tool and for insignts into teaching programming skills.
+* This course takes inspiration and extensively borrows materials from similar courses taught by [Jason DeBacker](https://github.com/jdebacker/CompEcon_Fall17) (U of South Carolina) and [Rick Evans](https://github.com/rickecon/OGcourse_F17) (U of Chicago). Thanks to them for providing a framework for using GitHub as a class collaboration tool and for insights into teaching programming skills.
 
 ## Course description ##
 
