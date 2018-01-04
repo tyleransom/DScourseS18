@@ -33,6 +33,7 @@ In this course students, through lecture and application, students will learn ab
 * Software to increase research productivity including:
     * LaTeX/Markdown
     * git
+* Software to collect & clean data, and estimate statistical models:
     * R
     * Julia
     * Python
@@ -143,6 +144,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 * [Notes on Machine Learning & Artificial Intelligence](https://chrisalbon.com) by Chris Albon
 * [R data wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 * [R tidyverse](https://www.tidyverse.org)
+* [Julia vs. Python for Data Science](https://www.infoworld.com/article/3241107/python/julia-vs-python-julia-language-rises-for-data-science.html)
 
 ## Books ##
 
