@@ -1,0 +1,107 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Jan. 30\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Jan. 30\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: January 30, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 2}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 2 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will provide an opportunity for you to practice accessing computing resources on the OSCER server here at OU.
+
+As with the previous proble set, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS2/} and name the file \texttt{PS2\_LastName.pdf}.
+\begin{questions}
+\question Using your SSH client and the username and temporary password I provided you with, log in to OSCER (see directions \href{www.ou.edu/content/oscer/getting_started_using_oscer.html}{here}). There are detailed step-by-step instructions at the link for how to set up your SSH configuration. If you are immediately prompted to change your password, please do so. Note that, when typing your new password, the cursor won't move even though your keystrokes are being logged. If you are not immediately prompted to change your password, please type \texttt{psswd} and then follow the prompts to change your password.
+
+\question Clone your forked GitHub repository to your home directory on OSCER by following these steps:
+\begin{enumerate}
+	\item Make sure you are in your home directory by typing \texttt{cd \~}.
+	\item Type \texttt{git clone https://github.com/[your-github-username]/DScourseS18.git}
+	\item Check that everything works by typing \texttt{ls} and hitting enter. You should see a directory called ``DScourseS18'' and if you change to that directory, you should see an identical directory and file structure to what is on GitHub.
+\end{enumerate}
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice. If you're using FileZilla, you can set up your connection by clicking File $\rightarrow$ Site Manager $\rightarrow$ and then clicking on ``New Site'' and entering in ``OSCER'' as the name (instead of ``New Site''), ``dtn2.oscer.ou.edu'' as the Host, ``SFTP'' as the protocol, and your username as the user. It's not a good idea to store passwords on your machine, so leave that field blank and make sure that under ``logon type'' you click ``ask for password.'' If you are using something else besides FileZilla, there should be a similar ``site manager'' type of interface for you to enter in your credentials. Consult the help resources for your specific software.
+
+\question Go to \url{www.sharelatex.com} and create another .tex document, this time naming it \texttt{PS2\_LastName.tex}. In it, write down a list (in a LaTeX \texttt{itemize} envrionment) that outlines the main tools of a data scientist (as discussed in class). Compile the PDF.
+
+\question Make sure that your .tex and .pdf files have the correct naming convention (see top of this problem set for directions) and are located in the correct directory. If the directory does not exist, create it using the \texttt{mkdir} command.
+
+\question Update your local git repository (in your OSCER home directory) by using the following commands:
+\begin{itemize}
+	\item \texttt{cd \~}
+	\item \texttt{cd DScourseS18/ProblemSets}
+	\item \texttt{mkdir PS2}
+	\item \texttt{cd PS2}
+	\item \texttt{git add PS2\_LastName.*}
+	\item \texttt{git commit -m 'Completed PS2'}
+	\item \texttt{git push origin master}
+\end{itemize}
+Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS2 directory appears in the appropriate place in your other local repository.
+\end{questions}
+\end{document}

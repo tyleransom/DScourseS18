@@ -1,0 +1,108 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Jan. 23\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Jan. 23\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: January 23, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 1}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 1 - Solutions} % Uncomment for solutions version
+
+
+%\lhead{Econ 201 - Summer 2014} \chead{Quiz 1} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+%\setstretch{1.0}
+
+
+\begin{document}
+This problem set will have you apply some of the productivity-enhancing software you've been introduced to, and help me learn a bit more about your research interests.
+
+In completing this assignment you will be writing TeX code, using \url{sharelatex.com} to edit the TeX code, using Git, and publishing your work to GitHub.
+
+You will submit your problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/} and name the file \texttt{PS1\_LastName.pdf}.
+
+\begin{questions}
+\question Create an account at \url{GitHub.com} and ``follow'' our class repository (\url{github.com/tyleransom/DScourse18}).
+
+\question Fork the class repository to your own account. Once you have forked, go to ``settings'' and click on ``Collaborators'' on the left hand bar. Enter my GitHub username so that I will be able to view your completed assignments.
+
+\question Make sure you download other productivity software that we discussed in class: an SSH client, an SFTP client, Git, and R/Julia/Python/SQL (unless you want to use those on OSCER). For Git, you can install the GitHub app, or you can use Git natively (if a Mac OS user) or download the Windows binary from \href{https://git-scm.com/download/win}{here}. (Or you can use the built-in Git utility on OSCER.)
+
+\question Create an account at \url{sharelatex.com} and open a new project. (I would recommend opening an ``example'' project, but you can also open a ``blank'' project.)
+
+\question In the body of your .tex file, write a brief summary ($\approx$ half a page) of your interests in economics \& data science. What made you want to take this class? Do you have any ideas for what you would want to do for your project for this class? What are your goals for this class, and what is your plan for after graduation?
+
+\question At the end of your document, create a new section entitled ``Equation'' and write the following equation:
+\begin{equation}
+	a^{2} + b^{2} = c^{2}
+\end{equation}
+
+\question Join our course's \texttt{gitter} chat group (the link is at the top of the README file on the course homepage on GitHub) and send a message to the class.
+
+\end{questions}
+
+\end{document}
