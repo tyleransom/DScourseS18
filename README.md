@@ -28,7 +28,7 @@ By the end of the course, students should be able to do the following:
 5. Demonstrate good programming practices by writing code that can allow for easy collaboration with others
 6. Understand the differences between prediction and causality, and the cases in which each is useful
 
-In this course students, through lecture and application, students will learn about:
+In this course students, through lecture and application, will learn about:
 * Good programming practices, including how to write code collaboratively with others
 * Software to increase research productivity including:
     * LaTeX/Markdown
@@ -41,6 +41,8 @@ In this course students, through lecture and application, students will learn ab
     * SQL
     * RDDs (Resilient Distributed Datasets) --- Spark, Hadoop
 * How to access and utilize cluster computing resources
+    * SSH (Secure Shell)
+    * SFTP (Secure File Transfer Protocol)
     * SLURM (Simple Linux Utility for Resource Management)
 * Methods to gather and handle data including:
     * Costs and benefits of different data structures
@@ -104,7 +106,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Date   | Day | Topic                                                         | Due                                                                                                                            |
 |--------|-----|-------------------------------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------|
 | Jan 16 | T   | What is data science / big data / why is it important?        |                                                                                                                                |
-| Jan 18 | Th  | Git, GitHub, computing environment, and Coding best practices | Read Gentzkow & Shapiro's [handbook](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf); register for GitHub account |
+| Jan 18 | Th  | Git, GitHub, computing environment, and Coding best practices | Read Gentzkow & Shapiro's [handbook](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf); Ch. 1 of *The Master Algorithm*; register for GitHub account |
 | Jan 23 | T   | Linux command line, SSH, accessing OSCER                      | [PS 1](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/PS1.pdf)                                             |
 | Jan 25 | Th  | Overview of Data Scientists' tools                            |                                                                                                                                |
 | Jan 30 | T   | Using data: data types, storage                               | [PS 2](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/PS2.pdf)                                             |
