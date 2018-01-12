@@ -26,7 +26,7 @@ Below is a table summarizing the main differences between R, Python, and Julia:
 | Used for general-purpose computing | <ul><li>[ ]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
 | Open source                        | <ul><li>[x]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
 | Web scraping package?              | `rvest`   | `BeautifulSoup` | `Gumbo.jl`, `Cascadia.jl` |
-| Visualization library?             | `ggplot2` | `PyPlot` | `Plots.jl`|
+| Visualization library?             | `ggplot2` | `matplotlib` | `Plots.jl`|
 | Machine learning library?          | [sporadic](https://cran.r-project.org/web/views/MachineLearning.html) | scikit-learn | `Flux.jl`|
 | Biggest advantage                  | `tidyverse` | ubiquity | speed    |
 | Biggest disadvantage               | speed     | speed    | age      |
@@ -62,13 +62,27 @@ What do you do when you can't open all of your data? Depending on how the data i
 The solution to this problem is Resilient Distributed Datasets (RDDs). To use RDDs you need a cluster of computers and software such as Hadoop or Spark. Spark chops your huge data set into manageable chunks and executes actions on those chunks in parallel. One can do many common data operations like subsetting the data, creating summary statistics, etc. The crucial aspect of RDDs is that they are built to withstand any disruption in the computing cluster. So if one of the machines on the cluster happens to fail, the data it was holding can be seamlessly transferred to another machine.
 
 ### 3.2 SQL
-While not necessarily required for handling mega data sets, SQL is the most common database language to transform data into a more usable form for statistical software to use.
+While not necessarily required for handling mega data sets, SQL is the most common database language to transform data into a more usable form for statistical software to use. With SQL, one can easily subset, merge, and perform other common data transformations.
 
 You will get experience using both SQL and Spark a bit later in the class.
  
-## 4. 
+## 4. Visualization
+Visualization is an important tool for data scientists. Visualization allows humans to see in multiple dimensions what the data looks like, spot outliers, and otherwise perform "sanity checks" on the data. I'll review here the primary visualization tools in the three DS programming languages.
 
-### 4.1
+### 4.1 `ggplot2` (R)
+`ggplot2` is the visualization package included in the R `tidyverse`. This package has a large user following and the graphic style is immediately recognizable. I personally don't care for the design aesthetic, but it can be hard to argue with ubiquity. If you're interested in learning this, I recommend checking out the [data visualization](http://r4ds.had.co.nz/data-visualisation.html) and [graphics for communication](http://r4ds.had.co.nz/graphics-for-communication.html) chapters in the [R for data science](http://r4ds.had.co.nz/) online textbook.
 
-## 5. 
+### 4.2 `matplotlib` (Python)
+`matplotlib` is the original graphics package for Python. It was designed to mimic Matlab's visualization syntax. Beyond `matplotlib`, there is a `ggplot` package which ports to `ggplot2`, as well as a variety of others.
+
+### 4.3 `Plots.jl` (Julia)
+`Plots.jl` is a package that came about in the past year. Its innovation is that, once the user provides it with code, it can output graphics using any other package as a backend. For example, a user can write some code to create a data visualization which creates a graphic using `ggplot2`. Then, by only tweaking one option in that code, the user could output the same graphic in `matplotlib`. This package is a nice way to only have to code once but be able to create graphics in many different styles.
+
+## 5. Modeling
+Now that you've collected your data, cleaned it up, and visualized it, you're ready to start doing some statistical modeling. The main objectives of statistical modeling are as follows:
+
+1. Use the data to test theories. For example, Amazon may wonder "Are women more likely than men to subscribe to Prime?" Without data this is simply a "hunch" or a belief. 
+2. Use the data to predict behavior. For example, many companies need to optimize their inventory management so that the right amount of inventory is in the right stores at the right time. 
+3. use the data to explain behavior. This is a bit more difficult, because it goes beyond prediction. Once a company or government knows the "why" behind consumer/citizen behavior, it can optimize its behavior in response. (Note here that the "why" implies a causal relationship---this requires having a particular type of data or requires making additional assumptions and making use of additional statistical methods than are used for prediction.)
+
 
