@@ -77,6 +77,8 @@ Final project                |    35%     |
 
 Final grades will be assigned according to the standard cutoffs (90%+ for an A, 80%-89.99% for a B, etc.).
 
+* **Participation:**
+    * An important part of learning is face-to-face interaction. Thus, some of your grade will depend on attendance and active participation in class meetings.
 * **Problem sets:** will be assigned approximately weekly throughout the semester.
     * You must write and submit your own computer code, although I encourage you to collaborate with your fellow students. I **DO NOT** want to see a bunch of copies of identical code. I **DO** want to see each of you learning how to code these problems so that you could do it on your own.
     * Problem set solutions, both written and code portions, will be turned in via a pull request from your private [GitHub.com](https://github.com/) repository which is a fork of the class master repository on my account. (You will need to set up a GitHub account if you do not already have one.)
