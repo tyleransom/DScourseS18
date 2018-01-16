@@ -83,7 +83,7 @@ As with the previous proble set, you will submit this problem set by pushing the
 \begin{enumerate}
 	\item Make sure you are in your home directory by typing \texttt{cd \~}.
 	\item Type \texttt{git clone https://github.com/[your-github-username]/DScourseS18.git}
-	\item Check that everything works by typing \texttt{ls} and hitting enter. You should see a directory called ``DScourseS18'' and if you change to that directory, you should see an identical directory and file structure to what is on GitHub.
+	\item Check that everything works by typing \texttt{ls} and hitting enter. You should see a directory called ``DScourseS18'' and if you change to that directory, you should see an identical directory and file structure to what is on your GitHub private fork of the course repo.
 \end{enumerate}
 
 \question Go to \url{www.sharelatex.com} and create another .tex document, this time naming it \texttt{PS2\_LastName.tex}. In it, write down a list (in a LaTeX \texttt{itemize} envrionment) that outlines the main tools of a data scientist (as discussed in class). Compile the PDF.
@@ -103,8 +103,6 @@ As with the previous proble set, you will submit this problem set by pushing the
 	\item \texttt{git push origin master}
 \end{itemize}
 Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS2 directory appears in the appropriate place in your other local repository.
-
-\question Change back to your home directory (\texttt{cd \~}) and then type:\\ \texttt{module load libxml2/2.9.3-GCC-4.9.3-2.25}.
 
 \question Now open R and install the \texttt{xml2} package by typing \texttt{install.packages('xml2')} at the command prompt. Answer `yes' to install it in your home directory. Enter the number of any of the server mirrors that come up (I usually choose Texas). Building the package may take a couple of minutes. Once that has finished, repeat the process, but substitute \texttt{tidyverse} for \texttt{xml2}. Building \texttt{tidyverse} may take as much as 10-15 minutes. You don't need to watch it build, but be sure not to close your SSH terminal window or otherwise disconnect your session. When you are done with the build, exit R and log off of OSCER.
 
