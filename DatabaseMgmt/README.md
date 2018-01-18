@@ -1,5 +1,5 @@
 # Data Science Toolbox
-The following is a (slightly) deeper look at the data science workflow, with more details about specific software, programming languages, and other skills often used for data science.
+Data is really neat. There are many types of data out there.
 
 As discussed in the previous reading by [Gentzkow & Shapiro](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf), everything that can be automated should be automated. That is how companies can make use of data science insights ``at scale'' (to quote the DS vernacular). In fact, automation is the reason we write code in the first place. And it's the source of innovation in data science.
 
@@ -22,9 +22,9 @@ Below is a table summarizing the main differences between R, Python, and Julia:
 |------------------------------------|-----------|----------|----------|
 | Date established                   | 1995      | 1991     | 2012     |
 | Approximate user base              | large     | largest  | smallest |
-| Used for data science              | <ul><li>[x]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
-| Used for general-purpose computing | <ul><li>[ ]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
-| Open source                        | <ul><li>[x]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
+| Used for data science              | Yes | Yes  | Yes |
+| Used for general-purpose computing | No | Yes  | Yes |
+| Open source                        | Yes | Yes  | Yes |
 | Web scraping package?              | `rvest`   | `BeautifulSoup` | `Gumbo.jl`, `Cascadia.jl` |
 | Visualization library?             | `ggplot2` | `matplotlib` | `Plots.jl`|
 | Machine learning library?          | [sporadic](https://cran.r-project.org/web/views/MachineLearning.html) | scikit-learn | `Flux.jl`|
