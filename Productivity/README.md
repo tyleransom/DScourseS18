@@ -102,7 +102,7 @@ While you can easily access the command line of a remote server via any SSH clie
 
 ## 5. Git and GitHub tutorial
 
-I have included a tutorial on using [Git and GitHub.com](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/git_tutorial.pdf). Git is a powerful version control software that comes natively installed on many machines and is widely used. GitHub.com is the most widely used online platform for hosting open source projects and integrating with Git software. Git has a significant learning curve, but it is essential for large collaborations that involve software development.
+I have included a tutorial on using [Git and GitHub.com](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/git_tutorial.pdf) (reproduced with permission from [Rich Evans](https://github.com/rickecon) at U Chicago). Git is a powerful version control software that comes natively installed on many machines and is widely used. GitHub.com is the most widely used online platform for hosting open source projects and integrating with Git software. Git has a significant learning curve, but it is essential for large collaborations that involve software development.
 
 ### Git Humor from [xkcd](https://xkcd.com)
 
