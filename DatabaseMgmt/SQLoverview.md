@@ -1,19 +1,10 @@
 # Guide to SQL
 Taken from [Chris Albon](https://github.com/chrisalbon)'s [archived GitHub repository](https://github.com/chrisalbon/mlai) on machine learning and artifical intelligence.
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
-
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -29,7 +20,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -37,8 +28,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -130,7 +119,6 @@ FROM criminals
 
 
 ```python
-%%sql
 
 -- Edit the table
 ALTER TABLE criminals
@@ -142,7 +130,7 @@ ADD COLUMN state text DEFAULT 'CA'
 
 
 
-    []
+
 
 
 
@@ -150,8 +138,6 @@ ADD COLUMN state text DEFAULT 'CA'
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -247,19 +233,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -269,7 +248,7 @@ INSERT INTO criminals VALUES (901, 'Gordon Ado', 32, 'F', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -277,8 +256,6 @@ INSERT INTO criminals VALUES (901, 'Gordon Ado', 32, 'F', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -322,8 +299,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 -- Add into the table criminals
 INSERT INTO criminals 
 
@@ -334,7 +309,7 @@ VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -342,8 +317,6 @@ VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -390,19 +363,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -418,7 +384,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -426,8 +392,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 --  Select all names from the table 'c'
 SELECT c.name
 
@@ -469,19 +433,12 @@ FROM criminals AS c
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data With 'pid' As An Auto-Generated Primary Key
 
 
 ```python
-%%sql
-
 -- Create a table of criminals with pid being a primary key integer that is auto-incremented
 CREATE TABLE criminals (pid INTEGER PRIMARY KEY AUTOINCREMENT,
                         name, 
@@ -497,7 +454,7 @@ INSERT INTO criminals VALUES (NULL, 'James Smith', 15, 'M', 'Santa Rosa', 1);
 
 
 
-    []
+
 
 
 
@@ -505,8 +462,6 @@ INSERT INTO criminals VALUES (NULL, 'James Smith', 15, 'M', 'Santa Rosa', 1);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -542,8 +497,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 INSERT INTO criminals VALUES (NULL, 'Bill James', 22, 'M', 'Santa Rosa', 0);
 INSERT INTO criminals VALUES (NULL, 'Stacy Miller', 23, 'F', 'Santa Rosa', 0);
 INSERT INTO criminals VALUES (NULL, 'Betty Bob', NULL, 'F', 'Petaluma', 1);
@@ -556,7 +509,7 @@ INSERT INTO criminals VALUES (NULL, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -564,8 +517,6 @@ INSERT INTO criminals VALUES (NULL, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -652,19 +603,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -677,7 +621,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -685,8 +629,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  This is a single line of commenting
 SELECT name, age
 
@@ -721,19 +663,12 @@ WHERE name IS NOT NULL
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Table
 
 
 ```python
-%%sql
-
 -- Create a table of criminals_1
 CREATE TABLE criminals_1 (pid, name, age, sex, city, minor);
 INSERT INTO criminals_1 VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -749,7 +684,7 @@ INSERT INTO criminals_1 VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -757,8 +692,6 @@ INSERT INTO criminals_1 VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select all
 SELECT *
 
@@ -850,8 +783,6 @@ FROM criminals_1
 
 
 ```python
-%%sql
-
 -- Create a table called criminals_2
 CREATE TABLE criminals_2 (pid, name, age, sex, city, minor);
 ```
@@ -859,7 +790,7 @@ CREATE TABLE criminals_2 (pid, name, age, sex, city, minor);
 
 
 
-    []
+
 
 
 
@@ -867,8 +798,6 @@ CREATE TABLE criminals_2 (pid, name, age, sex, city, minor);
 
 
 ```python
-%%sql
-
 -- Insert into the empty table
 INSERT INTO criminals_2
 
@@ -882,7 +811,7 @@ FROM criminals_1;
 
 
 
-    []
+
 
 
 
@@ -890,8 +819,6 @@ FROM criminals_1;
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -978,19 +905,12 @@ FROM criminals_2
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create A Table
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -1006,7 +926,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -1014,8 +934,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -1102,19 +1020,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -1130,7 +1041,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -1138,8 +1049,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Create a index called uid
 CREATE INDEX uid
 
@@ -1150,24 +1059,17 @@ ON criminals (pid)
 
 
 
-    []
+
 
 
 
 _Note: Use 'CREATE UNIQUE INDEX' if you want the index to not contain any duplicates._
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create New Table With Constraints On What Data Can Be Inserted
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals 
 
@@ -1189,7 +1091,7 @@ CREATE TABLE criminals
 
 
 
-    []
+
 
 
 
@@ -1197,8 +1099,6 @@ CREATE TABLE criminals
 
 
 ```python
-%%sql
-
 INSERT INTO criminals VALUES (412, 'James Smith', 15);
 INSERT INTO criminals VALUES (234, 'Bill James', 22);
 INSERT INTO criminals VALUES (632, 'Bill Steve', 23);
@@ -1212,7 +1112,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL);
 
 
 
-    []
+
 
 
 
@@ -1220,8 +1120,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL);
 
 
 ```python
-%%sql
-
 SELECT *
 
 FROM criminals
@@ -1279,19 +1177,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Get Current Date
 
 
 ```python
-%%sql
-
 -- Select the current date
 SELECT date('now');
 ```
@@ -1314,8 +1205,6 @@ SELECT date('now');
 
 
 ```python
-%%sql
-
 -- Select the unix time code '1200762133'
 SELECT datetime('now', 'unixepoch');
 ```
@@ -1338,8 +1227,6 @@ SELECT datetime('now', 'unixepoch');
 
 
 ```python
-%%sql
-
 -- Select the unix time code '1169229733'
 SELECT datetime(1169229733, 'unixepoch');
 ```
@@ -1362,8 +1249,6 @@ SELECT datetime(1169229733, 'unixepoch');
 
 
 ```python
-%%sql
-
 -- Select the unix time code '1171904533' and convert to the machine's local timezone
 SELECT datetime(1171904533, 'unixepoch', 'localtime');
 ```
@@ -1386,8 +1271,6 @@ SELECT datetime(1171904533, 'unixepoch', 'localtime');
 
 
 ```python
-%%sql
-
 -- Select the the day of this week (0 = Sunday, 4 = Thursday)
 SELECT strftime('%w','now');
 ```
@@ -1405,19 +1288,12 @@ SELECT strftime('%w','now');
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -1433,7 +1309,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -1441,8 +1317,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Delete the table called 'criminals'
 DROP TABLE criminals
 ```
@@ -1450,7 +1324,7 @@ DROP TABLE criminals
 
 
 
-    []
+
 
 
 
@@ -1458,8 +1332,6 @@ DROP TABLE criminals
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -1471,19 +1343,12 @@ FROM criminals
 
 
 _Note: We get an error because the table doesn't exist anymore._
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -1499,7 +1364,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -1507,8 +1372,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -1600,8 +1463,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 -- Delete the contents of the table called 'criminals'
 DELETE FROM criminals
 ```
@@ -1609,7 +1470,7 @@ DELETE FROM criminals
 
 
 
-    []
+
 
 
 
@@ -1617,8 +1478,6 @@ DELETE FROM criminals
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -1629,22 +1488,15 @@ FROM criminals
 
 
 
-    []
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -1660,7 +1512,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -1668,8 +1520,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -1758,8 +1608,6 @@ FROM criminals
 
 
 ## Delete Column (Most Common)
-%%sql
-
 -- Alter the table called 'criminals'
 ALTER TABLE criminals
 
@@ -1771,8 +1619,6 @@ SQLite (the version of SQL used in this tutorial) does not allow you to drop a c
 
 
 ```python
-%%sql
-
 -- Create a table called 'criminals_tamps' with the columns we want to not drop
 CREATE TABLE criminals_temp(pid, name, sex);
 
@@ -1789,7 +1635,7 @@ ALTER TABLE criminals_temp RENAME TO criminals;
 
 
 
-    []
+
 
 
 
@@ -1797,8 +1643,6 @@ ALTER TABLE criminals_temp RENAME TO criminals;
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -1858,19 +1702,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -1886,7 +1723,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -1894,8 +1731,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -1987,8 +1822,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 -- Delete all rows
 DELETE FROM criminals
 
@@ -1999,7 +1832,7 @@ WHERE age < 18
 
 
 
-    []
+
 
 
 
@@ -2007,8 +1840,6 @@ WHERE age < 18
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -2087,19 +1918,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -2110,7 +1934,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -2118,8 +1942,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -2171,8 +1993,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 -- Update the criminals table
 UPDATE criminals
 
@@ -2186,7 +2006,7 @@ WHERE pid=412;
 
 
 
-    []
+
 
 
 
@@ -2194,8 +2014,6 @@ WHERE pid=412;
 
 
 ```python
-%%sql
-
 -- Update the criminals table
 UPDATE criminals
 
@@ -2209,7 +2027,7 @@ WHERE age > 12;
 
 
 
-    []
+
 
 
 
@@ -2217,8 +2035,6 @@ WHERE age > 12;
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -2265,19 +2081,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -2290,7 +2099,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -2298,8 +2107,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select name and average age,
 SELECT name, age
 
@@ -2333,19 +2140,12 @@ WHERE name IS NOT NULL
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Two Tables, Criminals And Crimes
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -2375,7 +2175,7 @@ INSERT INTO crimes VALUES (11, 'robbery', 'Santa Rosa', 512, 3000);
 
 
 
-    []
+
 
 
 
@@ -2385,8 +2185,6 @@ Returns all rows whose merge-on id appears in **both** tables.
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -2570,8 +2368,6 @@ Returns all rows from the left table but only the rows from the right left that 
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -2750,19 +2546,12 @@ ON criminals.pid=crimes.pid_arrested;
 
 
 _Note: FULL OUTER and RIGHT JOIN are not shown here because they are not supported by the version of SQL (SQLite) used in this tutorial._
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -2773,7 +2562,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -2781,8 +2570,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -2850,8 +2637,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -2890,8 +2675,6 @@ WHERE age > 20 AND city == 'San Francisco'
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -2933,19 +2716,12 @@ WHERE age > 20 OR city == 'San Francisco'
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -2961,7 +2737,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -2969,8 +2745,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 --  Select name and age,
 SELECT name, age
 
@@ -3018,8 +2792,6 @@ WHERE age >
 </table>
 
 
-%load_ext sql
-%sql sqlite://
 ```
 
 
@@ -3033,8 +2805,6 @@ WHERE age >
 
 
 ```python
-%%sql
-
 /* Create A Table Of Criminals */
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -3087,7 +2857,7 @@ INSERT INTO crimes VALUES (1, 'robbery', 'Santa Rosa', 512, 3000);
 
 
 
-    []
+
 
 
 
@@ -3095,8 +2865,6 @@ INSERT INTO crimes VALUES (1, 'robbery', 'Santa Rosa', 512, 3000);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -3189,8 +2957,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -3292,19 +3058,12 @@ FROM crimes
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -3320,7 +3079,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -3328,8 +3087,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -3421,8 +3178,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -3464,19 +3219,12 @@ LIMIT 2;
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Two Tables, Criminals And Crimes
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -3506,7 +3254,7 @@ INSERT INTO crimes VALUES (11, 'robbery', 'Santa Rosa', 512, 3000);
 
 
 
-    []
+
 
 
 
@@ -3514,8 +3262,6 @@ INSERT INTO crimes VALUES (11, 'robbery', 'Santa Rosa', 512, 3000);
 
 
 ```python
-%%sql
-
 -- Select city name
 SELECT city 
 
@@ -3559,8 +3305,6 @@ FROM crimes;
 
 
 ```python
-%%sql
-
 -- Select city name
 SELECT city 
 
@@ -3644,19 +3388,12 @@ FROM crimes;
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -3669,7 +3406,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -3679,8 +3416,6 @@ Notice that 'James Smith' appears three times
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -3748,8 +3483,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -3796,19 +3529,12 @@ FROM criminals
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -3821,7 +3547,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -3829,8 +3555,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -3898,8 +3622,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT distinct *
 
@@ -3938,8 +3660,6 @@ WHERE age > 30
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT distinct *
 
@@ -3986,8 +3706,6 @@ WHERE age >= 23
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT distinct *
 
@@ -4026,8 +3744,6 @@ WHERE age = 23
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT distinct *
 
@@ -4090,8 +3806,6 @@ WHERE age <> 23
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT distinct *
 
@@ -4138,8 +3852,6 @@ WHERE name LIKE 'J%'
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT distinct *
 
@@ -4173,19 +3885,12 @@ WHERE name LIKE '%ames%'
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -4201,7 +3906,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -4209,8 +3914,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -4302,8 +4005,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -4342,8 +4043,6 @@ WHERE name LIKE 'G%'
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -4390,8 +4089,6 @@ WHERE name LIKE '%o'
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -4425,19 +4122,12 @@ WHERE name LIKE '_ordon%'
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -4453,7 +4143,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -4461,8 +4151,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -4536,19 +4224,12 @@ WHERE city IN ('Santa Rosa', 'Petaluma');
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -4564,7 +4245,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -4572,8 +4253,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT *
 
@@ -4607,19 +4286,12 @@ WHERE age BETWEEN 12 AND 18
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -4632,7 +4304,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -4640,8 +4312,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -4707,19 +4377,12 @@ ORDER BY age ASC, name
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -4732,7 +4395,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -4740,8 +4403,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select all
 SELECT *
 
@@ -4809,8 +4470,6 @@ FROM criminals
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -4881,8 +4540,6 @@ ORDER BY age ASC
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -4953,8 +4610,6 @@ ORDER BY age DESC
 
 
 ```python
-%%sql
-
 --  Select all unique
 SELECT distinct *
 
@@ -5020,19 +4675,12 @@ ORDER BY name
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -5048,7 +4696,7 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 
-    []
+
 
 
 
@@ -5056,8 +4704,6 @@ INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 
 
 ```python
-%%sql
-
 -- Create a view called 'Santa Rosa'
 CREATE VIEW [Santa Rosa] AS
 
@@ -5074,7 +4720,7 @@ WHERE city = 'Santa Rosa'
 
 
 
-    []
+
 
 
 
@@ -5084,8 +4730,6 @@ WHERE city = 'Santa Rosa'
 
 
 ```python
-%%sql
-
 -- Select everything
 SELECT * 
 
@@ -5148,19 +4792,12 @@ FROM [Santa Rosa]
 </table>
 
 
-```python
-# Ignore
-%load_ext sql
-%sql sqlite://
-%config SqlMagic.feedback = False
-```
+
 
 ## Create Data
 
 
 ```python
-%%sql
-
 -- Create a table of criminals
 CREATE TABLE criminals (pid, name, age, sex, city, minor);
 INSERT INTO criminals VALUES (412, 'James Smith', 15, 'M', 'Santa Rosa', 1);
@@ -5173,7 +4810,7 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 
-    []
+
 
 
 
@@ -5181,8 +4818,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Petaluma', 0);
 
 
 ```python
-%%sql
-
 --  Select name and average age,
 SELECT city, avg(age)
 
@@ -5221,8 +4856,6 @@ GROUP BY city
 
 
 ```python
-%%sql
-
 --  Select name and average age,
 SELECT city, max(age)
 
@@ -5261,8 +4894,6 @@ GROUP BY city
 
 
 ```python
-%%sql
-
 --  Select name and average age,
 SELECT city, count(name)
 
@@ -5301,8 +4932,6 @@ GROUP BY city
 
 
 ```python
-%%sql
-
 --  Select name and average age,
 SELECT city, total(age)
 
