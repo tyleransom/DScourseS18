@@ -1,5 +1,51 @@
 # Guide to SQL
+Structured Query Language (SQL) is a commonly language for processing relational databases. Below is a beginner's guide to using SQL.
+
+### Opening SQL
+One can open SQL from the command line by typing `sqlite3` at the prompt.
+
+### Exiting out of SQL
+SQL commands are prepended with a "." so to exit SQL, type `.quit`
+
+### Executing a SQL script
+Supposing one has a file called `test.sql`, one can execute it by typing `.read test.sql` at the prompt (inside SQL).
+
+### Reading data into SQL
+To read data into SQL (e.g. from a CSV or tab-delimited raw file), there are actually two steps:
+
+1. Read the raw data file into SQL's memory
+2. Create a SQL table which will hold the data
+
+To do step 1, type the following:
+```
+.mode csv
+.import /path/to/file.csv datname
+```
+where `datname` is whatever you want to call your database in SQL.
+
+To do step 2, type the following:
+```
+.schema datname
+CREATE TABLE datname(
+  "var1" CHAR,
+  "var2" INTEGER,
+  ...
+  "varN" REAL 
+);
+```
+
+It is also possible to accomplish this ineteractively in a GUI if you have, e.g. SQLite Studio or similar.
+
+### Saving data while using SQL
+If one wants to save a database in SQL, the file extension is `.sqlite3` (but in principle you can use whatever you want)
+
+
+
+
+
+# SQL Examples
 Taken from [Chris Albon](https://github.com/chrisalbon)'s [archived GitHub repository](https://github.com/chrisalbon/mlai) on machine learning and artifical intelligence.
+
 
 ## Create Data
 
@@ -17,13 +63,6 @@ INSERT INTO criminals VALUES (512, 'Bill Byson', 21, 'M', 'Santa Rosa', 0);
 INSERT INTO criminals VALUES (411, 'Bob Iton', NULL, 'M', 'San Francisco', 0);
 ```
 
-
-
-
-
-
-
-
 ## View Table
 
 
@@ -34,8 +73,6 @@ SELECT *
 -- From the table 'criminals'
 FROM criminals
 ```
-
-
 
 
 <table>
