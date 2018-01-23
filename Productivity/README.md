@@ -85,6 +85,8 @@ Some of the most common commands you'll use are summarized in the table below.
 | Transfer files to a remote machine (via Secure Copy) | `scp [options] <username1@source_host:directory1/filename1> <username2@destination_host:directory2/filename2>` | `pscp -scp [options] <username1@source_host:directory1/filename1> <username2@destination_host:directory2/filename2>`              |
 | Submit a batch script                                | `srun <filename.sh>`                                                                                           | unlikely to do this. If need to, see [here](https://stackoverflow.com/questions/26522789/how-to-run-sh-on-windows-command-prompt) |
 
+Note: the hostname for OSCER is `schooner.oscer.ou.edu`, so your ssh syntax would be: `ssh username@schooner.oscer.ou.edu`.
+
 ## 4. Accessing remote servers
 Many times when performing intensive computational tasks, you will exceed the computing power of your laptop or desktop and will instead need to complete the tasks on a High Performance Computing cluster (HPC cluster), such as OSCER. To access the cluster, you need a way to interface with the remote server. You may also need a way to transfer data or scripts to the remote server. All HPC clusters use Linux as their operating system.
 
