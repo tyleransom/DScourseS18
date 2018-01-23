@@ -77,7 +77,7 @@ This problem set will provide an opportunity for you to practice accessing compu
 
 As with the previous proble set, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS2/} and name the file \texttt{PS2\_LastName.pdf}.
 \begin{questions}
-\question Using your SSH client and the username and temporary password I provided you with, log in to OSCER (see directions \href{www.ou.edu/content/oscer/getting_started_using_oscer.html}{here}). There are detailed step-by-step instructions at the link for how to set up your SSH configuration. If you are immediately prompted to change your password, please do so. Note that, when typing your new password, the cursor won't move even though your keystrokes are being logged. If you are not immediately prompted to change your password, please type \texttt{psswd} and then follow the prompts to change your password.
+\question Using your SSH client and the username and temporary password I provided you with, log in to OSCER (see directions \href{www.ou.edu/content/oscer/getting_started/getting_started_using_oscer.html}{here}). There are detailed step-by-step instructions at the link for how to set up your SSH configuration. If you are immediately prompted to change your password, please do so. Note that, when typing your new password, the cursor won't move even though your keystrokes are being logged. If you are not immediately prompted to change your password, please type \texttt{psswd} and then follow the prompts to change your password.
 
 \question Clone your forked GitHub repository to your home directory on OSCER by following these steps:
 \begin{enumerate}
@@ -107,6 +107,8 @@ Once you have done this, issue a \texttt{git pull} from the location of your oth
 \question Now open R and install the \texttt{xml2} package by typing \texttt{install.packages('xml2')} at the command prompt. Answer `yes' to install it in your home directory. Enter the number of any of the server mirrors that come up (I usually choose Texas). Building the package may take a couple of minutes. Once that has finished, repeat the process, but substitute \texttt{tidyverse} for \texttt{xml2}. Building \texttt{tidyverse} may take as much as 10-15 minutes. You don't need to watch it build, but be sure not to close your SSH terminal window or otherwise disconnect your session. When you are done with the build, exit R and log off of OSCER.
 
 \question Send an email to OSCER support (\href{mailto:support@oscer.ou.edu}{support@oscer.ou.edu}) and request that OSCER change the email address associated with your account (you will need to tell them your username, which is the username you used to SSH into OSCER and which I provided you in class). The email address you should request them to change it to is your OU email address.
+
+\question You may be wondering how you can update your fork of the class repository, since I've been continuously updating things (and as part of PS1, everyone in the class submitted pull requests). The command to do this is \texttt{git fetch upstream}. A step-by-step help for how to do this is located \href{https://help.github.com/articles/syncing-a-fork/}{here}.
 
 \end{questions}
 \end{document}

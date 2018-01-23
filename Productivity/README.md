@@ -77,11 +77,15 @@ Some of the most common commands you'll use are summarized in the table below.
 | Change directory                                     | `cd <directory path>` (could be relative path)                                                                 | `cd `                                                                                                                              |
 | List files in directory                              | `ls  `                                                                                                         | `dir`                                                                                                                              |
 | Move up one level in directory structure             | `cd .. `                                                                                                       | `cd ..`                                                                                                                            |
+| Create new directory                                 | `mkdir`                                                                                                        | `md`                                                                                                                              |
+| Create new file                                      | `touch filename`                                                                                               | `copy con filename`                                                                                                               |
 | List current processes                               | `ps`                                                                                                           | `tasklist`                                                                                                                         |
 | Kill a running process                               | `kill <process id>`                                                                                            | `Taskkill /PID <process id> /F  `                                                                                                  |
 | Connect to remote machine via secure shell           | `ssh -p <port number> <user@hostname>`                                                                         | `<path to PuTTY.exe> -ssh <username@host> <port number>  `                                                                         |
 | Transfer files to a remote machine (via Secure Copy) | `scp [options] <username1@source_host:directory1/filename1> <username2@destination_host:directory2/filename2>` | `pscp -scp [options] <username1@source_host:directory1/filename1> <username2@destination_host:directory2/filename2>`              |
 | Submit a batch script                                | `srun <filename.sh>`                                                                                           | unlikely to do this. If need to, see [here](https://stackoverflow.com/questions/26522789/how-to-run-sh-on-windows-command-prompt) |
+
+Note: the hostname for OSCER is `schooner.oscer.ou.edu`, so your ssh syntax would be: `ssh username@schooner.oscer.ou.edu`.
 
 ## 4. Accessing remote servers
 Many times when performing intensive computational tasks, you will exceed the computing power of your laptop or desktop and will instead need to complete the tasks on a High Performance Computing cluster (HPC cluster), such as OSCER. To access the cluster, you need a way to interface with the remote server. You may also need a way to transfer data or scripts to the remote server. All HPC clusters use Linux as their operating system.
@@ -102,7 +106,7 @@ While you can easily access the command line of a remote server via any SSH clie
 
 ## 5. Git and GitHub tutorial
 
-I have included a tutorial on using [Git and GitHub.com](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/git_tutorial.pdf). Git is a powerful version control software that comes natively installed on many machines and is widely used. GitHub.com is the most widely used online platform for hosting open source projects and integrating with Git software. Git has a significant learning curve, but it is essential for large collaborations that involve software development.
+I have included a tutorial on using [Git and GitHub.com](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/git_tutorial.pdf) (reproduced with permission from [Rick Evans](https://github.com/rickecon) at U Chicago). Git is a powerful version control software that comes natively installed on many machines and is widely used. GitHub.com is the most widely used online platform for hosting open source projects and integrating with Git software. Git has a significant learning curve, but it is essential for large collaborations that involve software development.
 
 ### Git Humor from [xkcd](https://xkcd.com)
 
