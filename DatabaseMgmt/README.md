@@ -1,5 +1,5 @@
-# Common data formats
-These notes cover some of the common data formats encountered in most data science environments.
+# Data science toolbox
+These notes cover a broad view of tools that are required in the data science pipeline.
 
 ## 1. Measurement
 A large part of data science (and quantitative research in general) is measurement. Measurement is how "insights" or "policies" are constructed, because one cannot construct a policy without first measuring what the policy is meant to accomplish. 
