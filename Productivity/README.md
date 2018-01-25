@@ -144,6 +144,12 @@ Download and install [RStudio](https://www.rstudio.com) if you haven't already. 
 The [Python](https://www.python.org/) programming language and many of its powerful libraries are useful for writing the code to solve and estimate economic models. 
 I recommend that you download the Anaconda distribution of Python provided by [Continuum Analytics](https://www.continuum.io/). I recommend the most recent stable version of Python, which is currently Python 3.6. This can be done from the [Anaconda download page](https://www.continuum.io/downloads) for Windows, Mac OSX, and Linux machines. The code we will be writing uses common Python libraries such as `NumPy`, `SciPy`, `pickle`, `os`, `matplotlib`, and `time`.
 
+#### Julia tutorial
+A brief tutorial on Julia syntax is available [here](https://github.com/jmxpearson/duke-julia-ssri/blob/master/JuliaBasicsExample.jl).
+
+#### Python tutorial
+TBA
+
 ### 6.4 SQL
 We will also be using SQL (SQLite3) in this course. This is already intalled on OSCER, but you can also install it on your own machine [here](http://www.sqlite.org/download.html). Note: This comes pre-installed on Mac OS and Linux.
 
