@@ -19,7 +19,7 @@ Here are the topics we'll discuss today:
 ## 1. Statistical Programming Languages
 The three main mathematical and statistical programming languages we will use and discuss in this class are R, Python, and Julia. There are many other languages that can be used for statistical analysis: Stata, SAS, SPSS, Matlab, and even JavaScript. Many of the languages listed in the prior sentence were built on C, C++, or Fortran. The latter three are known as **compiled** languages, while all other are known as **scripted** languages. Compiled languages require the user to write code that the CPU can understand, whereas scripted languages allow the user to write code that is more human-readable, at the expense of performance. 
 
-Julia is the newest language and attempts to be a scripted language that can run at compiled speeds. R, Python, and others also have facilities that allow a user to insert C, C++, or Fortran code into the script and achieve greater performance. Such instances are often referred to as ``glue code'' as they require interfacing between different languages in the same code script.
+Julia is the newest language and attempts to be a scripted language that can run at compiled speeds. R, Python, and others also have facilities that allow a user to insert C, C++, or Fortran code into the script and achieve greater performance. Such instances are often referred to as "glue code" as they require interfacing between different languages in the same code script.
 
 Below is a table summarizing the main differences between R, Python, and Julia:
 
@@ -28,9 +28,9 @@ Below is a table summarizing the main differences between R, Python, and Julia:
 |------------------------------------|-----------|----------|----------|
 | Date established                   | 1995      | 1991     | 2012     |
 | Approximate user base              | large     | largest  | smallest |
-| Used for data science              | <ul><li>[x]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
-| Used for general-purpose computing | <ul><li>[ ]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
-| Open source                        | <ul><li>[x]</li></ul> | <ul><li>[x]</li></ul>  | <ul><li>[x]</li></ul> |
+| Used for data science              | Yes | Yes  | Yes |
+| Used for general-purpose computing | No | Yes  | Yes |
+| Open source                        | Yes | Yes  | Yes |
 | Web scraping package?              | `rvest`   | `BeautifulSoup` | `Gumbo.jl`, `Cascadia.jl` |
 | Visualization library?             | `ggplot2` | `matplotlib` | `Plots.jl`|
 | Machine learning library?          | [sporadic](https://cran.r-project.org/web/views/MachineLearning.html) | scikit-learn | `Flux.jl`|
@@ -40,7 +40,7 @@ Below is a table summarizing the main differences between R, Python, and Julia:
 Which programming language should you learn? It depends on what you already know and what you want to do after graduation. If you are already well acquainted with R's tidyverse, I would recommend using this course to learn Python or Julia. If you don't have a good handle on R, I would recommend using this course to learn the R tidyverse, as it is a very popular set of DS tools.
 
 ## 2. Web Scraping
-With the proliferation of the internet, data is being collected all the time and stored in publicly accessible places (we call these webpages). Thus, one of the tools in a data scientist's toolbox should be the ability to leverage this information to better inform the objective at hand (prediction, ``insights'', ``policy'' or what have you). 
+With the proliferation of the internet, data is being collected all the time and stored in publicly accessible places (we call these webpages). Thus, one of the tools in a data scientist's toolbox should be the ability to leverage this information to better inform the objective at hand (prediction, "insights", "policy" or what have you). 
 
 ### 2.1 How does web scraping work?
 Typically *web scraping* involves one of two tasks:
@@ -83,6 +83,9 @@ Visualization is an important tool for data scientists. Visualization allows hum
 
 ### 4.3 `Plots.jl` (Julia)
 `Plots.jl` is a package that came about in the past year. Its innovation is that, once the user provides it with code, it can output graphics using any other package as a backend. For example, a user can write some code to create a data visualization which creates a graphic using `ggplot2`. Then, by only tweaking one option in that code, the user could output the same graphic in `matplotlib`. This package is a nice way to only have to code once but be able to create graphics in many different styles.
+
+### 4.4 Tableau
+Tableau is a software company that produces interactive data visualization products. Tableau primarily bills itself as an interactive product, but there are workarounds to interact with JavaScript and R (see [here](https://stackoverflow.com/questions/18754853/scripts-or-plug-ins-for-tableau)). We won't be covering Tableau in this course, but it is a commonly used visualization tool in the real world, so you should at least know what it is.
 
 ## 5. Modeling
 Now that you've collected your data, cleaned it up, and visualized it, you're ready to start doing some statistical modeling. The main objectives of statistical modeling are as follows:
