@@ -1,20 +1,20 @@
 # Data overview
 Today's discussion will focus on grappling with data.
 
-## A note on file extensions
+## 1. A note on file extensions
 Often, if you download a file, you will immediately understand what type of a file it is by its extension. File extensions in and of themselves don't serve any particular purpose other than convenience.
 
 File extensions were created so that humans could keep track of which files on their workspace are scripts, which are binaries, etc.
 
-## Why is the file format important?
+### 1.1 Why is the file format important?
 File formats matter because they may need to match the environment you're working in. If you use the wrong file format, it may cause your computations to run slower than otherwise. To the extent that the environment you're working in requires a specific file format, then using the correct format is essential.
 
-## Common file extensions you'll see when working with data
+## 2. Common file extensions you'll see when working with data
 In the following table, I list some of the most common file extensions. For a more complete list of almost every file extension imaginable (note: they missed Stata's `.do` and `.dta` formats), see [here](https://en.wikipedia.org/wiki/List_of_file_formats).
 
 Another great discussion about file formats is [here](https://opendata.stackexchange.com/questions/1208/a-python-guide-for-open-data-file-formats) on stackexchange.
 
-### Open file extensions
+### 2.1 Open-format file extensions
 
 The following file extensions are not tied to a specific software program. In this sense they are "raw" and can be viewed in any sort of text editor.
 
@@ -33,7 +33,7 @@ The following file extensions are not tied to a specific software program. In th
 | TIFF, JPEG                         | These common image formats are used to store data in the form of images, or sometimes pictures of text data. There exist image processing libraries in almost every scientific programming language that can convert data in this format into more usable formats. |
 | MP3, WAV                           | These common audio formats may be used to store data. For example, voice-to-text applications have some way of converting income audio (in some format) into data that the machine can comprehend. The same holds for MP4 and other video file formats (e.g. for video input to self-driving cars, etc.) |
 
-#### Examples of CSV, TSV, XML, YAML, and JSON files:
+#### 2.1.1 Examples of CSV, TSV, XML, YAML, and JSON files:
 
 **A possible JSON representation describing a person** ([source](https://en.wikipedia.org/wiki/JSON#Example))
 ```JSON
@@ -113,7 +113,7 @@ gender:
 ```
 Note that the JSON code above is also valid YAML; YAML simply has an alternative syntax that makes it more human-readable.
 
-### Proprietary file extensions
+### 2.2. Proprietary file extensions
 
 The following file extensions typically require additional software to read, edit, or convert to another format.
 
@@ -128,7 +128,7 @@ The following file extensions typically require additional software to read, edi
 | SAV                                | ... for SPSS |
 | DTA                                | ... for Stata |
 
-## Archiving & file compression
+## 3. Archiving & file compression
 Because data can be big and bulky, it is often easier to store and share the data in compressed form.
 
 | File extension                     | Description |
@@ -144,7 +144,7 @@ Because data can be big and bulky, it is often easier to store and share the dat
 ![Tarball vs. TGZ](../Graphics/Targzip.svg)
 Image source: By Th0msn80 - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=4316146
 
-## Other file types that aren't data
+## 4. Other file types that aren't data
 There are many file types that don't correspond to readable data. For example, script files (e.g. `.R`, `.py`, `.jl`, `.sql`, `.do`, `.cpp`, `.f90`, ...) are text files with convenient extensions to help the user remember which programming language the code is in.
 
 As a rule of thumb, if you don't recognize the extension of a file, it's best to inspect the file in a text editor (though pay attention to the size of the file as this can also help you discern whether it's code or data)
@@ -152,10 +152,10 @@ As a rule of thumb, if you don't recognize the extension of a file, it's best to
 # General Types of Data
 When you think of data, you probably think of rows and columns, like a matrix or a spreadsheet. But it turns out there are other ways to store data, and you should know their similarities and differences to tabular data.
 
-## Dictionaries (a.k.a. Hash tables)
+## 5. Dictionaries (a.k.a. Hash tables)
 A dictionary is a list that contains `keys` and `values`. Each key points to one value. While this may seem like an odd way to store data, it turns out that there are many, many applications in which this is the most efficient way to store things.
 
-We won't get into the nitty gritty details of dictionaries, but they are the workhorse of computer science, and you should at least know what they are and how they differ from tabular data.
+We won't get into the nitty gritty details of dictionaries, but they are the workhorse of computer science, and you should at least know what they are and how they differ from tabular data. In fact, dictionaries are often used to store multiple arrays in one file (e.g. in Matlab and other languages where the system can store multiple arrays at once).
 
 The capability to manipulate hash tables is included in almost every major scientific programming language (although it is quite clunky in R ... this is why R is not considered to be a "general purpose programming language" by some people).
 
@@ -167,14 +167,19 @@ The Julia code for constructing the dictionary above is
 mydictionary = Dict("John Smith"=>"521-1234", "Lisa Smith"=>"521-8976", "Sandra Dee"=>"521-9655")
 ```
 
-## Big Data file types
+## 6. Big Data file types
 Big Data file systems like Hadoop and Spark often use the same file types as R, SQL, Python, and Julia. That is, `CSV` and `TSV` files are the workhorse. Because of the nature of distributed file systems (which we will discuss in much greater detail next time), it is often the case that JSON and XML are not good choices because they can't be broken up across machines. (Note: there is a distinction between JSON files and JSON records; see the second link at the bottom of this document for further details.)
 
-### AVRO
-sssss
+### 6.1 Sequence
+Sequence files are dictionaries that have been optimized for Hadoop and friends. The advantage to taking the dictionary approach is that the files can easily be coupled and decoupled.
 
-### Parquet
-ssssss
+### 6.2 Avro
+Avro is an evolved version of Sequence---it contains more capability to store complex objects natively
+
+### 6.3 Parquet
+Parquet is a format that allows Hadoop and friends to partition the data column-wise (rather than row-wise).
+
+Other formats in this vein are RC (Record Columnar) and ORC (Optimized Record Columnar).
 
 # Useful Links
 
