@@ -1,8 +1,0 @@
-PS2Thatcher
-rachel.e.thatcher-1
-January 2018
-Problem Set 2 - ECON 5970
-• Data Collection 
-• Data Storage/Manipulation 
-• Visualization 
-• Statistical Programming/Modeling (Machine Learning, Causality)
