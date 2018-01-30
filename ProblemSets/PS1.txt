@@ -1,0 +1,33 @@
+Problem set 1
+Alexandra Penner
+January 2018
+1  Body
+I am interested in Data Science because I love finding stories in data.  I work in
+the OU Office of Business Analytics, and I always make a point of connecting
+the data I work with back to the real experience of students.  It brings me a
+great sense of satisfaction when I get a piece of code to work, or I’m able t bring
+results to someone else in the university that they can use to do their job better.
+I want to keep working in Data Science either in education, or if not, in public
+policy or politics.
+I decided to major in economics my sophomore year for the same reason.  I
+am a very data driven person by my nature, but I love people and social problems
+too much to want to be an engineer.  Economics, and now data science strike
+the balance between being data driven but still about people.  I want to help
+people and make a difference in people’s lives, and use whatever talents I have
+to do that.
+In my spare time I read Fivethirtyeight everyday, and find their expertise in
+tying data back to the real world inspiring.  Every story they write is grounded
+in the narrative and reality of the processes generating the data.
+I don’t know what my project for this class will be yet, but my goal for this
+class is to become more polished in the process of coding and data science.  I
+want to be stronger in the grammar of coding and making coherent exportable
+code.  I also want to polish my ability to process data, and generate analysis.
+2  Equation
+a
+2
++
+b
+2
+=
+c
+2
