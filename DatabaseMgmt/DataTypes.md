@@ -141,7 +141,7 @@ Because data can be big and bulky, it is often easier to store and share the dat
 | TAR.GZ; TGZ                        | A compressed version of a tarball (compression via `gzip`) |
 | TAR.BZ2; .TB2; .TBZ; .TBZ2         | Compressed tarball (via `bzip2`) |
 
-![Tarball vs. TGZ](../Graphics/Targzip.svg)
+![Tarball vs. TGZ](../Graphics/Targzip.eps)
 Image source: By Th0msn80 - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=4316146
 
 ## 4. Other file types that aren't data
@@ -159,7 +159,7 @@ We won't get into the nitty gritty details of dictionaries, but they are the wor
 
 The capability to manipulate hash tables is included in almost every major scientific programming language (although it is quite clunky in R ... this is why R is not considered to be a "general purpose programming language" by some people).
 
-![Dictionaries](../Graphics/Hash_table_3_1_1_0_1_0_0_SP.svg)
+![Dictionaries](../Graphics/Hash_table_3_1_1_0_1_0_0_SP.eps)
 Image source: By Jorge Stolfi - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=6471238 
 
 The Julia code for constructing the dictionary above is
