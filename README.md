@@ -113,7 +113,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Jan 25 | Th  | Overview of Data Scientists' tools ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/README.md)) |                                                                                                                                |
 | Jan 30 | T   | Using data: data types, storage ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/DataTypes.md)) | [PS 2](https://github.com/tyleransom/DScourseS18/blob/master/Productivity/PS2.pdf) |
 | Feb 1  | Th  | Big Data: SQL & RDDs                                          |                                                                                                                                |
-| Feb 6  | T   | Sampling & storing Big Data                                   | [PS 3](https://github.com/tyleransom/DScourseS18/blob/master/DataTypes/PS3.pdf) |
+| Feb 6  | T   | Sampling & storing Big Data                                   | [PS 3](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/PS3.pdf) |
 | Feb 8  | Th  | Web scraping/APIs to gather data                              |                                                                                                                                |
 | Feb 13 | T   | Web scraping/APIs to gather data                              | PS 4                                                                                                                           |
 | Feb 15 | Th  | Data exploration, descriptive stats                           |                                                                                                                                |
