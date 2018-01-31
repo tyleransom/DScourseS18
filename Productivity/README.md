@@ -70,6 +70,10 @@ In addition, you will also want to download the [Skim](http://skim-app.sourcefor
 
 It's helpful to know your way around the Unix/DOS command line.  This is the way I recommend interacting with Git (discussed below) and is also how I typically run R, Stata, Julia, or Python scripts.  It's also the only way you can typically interact with remote servers on which you might store data or run software (such as the [OSCER](http://www.ou.edu/oscer.html) computing cluster on campus).
 
+* [Linux commands for beginners](https://diyhacking.com/linux-commands-for-beginners/)
+* [Linux file tree](http://linuxcommand.org/lc3_lts0020.php)
+* [Linux command line cheat sheet](https://files.fosswire.com/2007/08/fwunixref.pdf)
+
 Some of the most common commands you'll use are summarized in the table below.
 
 | Command                                              | Unix                                                                                                         | DOS                                                                                                                              |
