@@ -78,7 +78,6 @@ Adding is easier than removing:
 ALTER TABLE datname ADD COLUMN newvarname type DEFAULT value;
 ```
 where `newvarname` is the new column name; `type` is the type of values that column will house (e.g. text, integers, real numbers, etc.), and `value` is the default value of that column (e.g. 'one' if the type is text, '1' if the type is integer, '3.14159' if the type is real, etc.).
-```
 
 ### Create a one-way frequency table
 Create a one-way frequency table as follows:
@@ -129,7 +128,7 @@ The result will be a text file with SQL code in it that will recreate the table 
 
 
 
-#SQL Examples (from Chris Albon)
+# SQL Examples (from Chris Albon)
 Taken from [Chris Albon](https://github.com/chrisalbon)'s [archived GitHub repository](https://github.com/chrisalbon/mlai) on machine learning and artifical intelligence.
 
 
