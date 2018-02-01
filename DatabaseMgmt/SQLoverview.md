@@ -5,7 +5,7 @@ Structured Query Language (SQL) is a commonly language for processing relational
 One can open SQL from the command line by typing `sqlite3` at the prompt.
 
 ### Exiting out of SQL
-SQL commands are prepended with a "." so to exit SQL, type `.quit`
+SQL **commands** are prepended with a "." so to exit SQL, type `.quit`
 
 ### Executing a SQL script
 Supposing one has a file called `test.sql`, one can execute it by typing `.read test.sql` at the prompt (inside SQL).
@@ -13,37 +13,122 @@ Supposing one has a file called `test.sql`, one can execute it by typing `.read 
 ### Reading data into SQL
 To read data into SQL (e.g. from a CSV or tab-delimited raw file), there are actually two steps:
 
-1. Read the raw data file into SQL's memory
-2. Create a SQL table which will hold the data
+1. Create a SQL table which will hold the data
+2. Read the raw data file into SQL's memory
 
 To do step 1, type the following:
-```
-.mode csv
-.import /path/to/file.csv datname
-```
-where `datname` is whatever you want to call your database in SQL.
-
-To do step 2, type the following:
-```
-.schema datname
+```python
 CREATE TABLE datname(
   "var1" CHAR,
   "var2" INTEGER,
   ...
   "varN" REAL 
 );
+where `datname` is whatever you want to call your database in SQL.
 ```
 
-It is also possible to accomplish this ineteractively in a GUI if you have, e.g. SQLite Studio or similar.
+To do step 2, type the following:
+```python
+.mode csv
+.import /path/to/file.csv datname
+```
+
+It is also possible to accomplish this interactively in a GUI if you have, e.g. SQLite Studio or similar.
+
+### Printing N observations of your database
+To print N observations of your database, type
+```python
+SELECT * FROM datname LIMIT N;
+```
+
+To print N observations of a subset of variables, type
+```python
+SELECT var1, var2, ..., varK FROM datname LIMIT N;
+```
+
+### Deleting observations (and subsetting statements)
+One can remove observations under certain conditions as follows:
+```python
+DELETE FROM datname WHERE condition; 
+```
+note that `condition` is some conditional statement, like `var1='value1'` or `var1=10` or `var1<=10`, etc.
+
+If you leave off the `WHERE condition` statement, you will delete *all* observations from the database.
+
+### Delete column from table
+SQLite does not allow you to drop a column. The workaround is to make a new table that contains only the columns you want to keep, then rename the new table to the original template's name.
+
+```python
+-- Create a table called 'datname_temp' with the columns we don't want to drop
+CREATE TABLE datname_temp(var1, var2, var5);
+
+-- Copy the data from the columns we want to keep to the new table
+INSERT INTO datname_temp SELECT var1, var2, var5 FROM criminals;
+
+-- Delete the original table
+DROP TABLE datname;
+
+-- Rename the new table to the original table's name
+ALTER TABLE datname_temp RENAME TO datname;
+```
+
+### Add column to table
+Adding is easier than removing:
+```python
+ALTER TABLE datname ADD COLUMN newvarname type DEFAULT value;
+```
+where `newvarname` is the new column name; `type` is the type of values that column will house (e.g. text, integers, real numbers, etc.), and `value` is the default value of that column (e.g. 'one' if the type is text, '1' if the type is integer, '3.14159' if the type is real, etc.).
+
+### Create a one-way frequency table
+Create a one-way frequency table as follows:
+```python
+SELECT var1, COUNT(*) FROM datname GROUP BY var1;
+```
+This will then list the unique categories and counts for each category
+
+### Compute summary statistics of a variable or formula of variables
+```python
+SELECT FUNCTION(var1) FROM datname;
+```
+where the following are functions:
+
+* `AVG`: average
+* `COUNT`: count
+* `SUM`: sum
+* `MIN`: minimum
+* `MAX`: maximum
+
+### Summary statistics of functions of variables
+For example:
+```python
+SELECT FUNCTION(var1 + var2) FROM datname;
+```python
+would apply the `AVG` or `SUM` or `MIN` to the sum of `var1` and `var2`. More complex functions (like square root) are not supported in SQLite, so something like
+```python
+SELECT AVG(SQRT(var1)) FROM datname;
+```
+will not work.
+
+But
+```python
+SELECT (var1-var2) AS tempvarname FROM datname;
+```
+will. `AS` acts as an alias.
+
 
 ### Saving data while using SQL
-If one wants to save a database in SQL, the file extension is `.sqlite3` (but in principle you can use whatever you want)
+If one wants to save a database in SQL, the file extension is `.sqlite3` (but in principle you can use whatever you want). The way to save data is to issue the `.dump` command:
+
+```python
+.output datname.sqlite3
+.dump
+```
+The result will be a text file with SQL code in it that will recreate the table you dumped.
 
 
 
 
-
-# SQL Examples
+# SQL Examples (from Chris Albon)
 Taken from [Chris Albon](https://github.com/chrisalbon)'s [archived GitHub repository](https://github.com/chrisalbon/mlai) on machine learning and artifical intelligence.
 
 
