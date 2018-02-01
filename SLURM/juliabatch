@@ -8,14 +8,14 @@
 #
 
 # Test usage; if incorrect, output correct usage
-if [ "$#" -gt 3  -o  "$#" -eq 0 ]; then
+if [ "$#" -gt 4  -o  "$#" -eq 0 ]; then
     echo "********************************************************************"
     echo "*                       juliabatch version 0.1                     *"
     echo "********************************************************************"
     echo "The 'juliabatch' script submits julia batch jobs to the OSCER cluster."
     echo ""
     echo "Usage is:"
-    echo "         juliabatch <input_file.jl> <output_file.log> <length_of_time in DD:HH:MM:SS format>"
+    echo "         juliabatch <input_file.jl> <output_file.log> <length_of_time in DD:HH:MM:SS format> <email>"
     echo ""
     echo "Spaces in the filename or directory name may cause failure."
     echo ""
@@ -51,6 +51,9 @@ else
         # Script time as third argument
         timelen=$3
 
+        # Email address as fourth argument
+        emailadd=$4
+
         # Tempfile for the script
         shell=`mktemp $pathy/shell.XXXXXX` || exit 1
         chmod 700 $shell
@@ -65,7 +68,7 @@ else
         echo "#SBATCH --job-name=juliabatch"    >> $shell
         echo "#SBATCH --output=$output"         >> $shell
         echo "#SBATCH --mail-type=ALL"          >> $shell
-        echo "#SBATCH --mail-user=your-email@address.com" >> $shell
+        echo "#SBATCH --mail-user=$emailadd"    >> $shell
         echo "#SBATCH --time=$timelen"          >> $shell
         echo "pwd"                              >> $shell
         echo "date"                             >> $shell
