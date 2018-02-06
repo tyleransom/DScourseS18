@@ -155,6 +155,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 * The Master Algorithm ([Amazon link](https://www.amazon.com/Master-Algorithm-Ultimate-Learning-Machine-ebook/dp/B012271YB2))
 * Julia for Data Science ([Amazon link](https://www.amazon.com/Julia-Data-Science-Zacharias-Voulgaris/dp/1634621301))
 * R for Data Science ([Free PDF](http://r4ds.had.co.nz/))
+* Data Science at the Command Line ([Free eBook](https://www.datascienceatthecommandline.com/))
 
 ## Academic Integrity: ##
 
