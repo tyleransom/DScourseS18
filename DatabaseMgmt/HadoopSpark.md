@@ -97,7 +97,7 @@ But if RDDs can't be modified, how can we apply functions to them? There are two
 
 * We'll walk through an example on OSCER that uses Java to call Hadoop and count instances of every word in *Pride & Prejudice* using 20 nodes and output the result to a text file.
 
-#### 2.2.1 Using Monte Carlo simulation to compute pi
+#### 2.2.2 Using Monte Carlo simulation to compute pi
 
 ![MonteCarlo](../Graphics/MCexample10.png)
 
@@ -148,3 +148,4 @@ if __name__ == "__main__":
 * [Spark workshop slides](https://stanford.edu/~rezab/sparkclass/slides/itas_workshop.pdf)
 * [Hadoop wikipedia page](https://en.wikipedia.org/wiki/Apache_Hadoop)
 * [MapReduce wikipedia page](https://en.wikipedia.org/wiki/MapReduce)
+* [SparkR demo](https://rpubs.com/wendyu/sparkr)
