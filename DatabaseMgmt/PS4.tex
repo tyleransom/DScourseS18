@@ -1,0 +1,199 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Feb. 13\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Feb. 13\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: February 13, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 4}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 4 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will provide an opportunity for you to continue practicing with the command line and executing batch jobs on the OSCER cluster. You will also get practice importing data and working in Spark. 
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS4/} and name the file \texttt{PS4\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain four files:
+\begin{itemize}
+    \item \texttt{PS4a\_LastName.R} (first R exercise; though you can also do this in Python or Julia if you prefer)
+    \item \texttt{PS4b\_LastName.R} (\texttt{sparkR} exercise)
+    \item \texttt{PS4\_LastName.tex}
+    \item \texttt{PS4\_LastName.pdf}
+\end{itemize}
+\begin{questions}
+\question Log in to OSCER, change to the directory where you cloned your forked GitHub repository (probably \texttt{\textasciitilde/DScourseS18}), and make sure the OSCER version of your repository is synchronized with what is listed on GitHub by issuing a pull. That is, type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder. 
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. 
+\begin{itemize}
+	\item Before doing this, make sure that you have set your default git text editor to Nano (and not Vim) by typing the following at the command line: \texttt{git config -{}-global core.editor "nano"}
+\end{itemize}
+
+\subsubsection*{Making your SLURM job scripts visible from any directory}
+
+\question In class last week, you practiced running simple R or Python scripts on the OSCER cluster using the \texttt{Rbatch}, \texttt{Pythonbatch}, and \texttt{juliabatch} scripts located in the \texttt{SLURM/} folder of our course GitHub repository. Recall that the syntax for these commands was (assuming you are in the \texttt{SLURM/} directory): \texttt{./Rbatch rscript.R rscriptoutput.log 1:00 my-email@address.com}, where the ``\texttt{1:00}'' argument is a number indicating how long the job should run for.
+
+Now, I'd like you to move these files to a place in your OSCER directory tree where they can be executed from \emph{any} folder (not just the \texttt{SLURM/} folder). To do so, follow these steps:
+\begin{enumerate}
+    \item Change to your home directory: \texttt{cd \textasciitilde}
+    \item Create a new directory called \texttt{bin/} by typing \texttt{mkdir bin}
+    \item Copy the \texttt{*batch} files from your \texttt{SLURM/} folder to the \texttt{\textasciitilde/bin/} folder using \texttt{cp}.
+    \item Change to the \texttt{bin/} folder and do a listing and make sure that the files copied successfully, and that they are executable (the filenames should be colored green).\footnote{If they are not green, issue a \texttt{chmod 774 filename} command on each file.}
+    \item Go back to your home folder (\texttt{cd \textasciitilde}) and type \texttt{which Rbatch}. It should return with \texttt{\textasciitilde/bin/Rbatch}. Now you can execute the \texttt{Rbatch} script from wherever you are on OSCER!\footnote{For those curious about what's going on ``under the hood,'' there is a Linux variable called \texttt{\$PATH} which tells the system where to look for executable files. This \texttt{\$PATH} variable is loaded whenever you log in because it is contained in the file \texttt{\textasciitilde/.bash\_profile}. By making changes to your \texttt{.bash\_profile} file, you can change your login envrionment without having to repeat commands every time you log in.}
+    \begin{enumerate}
+    \item Note that, when executing these scripts from now on, you don't need to prepend them with ``\texttt{./}'' because ``\texttt{./}'' is telling Linux to execute the file that's in the current directory. So in the future, execute these scripts by simply typing \texttt{Rbatch myfile.R} and \textbf{not} \texttt{./Rbatch myfile.R}.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{Making Spark executables visible from any directory}
+\question This follows a bit on the previous question. What you will now do is edit your \texttt{\textasciitilde/.bash\_profile} file to make it so you can simply type \texttt{sparkR} or \texttt{pyspark} to automatically open the Spark API of your choice.
+
+To do this, open in \texttt{nano} the \texttt{.bash\_profile} file which is located in your home directory.
+
+Near the bottom of the file, you should see the phrase \texttt{EXPORT PATH}. Just above this line, type \texttt{module load Spark/2.0.0}. Save and close the file, and then log out of OSCER.
+
+Once you've logged back in to OSCER, verify that your modification worked by typing \texttt{which sparkR} at the command line. The command prompt should reply with a long file path.
+
+Type \texttt{sparkR} at the command line and you should be able to use Spark's R API.
+
+\subsubsection*{Practice with JSON files (R exercise part 1)}
+
+\question This question will help you get comfortable working with (and converting from) JSON data, which is the most common data format for APIs that house web data.
+
+\begin{parts}
+	\part Download the following file from within R, Python, or Julia: \url{http://api.fantasy.nfl.com/v1/players/stats?statType=seasonStats\&season=2010\&week=1\&format=json}
+
+	The way to do this is to call \texttt{wget} (which is a system command) from inside R/Python/Julia. Note that we want to specify the local name of this file (call it \texttt{nfl.json}). To do that, we say \texttt{wget -O filename.extension "urlpath"} (note: that's a letter O, not a number 0; also pay attention to the quotation marks).
+
+	\begin{itemize}
+		\item R sytnax is: \texttt{system(''linux shell command'')}
+	\item Python sytnax is: \texttt{call([''linux'', ''shell'', ''command''])}\footnote{This requires the \texttt{call} function from the \texttt{import} library. Also note that spaces in the command need to be in separate strings.}
+		\item Julia sytnax is: \texttt{run(\`{}linux shell command\`{})}
+	 \end{itemize}
+
+	 \part Now print your file to the console by typing \texttt{cat nfl.json} within the system call.
+
+	 \part This file is ugly, so let's make it a little easier to deal with by converting it to a data frame. 
+
+	 \begin{itemize}	 
+		 \item If you use R, you will need to call the library \texttt{jsonlite}. You may need to install it first. The code to convert to a dataframe is \texttt{mydf <- fromJSON('nflstats.json')}.
+	 \end{itemize}	 
+
+	 \part Check what type of object \texttt{mydf} is. What type of an object is \texttt{mydf\$players}?
+
+	 \begin{itemize}	 
+		 \item In R, this is done with \texttt{class()}.
+		 \item In Python, this is \texttt{class()}.
+		 \item In Julia, this is \texttt{typeof()}.
+	 \end{itemize}	 
+
+	 \part List the first $n$ rows of the players dataframe.
+
+	 \part Put all of these commands into an R, Python, or Julia script and then run it from your \texttt{PS4/} directory using \texttt{Rbatch}, \texttt{Pythonbatch}, or \texttt{juliabatch}. Remember the correct syntax which is listed in Question 3 of this homework.
+\end{parts}
+
+What I wanted you to take away from this exercise is that there is no one-to-one mapping from JSON/YAML files to tabular data. So creating a tabular data frame from a JSON requires a little extra work. The same holds true for other data types like XML and HTML (though these may be closer to a one-to-one tabular representation).
+
+Also, note that the \texttt{fromJSON} and other functions can accetp a URL as an argument. I had you use the shell just so you can get comfortable with accessing the shell from within R/Julia/Python.
+
+\subsubsection*{Practice with SparkR (R exercise part 2)}
+
+\question This exercise will familiarize yourself with SparkR and how it is similar to or different from regular R. Please do the following. While you're entering these commands at the interactive SparkR prompt, you should also be creating an R script called \texttt{PS4b\_LastName.R} which contains all of these commands (so that you could easily reproduce your work whenever called upon).
+
+\begin{enumerate}
+    \item Open a SparkR session on OSCER by typing \texttt{sparkR} at the command prompt.
+    \item Create a dataframe called \texttt{df1} that loads in the \texttt{iris} data.\footnote{Hint: use the command \texttt{as.data.frame()}.}
+    \item Now create a SparkDataFrame called \texttt{df} which loads in the \texttt{iris} data. The command for this is \texttt{createDataFrame}.
+    \item Verify that the two dataframe are different types: type \texttt{class(df1)} and \texttt{class(df)}. What is the class of each?
+    \item Next, we will apply the common RDD/SQL operation: \texttt{select}
+    \begin{enumerate}
+    \item List the first 6 rows of the \texttt{Sepal\_Length} and \texttt{Species} columns of \texttt{df}. This can be done by typing \texttt{head(select(df, df\$Sepal\_Length, df\$Species))}.
+    \item If you try the previous command on \texttt{df1}, what happens? Why do you think that happened?
+    \end{enumerate}
+    \item Now let's do another common RDD operation: \texttt{filter} 
+    \begin{enumerate}
+    \item List the first 6 rows of all columns of \texttt{df} where \texttt{Sepal\_Length} is larger than 5.5. This can be done by typing \texttt{head(filter(df, df\$Sepal\_Length>5.5))}.
+    \item If you again try the previous command on \texttt{df1}, what happens? Why do you think that happened?
+    \end{enumerate}
+    \item Combine the two previous exercises into one line (that is, nest the \texttt{select} and \texttt{filter} operations into one line.
+    \item Another useful RDD operation is ``group\_by'' which in SparkR is called \texttt{groupBy}. We can compute the average sepal length, as well as the number of observations, by each of the three iris species: \texttt{head(summarize(groupBy(df, df\$Species), mean=mean(df\$Sepal\_Length), count=n(df\$Sepal\_Length)))}.
+    \item Finally, a common RDD operation is to sort. We can sort (\texttt{arrange()}) the above ``grouped by'' RDD by any of the three variables it contains.
+    \begin{enumerate}
+    \item Re-execute the previous call, this time assigning \texttt{df2} to the output.
+    \item Now use the \texttt{arrange()} function to sort the result ascending by species name: \texttt{head(arrange(df2, asc(df2\$Species)))}
+    \end{enumerate}
+\end{enumerate}
+
+\question Go to \url{www.sharelatex.com} and create another .tex document, this time naming it \texttt{PS4\_LastName.tex}. In it, tell me about some data sources that you would be interested in scraping from. These could be, for example: classical texts from Project Gutenberg, tweets that include a particular hashtag, college or professional sports statistics, financial market data, etc. For anything you are interested in, there is almost surely data that is freely available on the internet, and most data sources come with highly accessible APIs for R or Python.
+
+In another part of your .tex file, answer the questions raised in the various parts of the previous question.
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice (or via \texttt{scp} from your laptop terminal). You may also copy and paste your .tex file from your browser directly into your terminal via \texttt{nano} if you prefer, but you will need to use SFTP or \texttt{scp} to transer the PDF.\footnote{If you want to try out something new, you can compile your .tex file on OSCER by typing \texttt{pdflatex myfile.tex} at the command prompt of the appropriate directory. This will create the PDF directly on OSCER, removing the requirement to use SFTP or \texttt{scp} to move the file over.}
+
+\question You should turn in the following files: .tex, .pdf,  and two .R scripts.  Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{\textasciitilde/DScourseS18/ProblemSets/PS4}).
+
+\question Synchronize your local git repository (in your OSCER home directory) with your GitHub fork by using the commands in Problem Set 2 (i.e. \texttt{git add}, \texttt{git commit -m ''message''}, and \texttt{git push origin master}). Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS4 files appear in the appropriate place in your other local repository.
+
+\end{questions}
+\end{document}

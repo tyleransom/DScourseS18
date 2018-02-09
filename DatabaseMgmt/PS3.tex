@@ -1,0 +1,150 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Feb. 6\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Feb. 6\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: February 6, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 3}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 3 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will provide an opportunity for you to practice working with the command line, writing a Linux shell script, and working with data in SQL.
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS3/} and name the file \texttt{PS3\_LastName.*}. Your directory should contain four files:
+\begin{itemize}
+    \item \texttt{PS3\_LastName.sh}
+    \item \texttt{PS3\_LastName.sql}
+    \item \texttt{PS3\_LastName.tex}
+    \item \texttt{PS3\_LastName.pdf}
+\end{itemize}
+\begin{questions}
+\question Log in to OSCER, change to the directory where you cloned your forked GitHub repository (probably \texttt{\~/DScourseS18}), and make sure the OSCER version of your repository is synchronized with what is listed on GitHub by issuing a pull. That is, type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder. 
+
+\question Create the PS3 subdirectory by issuing \texttt{cd \~/DScourseS18/ProblemSets} followed by \texttt{mkdir PS3} on OSCER. Change into this directory by typing \texttt{cd PS3}.
+
+\question Next you will get some practice with some new Linux shell commands, as well as how to create and execute a Linux shell script. (Note: you can also do these commands on your Macbook, or at the \texttt{git} shell on a Windows machine.)
+\begin{itemize}
+	\item[(a)] The \texttt{wget} command allows you to download a file from a URL right from the command line. Try it out by typing\\ \texttt{wget http://spatialkeydocs.s3.amazonaws.com/FL\_insurance\_sample.csv.zip} at the command line. This will download the file contained at the preceding URL, which is a sample data set on Florida property insurance provided by a company called SpatialKey\textsuperscript{TM}.
+	\item[(b)] Type \texttt{ls} to see the contents of the current directory. You should see a file called \texttt{FL\_insurance\_sample.csv.zip}, which is a compressed (ZIP) file.
+	\item[(c)] The way to uncompress a file with a \texttt{.zip} extension is with \texttt{unzip}. Type \texttt{unzip FL\_insurance\_sample.csv.zip}
+	\item[(d)] You will now notice that the system created a folder called \texttt{\_\_MACOSX/} in your current. This is because the company that provided the data used Mac OS to zip the file. Let's delete that, along with the .zip file, by issuing the \texttt{rm} command: \texttt{rm -rf \_\_MACOSX} followed by \texttt{rm -f FL\_insurance\_sample.csv.zip}. 
+	\item[(e)] Now let's check how big the file size is. This is done by typing \texttt{ls -al -{}-block-size=MB FL\_insurance\_sample.csv}
+	\item[(f)] When downloading a file it is sometimes also useful to examine the first $N$ lines of the file. The \texttt{head} command provides this option: \texttt{head -5 FL\_insurance\_sample.csv}
+	\item[(g)] Something is weird here! The output from the immediately preceding command wasn't just five lines. Let's check how many lines the file has: \texttt{wc -l FL\_insurance\_sample.csv}
+	\item[(h)] It turns out that the file we are dealing with has a problem with its ``end of line'' (EOL) interpreter. Because the file was created on Mac OS, it isn't formatted appropriately to be read on a Linux system. Knowing how to fix EOL conversion issues is a key skill for a data scientist to have! We can convert the file to what we need by typing \texttt{dos2unix -c mac FL\_insurance\_sample.csv}
+	\item[(i)] Now run \texttt{head} again and you should be able to see something that resembles a CSV file.
+	\item[(j)] Run \texttt{wc} again and there should be more than one line in the file!
+\end{itemize}
+
+The above tasks may seem mundane, but it's important to be able to: $(i)$ download a data set from somewhere on the internet using the command line; and $(ii)$ know how to check that the file you downloaded looks like what you expect it to, without having to open a program like Excel, etc. If the Florida insurance sample file were 100x as large, it would be much more difficult to do this outside the command line!
+
+\question Now that you've downloaded and cleaned up the example file, let's create a shell script that contains all of the commands you issued in the previous question. This will make sure that your work is reproducible! The following steps will help you create a shell script that you can execute from your terminal:
+\begin{itemize}
+	\item[(a)] First, let's create the shell script file. Call it PS3.sh. The way to do this at the command line is by typing \texttt{touch PS3.sh}. ``Touch'' means to create a file (if it doesn't exist), or to update the modified time stamp of a file (if it does exist).
+	\item[(b)] Now edit \texttt{PS3.sh} using a text editor of your choice. If you don't want to have to transfer the file, I would recommend typing \texttt{nano PS3.sh} at the command line prompt. This will open the built-in \texttt{nano} text editor, which has very few features, but which has enough for you to do write the following script.
+	\item[(c)] Once in your text editor, start the script on line 1 by invoking the Linux ``shebang'' term, which tells the operating system that this is a script that should be executed. The ``shebang'' term is: \texttt{\#!/bin/sh}.
+	\item[(d)] Now copy the commands you issued in points (a) through (j) of the previous question.
+	\item[(e)] You should now have a shell script that contains 11 lines of code.
+	\item[(f)] Now close out of the shell script and save it. If you're using \texttt{nano}, hit \texttt{Ctrl+X} followed by {Y}. \textbf{NOTE: If you are a Mac OS user, ``Ctrl'' means ``Control'' \emph{not} Command}
+\end{itemize}
+
+The final step in getting your shell script operational is to make it ``executable.'' This tells the operating system that the file, even though it is a text file, should be interpreted as a sequence of commands.
+
+The way to make it executable is via the \texttt{chmod} command: \texttt{chmod 774 PS3.sh}.
+
+Now to execute the command, type \texttt{./PS3.sh} and watch it run. You now have a reproducible way to download and clean a data file from an internet source.
+
+\question Now write a SQL script that does the following:\footnote{Recall that two dashes (\texttt{-{}-}) are how to comment a line in SQL. You should comment your code well!}
+\begin{itemize}
+	\item[(a)] Read in the Florida insurance data CSV file
+	\item[(b)] Print out the first 10 rows of the data set
+	\item[(c)] List which counties are in the sample (i.e. list unique values of the \texttt{county} variable)
+	\item[(d)] Compute the average property appreciation from 2011 to 2012 (i.e. compute the mean of \texttt{tiv\_2012 - tiv\_2011})
+	\item[(e)] Create a frequency table of the \texttt{construction} variable to see what fraction of buildings are made out of wood or some other material
+\end{itemize}
+
+\question Go to \url{www.sharelatex.com} and create another .tex document, this time naming it \texttt{PS3\_LastName.tex}. In it, write down your answers to the following questions, obtained from the shell commands you practiced above.
+\begin{enumerate}
+	\item How big was the insurance .csv file (once uncompressed)? (i.e. what was the output in 3(e)?)
+	\item How many lines did the CSV file have before doing the end-of-line (EOL) conversion? (see 3(g))
+	\item How many lines did the CSV file have after doing the EOL conversion? (see 3(j))
+\end{enumerate}
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice. (More detailed directions on how to do this are contained in PS2.)
+
+\question You should turn in the following files: .tex, .pdf, .sql, and .sh. Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{~/DScourseS18/ProblemSets/PS3}).
+
+\question Update your local git repository (in your OSCER home directory) by using the commands in Problem Set 2. Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS3 files appear in the appropriate place in your other local repository.
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. 
+\begin{itemize}
+	\item Before doing this, make sure that you have set your default git text editor to Nano (and not Vim) by typing the following at the command line: \texttt{git config -{}-global core.editor "nano"}
+\end{itemize}
+
+\end{questions}
+\end{document}
