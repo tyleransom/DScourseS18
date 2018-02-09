@@ -117,7 +117,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Feb 8  | Th  | Web scraping/APIs to gather data ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/WebData/README.md)) |  |
 | Feb 13 | T   |  Web scraping/APIs to gather data ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/WebData/README.md)) | [PS 4](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/PS4.pdf) |
 | Feb 15 | Th  | No class (career fair)                           |                                                                                                                                |
-| Feb 20 | T   | Data cleaning, transformations                                | PS 5                                                                                                                           |
+| Feb 20 | T   | Data cleaning, transformations                                | [PS 5](https://github.com/tyleransom/DScourseS18/blob/master/WebData/PS5.pdf) |
 | Feb 22 | Th  | Data visualization                                            |                                                                                                                                |
 | Feb 27 | T   | Modeling continuous variables                                 | PS 6                                                                                                                           |
 | Mar 1  | Th  | Modeling discrete variables                                   |                                                                                                                                |
