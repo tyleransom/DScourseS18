@@ -4,9 +4,10 @@ This module of the course provides tools to gather data from the web through the
 ## Notebooks we worked through in class
 
 * [R Web scraping Tutorial](https://github.com/tyleransom/DScourseS18/blob/master/WebData/TrumpLies.Rmd) (same thing, but in [Python](https://github.com/justmarkham/trump-lies/blob/master/trump_lies.ipynb); same thing, but in [Julia](https://github.com/tyleransom/DScourseS18/blob/master/WebData/WebScrapingInJulia.ipynb))
-* [Python Web scraping Tutorial](https://github.com/tyleransom/DScourseS18/blob/master/WebData/WebScraping.ipynb)
-* [Using APIs](https://github.com/jdebacker/CompEcon_Fall17/blob/master/WebData/APIs.ipynb)
-* [Python Web scraping Tutorial 2: Dynamic webpages](https://github.com/tyleransom/DScourseS18/blob/master/WebData/Scrape_dynamic.ipynb)
+* [Python Web scraping Tutorial (from Jason DeBacker)](https://github.com/tyleransom/DScourseS18/blob/master/WebData/WebScraping.ipynb)
+* [Using APIs (from Jason DeBacker)](https://github.com/tyleransom/DScourseS18/blob/master/WebData/APIs.ipynb)
+* [Using `twitteR` to analyze Trump's tweets](http://varianceexplained.org/r/trump-tweets/)
+* [Python Web scraping Tutorial 2: Dynamic webpages (from Jason DeBacker)](https://github.com/tyleransom/DScourseS18/blob/master/WebData/Scrape_dynamic.ipynb)
 
 ## Examples of academic research using these tools
 
