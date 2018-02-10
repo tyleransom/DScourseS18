@@ -26,6 +26,8 @@ APIs:
 ## Useful Links
 
 * [Python API Tutorial](https://www.dataquest.io/blog/python-api-tutorial/)
+* [Financial Data APIs in R](https://www.r-bloggers.com/financial-data-accessible-from-r-part-iii/)
+* [Financial Data APIs in Julia](https://github.com/JuliaQuant)
 * [Analyzing Cryptocurrency Markets](https://blog.patricktriest.com/analyzing-cryptocurrencies-python/amp/)
 * [Algorithmic Trading in Python](https://www.datacamp.com/community/tutorials/finance-python-trading#gs.VJ_xpkM)
 * [`pandas-datareader` Documentation](https://pandas-datareader.readthedocs.io/en/latest/)
