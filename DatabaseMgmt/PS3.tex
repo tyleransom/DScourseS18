@@ -93,7 +93,7 @@ As with the previous problem sets, you will submit this problem set by pushing t
 	\item[(b)] Type \texttt{ls} to see the contents of the current directory. You should see a file called \texttt{FL\_insurance\_sample.csv.zip}, which is a compressed (ZIP) file.
 	\item[(c)] The way to uncompress a file with a \texttt{.zip} extension is with \texttt{unzip}. Type \texttt{unzip FL\_insurance\_sample.csv.zip}
 	\item[(d)] You will now notice that the system created a folder called \texttt{\_\_MACOSX/} in your current. This is because the company that provided the data used Mac OS to zip the file. Let's delete that, along with the .zip file, by issuing the \texttt{rm} command: \texttt{rm -rf \_\_MACOSX} followed by \texttt{rm -f FL\_insurance\_sample.csv.zip}. 
-	\item[(e)] Now let's check how big the file size is. This is done by typing \texttt{ls -al --block-size=MB FL\_insurance\_sample.csv}
+	\item[(e)] Now let's check how big the file size is. This is done by typing \texttt{ls -al -{}-block-size=MB FL\_insurance\_sample.csv}
 	\item[(f)] When downloading a file it is sometimes also useful to examine the first $N$ lines of the file. The \texttt{head} command provides this option: \texttt{head -5 FL\_insurance\_sample.csv}
 	\item[(g)] Something is weird here! The output from the immediately preceding command wasn't just five lines. Let's check how many lines the file has: \texttt{wc -l FL\_insurance\_sample.csv}
 	\item[(h)] It turns out that the file we are dealing with has a problem with its ``end of line'' (EOL) interpreter. Because the file was created on Mac OS, it isn't formatted appropriately to be read on a Linux system. Knowing how to fix EOL conversion issues is a key skill for a data scientist to have! We can convert the file to what we need by typing \texttt{dos2unix -c mac FL\_insurance\_sample.csv}
@@ -119,7 +119,7 @@ The way to make it executable is via the \texttt{chmod} command: \texttt{chmod 7
 
 Now to execute the command, type \texttt{./PS3.sh} and watch it run. You now have a reproducible way to download and clean a data file from an internet source.
 
-\question Now write a SQL script that does the following:\footnote{Recall that two dashes (\texttt{--}) are how to comment a line in SQL. You should comment your code well!}
+\question Now write a SQL script that does the following:\footnote{Recall that two dashes (\texttt{-{}-}) are how to comment a line in SQL. You should comment your code well!}
 \begin{itemize}
 	\item[(a)] Read in the Florida insurance data CSV file
 	\item[(b)] Print out the first 10 rows of the data set
@@ -142,6 +142,9 @@ Now to execute the command, type \texttt{./PS3.sh} and watch it run. You now hav
 \question Update your local git repository (in your OSCER home directory) by using the commands in Problem Set 2. Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS3 files appear in the appropriate place in your other local repository.
 
 \question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. 
+\begin{itemize}
+	\item Before doing this, make sure that you have set your default git text editor to Nano (and not Vim) by typing the following at the command line: \texttt{git config -{}-global core.editor "nano"}
+\end{itemize}
 
 \end{questions}
 \end{document}
