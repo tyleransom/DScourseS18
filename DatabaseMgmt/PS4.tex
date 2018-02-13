@@ -124,7 +124,7 @@ Type \texttt{sparkR} at the command line and you should be able to use Spark's R
 \begin{parts}
 	\part Download the following file from within R, Python, or Julia: \url{http://api.fantasy.nfl.com/v1/players/stats?statType=seasonStats\&season=2010\&week=1\&format=json}
 
-	The way to do this is to call \texttt{wget} (which is a system command) from inside R/Python/Julia. Note that we want to specify the local name of this file (call it \texttt{nfl.json}). To do that, we say \texttt{wget -O filename.extension urlpath} (note: that's a letter O, not a number 0).
+	The way to do this is to call \texttt{wget} (which is a system command) from inside R/Python/Julia. Note that we want to specify the local name of this file (call it \texttt{nfl.json}). To do that, we say \texttt{wget -O filename.extension "urlpath"} (note: that's a letter O, not a number 0; also pay attention to the quotation marks).
 
 	\begin{itemize}
 		\item R sytnax is: \texttt{system(''linux shell command'')}
@@ -132,12 +132,12 @@ Type \texttt{sparkR} at the command line and you should be able to use Spark's R
 		\item Julia sytnax is: \texttt{run(\`{}linux shell command\`{})}
 	 \end{itemize}
 
-	 \part Now print your file to the console by typing \texttt{cat nfl.json} within the system call.
+	 \part Now print your file to the console by typing \texttt{cat nflstats.json} (or whatever you choose to name the file) within the system call.
 
 	 \part This file is ugly, so let's make it a little easier to deal with by converting it to a data frame. 
 
 	 \begin{itemize}	 
-		 \item If you use R, you will need to call the library \texttt{jsonlite}. You may need to install it first. The code to convert to a dataframe is \texttt{mydf <- fromJSON('nflstats.json')}.
+		 \item If you use R, you will need to call the library \texttt{jsonlite}. You may need to install it first. The code to convert to a dataframe is \texttt{mydf <- fromJSON('nflstats.json')}. (Make sure you call the file by whatever you called it in part (b).)
 	 \end{itemize}	 
 
 	 \part Check what type of object \texttt{mydf} is. What type of an object is \texttt{mydf\$players}?
