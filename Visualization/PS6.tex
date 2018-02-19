@@ -1,0 +1,114 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Feb. 27\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Feb. 27\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: February 27, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 6}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 6 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will give you practice with cleaning and visualizing data.
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS6/} and name the file \texttt{PS6\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain at least three files:
+\begin{itemize}
+    \item \texttt{PS6\_LastName.R} (you can also do this in Python or Julia if you prefer)
+    \item \texttt{PS6\_LastName.tex}
+    \item \texttt{PS6\_LastName.pdf}
+    \item \texttt{PS6a\_LastName.png}
+    \item \texttt{PS6b\_LastName.png}
+    \item \texttt{PS6c\_LastName.png}
+\end{itemize}
+\begin{questions}
+\question Type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder to make sure your OSCER folder is synchronized with your GitHub repository. 
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. 
+
+\question Find some data that interests you and clean it. (This could be data you scraped from PS5, or it could be a different data set that you intend to use for your final project (see also: Kaggle datasets). In your .tex file, tell me about the steps you took to clean and transform the data.
+
+Write code in R, Python, or Julia to execute the steps described in your .tex file. Your submitted script should be completely reproducible by me.
+
+\question Using R, Python, or Julia, create three visualizations of the data you used in the previous question. Some things to keep in mind as you create these visualizations:
+\begin{itemize}
+    \item The visualization should inform the viewer
+    \item The code used to generate the visualization should be as readable as possible
+    \item The visualization should look as sleek as possible
+\end{itemize}
+
+Submit your visualizations as .png files (see problem set instructions above) and also insert them as figures into your .tex file. Consult the help resources on \texttt{sharelatex} for pointers on how to insert an image into a .tex file.
+
+\question Include in your .tex file an explanation of what the images are communicating. How are they helpful for understanding your data set?
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice (or via \texttt{scp} from your laptop terminal). You may also copy and paste your .tex file from your browser directly into your terminal via \texttt{nano} if you prefer, but you will need to use SFTP or \texttt{scp} to transer the PDF.\footnote{If you want to try out something different, you can compile your .tex file on OSCER by typing \texttt{pdflatex myfile.tex} at the command prompt of the appropriate directory. This will create the PDF directly on OSCER, removing the requirement to use SFTP or \texttt{scp} to move the file over.}
+
+\question You should turn in the following files: .tex, .pdf, .png (3 of them), and any additional scripts required to reproduce your work.  Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{\textasciitilde/DScourseS18/ProblemSets/PS6}).
+
+\question Synchronize your local git repository (in your OSCER home directory) with your GitHub fork by using the commands in Problem Set 2 (i.e. \texttt{git add}, \texttt{git commit -m ''message''}, and \texttt{git push origin master}). Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS6 files appear in the appropriate place in your other local repository.
+
+\end{questions}
+\end{document}
