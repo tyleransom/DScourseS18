@@ -132,12 +132,12 @@ Type \texttt{sparkR} at the command line and you should be able to use Spark's R
 		\item Julia sytnax is: \texttt{run(\`{}linux shell command\`{})}
 	 \end{itemize}
 
-	 \part Now print your file to the console by typing \texttt{cat nfl.json} within the system call.
+	 \part Now print your file to the console by typing \texttt{cat nflstats.json} (or whatever you choose to name the file) within the system call.
 
 	 \part This file is ugly, so let's make it a little easier to deal with by converting it to a data frame. 
 
 	 \begin{itemize}	 
-		 \item If you use R, you will need to call the library \texttt{jsonlite}. You may need to install it first. The code to convert to a dataframe is \texttt{mydf <- fromJSON('nflstats.json')}.
+		 \item If you use R, you will need to call the library \texttt{jsonlite}. You may need to install it first. The code to convert to a dataframe is \texttt{mydf <- fromJSON('nflstats.json')}. (Make sure you call the file by whatever you called it in part (b).)
 	 \end{itemize}	 
 
 	 \part Check what type of object \texttt{mydf} is. What type of an object is \texttt{mydf\$players}?

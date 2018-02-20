@@ -116,10 +116,10 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Feb 6  | T   | Sampling & storing Big Data ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/HadoopSpark.md)) | [PS 3](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/PS3.pdf) |
 | Feb 8  | Th  | Web scraping/APIs to gather data ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/WebData/README.md)) |  |
 | Feb 13 | T   |  Web scraping/APIs to gather data ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/WebData/README.md)) | [PS 4](https://github.com/tyleransom/DScourseS18/blob/master/DatabaseMgmt/PS4.pdf) |
-| Feb 15 | Th  | No class (career fair)                           |                                                                                                                                |
-| Feb 20 | T   | Data cleaning, transformations                                | PS 5                                                                                                                           |
-| Feb 22 | Th  | Data visualization                                            |                                                                                                                                |
-| Feb 27 | T   | Modeling continuous variables                                 | PS 6                                                                                                                           |
+| Feb 15 | Th  | No class: career fair ([Julia notes](https://github.com/jmxpearson/duke-julia-ssri/blob/master/intro_slides.ipynb))                           |                                                                                                                                |
+| Feb 20 | T   | Getting to know your data: descriptive statistics, cleaning, tips, tricks, and transformations ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/README.md)) | [PS 5](https://github.com/tyleransom/DScourseS18/blob/master/WebData/PS5.pdf) |
+| Feb 22 | Th  | Getting to know your data: visualization ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/README.md)) |                                                                                                                                |
+| Feb 27 | T   | Modeling continuous variables                                 | [PS 6](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/PS6.pdf) |
 | Mar 1  | Th  | Modeling discrete variables                                   |                                                                                                                                |
 | Mar 6  | T   | Functions, Optimizers, Root-Finders                           | PS 7                                                                                                                           |
 | Mar 8  | Th  | Functions, Optimizers, Root-Finders                           |                                                                                                                                |
@@ -149,6 +149,8 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 * [R data wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 * [R tidyverse](https://www.tidyverse.org)
 * [Julia vs. Python for Data Science](https://www.infoworld.com/article/3241107/python/julia-vs-python-julia-language-rises-for-data-science.html)
+* [Machine Learning "Mind Map"](https://github.com/dformoso/machine-learning-mindmap/blob/master/Machine%20Learning.pdf)
+* [Why it's becoming increasingly more difficult to learn to program](https://developers.slashdot.org/story/18/02/17/0947212/learning-to-program-is-getting-harder)
 
 ## Books ##
 
