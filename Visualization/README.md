@@ -236,19 +236,71 @@ It often helps to run preliminary statistical models to see how your variables c
 
 We'll talk more about these next week
 
-## Visualization Tools in Python
-This module of the course covers data visualization tools.  We'll learn these tools by studying economic mobility using data from the [Equality of Opportunity Project](http://www.equality-of-opportunity.org).
+## Data visualization
+Commonly used data visualization types that are useful in getting to know your data:
 
+* box-and-whisker plot
+* scatter plot
+* histogram
+* kernel density plot
+* [binned scatter plots](https://michaelstepner.com/binscatter/binscatter-StataConference2014.pdf) (aka "binscatter")
+* line charts
+* maps
+* summary tables (tables are a visualization tool!)
+* word clouds (for textual data)
+* many others
 
-## Economic Mobility
+## When to use various visuals?
+Different visualization tools can be used for different tasks:
 
-[Where is the Land of Opportunity? The Geography of Intergenerational Mobility in the United States](https://eml.berkeley.edu/~saez/chetty-friedman-kline-saezQJE14mobility.pdf)
+* Find outliers
+* Examine distribution of values 
+    - box-and-whisker, histogram, kernel density
+* Report correlations
+    - scatter plot or binscatter (for two continuous variables)
+    - plots by "facet" (for one continuous variable and one categorical variable)
+* Examine trends in time series data
+    - line charts
+* Text trends
+    - word clouds
+    - word trees
 
-## Notebooks we worked through in class
+## Coding visuals in R: `ggplot2`
+See [here](http://r4ds.had.co.nz/data-visualisation.html) for a step-by-step guide on the basics of creating data visuals in R using `ggplot2`.
+
+R package for binscatters: [binscattr](https://github.com/paulgp/binscattr) (still in its infancy)
+
+## Directory of visualization types (from Duke library)
+[This website](https://guides.library.duke.edu/datavis/vis_types) has a nice summary of types of visuals that may be helpful in telling your story.
+
+## The OG data visualization
+
+![John Snow's cholera map](images/snowmap.jpg)
+
+## Beautiful visualization
+![hawaii missile](images/hawaiiscare.png)
+
+More beautiful visualizations available at [r/dataisbeautiful](https://www.reddit.com/r/dataisbeautiful/)
+
+Comical opponent: [r/dataisugly](https://www.reddit.com/r/dataisugly/)
+
+* You don't want to end up on that site
+
+## Be careful how you visualize!
+![XKCD heat map](images/heatmap.jpg)
+
+Always make sure that your image conveys useful information
+
+## Jupyter notebooks (in Python) created by Jason DeBacker (U of South Carolina)
 
 * [Static Visualizations](https://github.com/jdebacker/CompEcon_Fall17/blob/master/Visualization/StaticVisualization.ipynb)
 * [Dynamic Visualizations](https://github.com/jdebacker/CompEcon_Fall17/blob/master/Visualization/DynamicVisualization.ipynb)
 
+
+## Economic mobility data used by DeBacker
+This module of the course covers data visualization tools.  We'll learn these tools by studying economic mobility using data from the [Equality of Opportunity Project](http://www.equality-of-opportunity.org).
+
+[Where is the Land of Opportunity? The Geography of Intergenerational Mobility in the United States](https://eml.berkeley.edu/~saez/chetty-friedman-kline-saezQJE14mobility.pdf)
 
 ## Useful Links
 
