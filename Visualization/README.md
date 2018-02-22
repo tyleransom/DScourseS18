@@ -275,10 +275,10 @@ R package for binscatters: [binscattr](https://github.com/paulgp/binscattr) (sti
 
 ## The OG data visualization
 
-![John Snow's cholera map](images/snowmap.jpg)
+![John Snow's cholera map](http://geoawesomeness.com/wp-content/uploads/2013/03/John-Snows-cholera-map.jpg)
 
 ## Beautiful visualization
-![hawaii missile](images/hawaiiscare.png)
+![hawaii missile](https://bs.phncdn.com/insights-static//wp-content/uploads/2018/01/pornhub-insights-hawaii-missile-alert-traffic.png)
 
 More beautiful visualizations available at [r/dataisbeautiful](https://www.reddit.com/r/dataisbeautiful/)
 
@@ -287,7 +287,7 @@ Comical opponent: [r/dataisugly](https://www.reddit.com/r/dataisugly/)
 * You don't want to end up on that site
 
 ## Be careful how you visualize!
-![XKCD heat map](images/heatmap.jpg)
+![XKCD heat map](https://imgs.xkcd.com/comics/heatmap.png)
 
 Always make sure that your image conveys useful information
 
