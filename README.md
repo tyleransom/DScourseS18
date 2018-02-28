@@ -120,7 +120,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Feb 20 | T   | No class (snow day)                           | [PS 5](https://github.com/tyleransom/DScourseS18/blob/master/WebData/PS5.pdf) |
 | Feb 22 | Th  | No class (snow day)                           |                                                                                                                                |
 | Feb 27 | T   | Getting to know your data: descriptive statistics, cleaning, tips, tricks, transformations, visualization ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/README.md); [HTML slides](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/slides.html)) |   |
-| Mar 1  | Th  | Modeling continuous and discrete variables                                 |  |
+| Mar 1  | Th  | Modeling continuous and discrete variables ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Modeling/README.md)) [HTML slides](https://github.com/tyleransom/DScourseS18/blob/master/Modeling/slides.html)) |   |
 | Mar 6  | T   | Functions, Optimizers, Root-Finders                           | [PS 6](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/PS6.pdf) |
 | Mar 8  | Th  | Functions, Optimizers, Root-Finders                           |                                                                                                                                |
 | Mar 13 | T   | Functions, Optimizers, Root-Finders                           | PS 7                                                                                                                           |
