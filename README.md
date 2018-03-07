@@ -123,7 +123,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Mar 1  | Th  | Modeling continuous and discrete variables ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Modeling/README.md)) [HTML slides](https://github.com/tyleransom/DScourseS18/blob/master/Modeling/slides.html)) |   |
 | Mar 6  | T   | Introduction to optimization ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Modeling/OptimizationIntro.pdf)) | [PS 6](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/PS6.pdf) |
 | Mar 8  | Th  | Writing and optimizing functions in R, Python, and Julia      |       |
-| Mar 13 | T   | Writing and optimizing functions in R, Python, and Julia      | PS 7                                                                                                                           |
+| Mar 13 | T   | Writing and optimizing functions in R, Python, and Julia      | [PS 7](https://github.com/tyleransom/DScourseS18/blob/master/Modeling/PS7.pdf) |
 | Mar 15 | Th  | Debugging strategies and simulations                          |                                                                                                                                |
 | Mar 20 | T   | No class (Spring break)                                       |                                                                                                                                |
 | Mar 22 | Th  | No class (Spring break)                                       |                                                                                                                                |
