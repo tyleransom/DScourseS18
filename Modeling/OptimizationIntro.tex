@@ -95,13 +95,13 @@ We can solve this optimization problem using calculus:
 
 \begin{align*}
  & \min_{\beta}\left(y-X\beta\right)^{\prime}\left(y-X\beta\right)\\
-    = & \min_{\beta}\left(y^{\prime}y-\beta^{\prime}X^{\prime}y-y^{\prime}X\beta-\beta^{\prime}X^{\prime}X\beta\right)
+    = & \min_{\beta}\left(y^{\prime}y-\beta^{\prime}X^{\prime}y-y^{\prime}X\beta+\beta^{\prime}X^{\prime}X\beta\right)
 \end{align*}
 How do we use calculus to find an optimum? Take first-order conditions and set them equal to zero:
 \begin{align}
-\left[\beta\right]: & -\frac{\partial}{\partial\beta}\beta^{\prime}X^{\prime}y-\frac{\partial}{\partial\beta}y^{\prime}X\beta-\frac{\partial}{\partial\beta}\beta^{\prime}X^{\prime}X\beta\label{eq:4}\\
-0= & -X^{\prime}y-X^{\prime}y-2\left(X^{\prime}X\right)\hat{\beta}\nonumber \\
-0= & -2X^{\prime}y-2\left(X^{\prime}X\right)\hat{\beta}\nonumber \\
+\left[\beta\right]: & -\frac{\partial}{\partial\beta}\beta^{\prime}X^{\prime}y-\frac{\partial}{\partial\beta}y^{\prime}X\beta+\frac{\partial}{\partial\beta}\beta^{\prime}X^{\prime}X\beta\label{eq:4}\\
+0= & -X^{\prime}y-X^{\prime}y+2\left(X^{\prime}X\right)\hat{\beta}\nonumber \\
+0= & -2X^{\prime}y+2\left(X^{\prime}X\right)\hat{\beta}\nonumber \\
 X^{\prime}y= & \left(X^{\prime}X\right)\hat{\beta}\nonumber \\
 \hat{\beta}= & \left(X^{\prime}X\right)^{-1}X^{\prime}y\nonumber 
 \end{align}
@@ -112,8 +112,8 @@ which is known as the \emph{OLS estimator}.
 How do we know if our optimum is a minimum or a maximum? We need to check that the second-order conditions are satisfied. For a \emph{minimum}, we need the second derivative to be \emph{positive}. Taking the derivative of our first-order condition with respect to beta, we get:
 \begin{align}
 0 & <\frac{\partial^{2}}{\partial\beta\partial\beta^{\prime}}\left(y-X\beta\right)^{\prime}\left(y-X\beta\right)\label{eq:5}\\
-0 & <\frac{\partial}{\partial\beta^{\prime}}\left[-X^{\prime}y-X^{\prime}y-2\left(X^{\prime}X\right)\hat{\beta}\right]\nonumber \\
-0 & <-2\left(X^{\prime}X\right)\nonumber \\
+0 & <\frac{\partial}{\partial\beta^{\prime}}\left[-X^{\prime}y-X^{\prime}y+2\left(X^{\prime}X\right)\hat{\beta}\right]\nonumber \\
+0 & <2\left(X^{\prime}X\right)\nonumber \\
 \left(X^{\prime}X\right) & >0\nonumber 
 \end{align}
 This condition is satisfied so long as the following conditions hold:
@@ -230,7 +230,7 @@ Our objective is to maximize the likelihood above with respect to $\beta$ and $\
 \begin{align*}
     & \max_{\beta,\sigma} -\frac{n}{2}\ln\left(2\pi\right) - n \ln \left(\sigma\right) - \frac{1}{2\sigma^{2}}\left(y-X\beta\right)^{\prime}\left(y-X\beta\right) \\
     \frac{\partial\ell}{\partial\beta} =& \frac{1}{2\sigma^{2}}\frac{\partial}{\partial\beta}\left(y-X\beta\right)^{\prime}\left(y-X\beta\right) \\
-    0 =& \frac{1}{2\sigma^{2}}\left[-2X^{\prime}y -2\left(X^{\prime}X\right)\hat{\beta}\right] \\
+    0 =& \frac{1}{2\sigma^{2}}\left[-2X^{\prime}y +2\left(X^{\prime}X\right)\hat{\beta}\right] \\
     \hat{\beta} =& \left(X^{\prime}X\right)^{-1}X^{\prime}y \\
     \frac{\partial\ell}{\partial\sigma} =& -\frac{n}{\sigma} + \frac{\left(y-X\beta\right)^{\prime}\left(y-X\beta\right)}{\sigma^{3}} \\
     0 =& -\frac{n}{\hat{\sigma}} +  \frac{\left(y-X\beta\right)^{\prime}\left(y-X\beta\right)}{\hat{\sigma}^{3}} \\
@@ -271,7 +271,7 @@ Second-order conditions for a maximum require that the matrix below be \emph{neg
                   \end{array} } \right]
                   =&
     \left[ {\begin{array}{c}
-\frac{1}{2\sigma^{2}}\left[-2X^{\prime}y -2\left(X^{\prime}X\right)\hat{\beta}\right] \\
+\frac{1}{2\sigma^{2}}\left[-2X^{\prime}y +2\left(X^{\prime}X\right)\hat{\beta}\right] \\
 -\frac{n}{\hat{\sigma}} +  \frac{\left(y-X\beta\right)^{\prime}\left(y-X\beta\right)}{\hat{\sigma}^{3}} \\
                   \end{array} } \right]
         \end{align*}
