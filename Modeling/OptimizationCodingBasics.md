@@ -182,7 +182,7 @@ mean(iris$Sepal.Width)
 - This is all to say that when a function is *evaluated*, its new workspace is whatever is sent to the function
 - This is important to keep in mind when trying to optimize your own objective function
 
-<img width="450" src="functionScope.png" alt="Scope of functions">
+<img width="650" src="functionScope.png" alt="Scope of functions">
 
 ## Using `nloptr`
 Now that we know how to write a function, let's optimize the same function we did before (using gradient descent) but instead now let's use one of the optimizers in the `nloptr` package.
