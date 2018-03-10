@@ -1,0 +1,138 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Mar. 13\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Mar. 13\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: March 13, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 7}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 7 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will give you practice with imputing missing data and automating the process of creating reports of summary tables and model estimates.
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS7/} and name the file \texttt{PS7\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain at least three files:
+\begin{itemize}
+    \item \texttt{PS7\_LastName.R} (you can also do this in Python or Julia if you prefer)
+    \item \texttt{PS7\_LastName.tex}
+    \item \texttt{PS7\_LastName.pdf}
+\end{itemize}
+\begin{questions}
+\question Type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder to make sure your OSCER folder is synchronized with your GitHub repository. 
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. 
+
+\question Install the following R packages (if you don't already have them installed):
+\begin{itemize}
+    \item \texttt{MixedDataImpute}
+    \item \texttt{mice}
+    \item \texttt{stargazer}
+\end{itemize}
+
+The first two packages are useful for imputing missing data.
+\href{https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf}{stargazer} is useful to researchers by taking summary statistics tables or output from statistical models and converting them to \LaTeX tables automatically. (If you'd like to use Python for this assignment, the Python version of \texttt{stargazer} is the \texttt{summary\_col} function of the library \texttt{statsmodels.api}. I don't know of a package like this that exists in Julia.)
+
+\question Using R or Python, load the file \texttt{wages.csv} (located on our GitHub course page, in the ``Modeling'' folder) in as a data frame. This data set contains information on $\approx 2,250$ women who were working in the US in 1988. The variables should be self-explanatory, except for \texttt{tenure}, which refers to how long (in years) each woman has been at her current employer, and \texttt{hgc}, which refers to how many years of schooling each woman has completed.
+
+\question Drop observations where either \texttt{hgc} or \texttt{tenure} are missing.
+
+\question Use \texttt{stargazer} to produce a summary table of this data frame.
+
+If you have never used this package before, consult the online documentation available \href{https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf}{here}. The package will output \LaTeX code in the R console which you can copy and paste into your writeup for this homework. 
+
+At what rate are log wages missing? Do you think the \texttt{logwage} variable is most likely to be MCAR, MAR, or MNAR?
+
+\question Perform the following imputation methods for missing \texttt{logwage} observations. \textbf{For each imputation method, estimate the following linear regression model:}
+
+\[
+    logwage_{i} = \beta_{0} +  \beta_{1}hgc_{i} + \beta_{2}college_{i} + \beta_{3}tenure_{i} + \beta_{4}tenure^{2}_{i} + \beta_{5}age_{i} + \beta_{6}married_{i} + \varepsilon_{i}
+\]
+
+Our coefficient of interest is $\beta_{1}$ which can be interpreted as the returns to schooling (where schooling is thought of as an ``investment'' in ``human captial''---we are curious what the Return On Investment is).
+
+\begin{itemize}
+    \item estimate the regression using only complete cases (i.e. do listwise deletion on the log wage variable ... this assumes log wages are Missing Completely At Random)
+    \item perform mean imputation to fill in missing log wages
+    \item impute missing log wages as their predicted values from the complete cases regression above (i.e. this would be consistent with the ``Missing at Random'' assumption)
+    \item use the \texttt{mice} package to perform a multiple imputation regression model (follow the steps \href{https://rpubs.com/mhanauer/mice}{here})
+    \item use the \texttt{MixedDataImpute} package to impute missing log wages
+\end{itemize}
+
+Once you have finished all of this, use \texttt{stargazer} to create one regression table which has the estimates of the first three regression models. (\texttt{mice} and \texttt{MixedDataImpute} do not produce output that is compatible with \texttt{stargazer}.) Include this table in your .tex writeup. 
+
+The true value of $\hat{\beta}_{1}=0.093$. Comment on the differences of $\hat{\beta}_{1}$ across the models. What patterns do you see? What can you conclude about the veracity of the various imputation methods? Also discuss what the estimates of $\hat{\beta}_{1}$ are for the last two methods.
+
+\question Tell me about the progress you've made on your project. What data are you using? What kinds of modeling approaches do you think you're going to take?  
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice (or via \texttt{scp} from your laptop terminal). You may also copy and paste your .tex file from your browser directly into your terminal via \texttt{nano} if you prefer, but you will need to use SFTP or \texttt{scp} to transer the PDF.\footnote{If you want to try out something different, you can compile your .tex file on OSCER by typing \texttt{pdflatex myfile.tex} at the command prompt of the appropriate directory. This will create the PDF directly on OSCER, removing the requirement to use SFTP or \texttt{scp} to move the file over.}
+
+\question You should turn in the following files: .tex, .pdf, and any additional scripts (e.g. .R, .py, or .jl) required to reproduce your work.  Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{\textasciitilde/DScourseS18/ProblemSets/PS7}).
+
+\question Synchronize your local git repository (in your OSCER home directory) with your GitHub fork by using the commands in Problem Set 2 (i.e. \texttt{git add}, \texttt{git commit -m ''message''}, and \texttt{git push origin master}). Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS7 files appear in the appropriate place in your other local repository.
+
+\end{questions}
+\end{document}
