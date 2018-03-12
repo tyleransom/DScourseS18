@@ -107,25 +107,25 @@ Suppose we want to find the minimum of `f(x) = x^4 - 3*x^3 + 2`
 
 ```
 # set up a stepsize
-alpha = 0.003
+alpha <- 0.003
 
 # set up a number of iteration
-iter = 500
+iter <- 500
 
 # define the gradient of f(x) = x^4 - 3*x^3 + 2
-gradient = function(x) return((4*x^3) - (9*x^2))
+gradient <- function(x) return((4*x^3) - (9*x^2))
 
 # randomly initialize a value to x
 set.seed(100)
-x = floor(runif(1)*10)
+x <- floor(runif(1)*10)
 
 # create a vector to contain all xs for all steps
-x.All = vector("numeric",iter)
+x.All <- vector("numeric",iter)
 
 # gradient descent method to find the minimum
 for(i in 1:iter){
-        x = x - alpha*gradient(x)
-        x.All[i] = x
+        x <- x - alpha*gradient(x)
+        x.All[i] <- x
         print(x)
 }
 
@@ -252,6 +252,224 @@ options <- list("algorithm"="NLOPT_LN_NELDERMEAD","xtol_rel"=1.0e-8)
 res <- nloptr( x0=xstart,eval_f=objfun,opts=options)
 print(res)
 ```
+
+## Computing OLS and MLE estimates using the `nloptr` package
+Now let's see how we can actually optimize a statistical model using the `nloptr` package in R.
+
+OLS objective function:
+```
+library(nloptr)
+## Our objective function
+objfun <- function(beta,y,X) {
+return (sum((y-X%*%beta)^2))
+# equivalently, if we want to use matrix algebra:
+# return ( crossprod(y-X%*%beta) )
+}
+
+## Gradient of our objective function
+gradient <- function(beta,y,X) {
+return ( as.vector(-2*t(X)%*%(y-X%*%beta)) )
+}
+
+## read in the data
+y <- iris$Sepal.Length
+X <- model.matrix(~Sepal.Width+Petal.Length+Petal.Width+Species,iris)
+
+## initial values
+beta0 <- runif(dim(X)[2]) #start at uniform random numbers equal to number of coefficients
+
+## Algorithm parameters
+options <- list("algorithm"="NLOPT_LD_LBFGS","xtol_rel"=1.0e-6,"maxeval"=1e3)
+
+## Optimize!
+result <- nloptr( x0=beta0,eval_f=objfun,eval_grad_f=gradient,opts=options,y=y,X=X)
+print(result)
+
+## Check solution
+print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris)))
+```
+
+## MLE estimation using the `nloptr` package
+Now let's estimate the same model, but this time using the MLE formulation of the linear regression model:
+
+MLE objective function:
+```
+library(nloptr)
+## Our objective function
+objfun  <- function(theta,y,X) {
+# need to slice our parameter vector into beta and sigma components
+beta    <- theta[1:(length(theta)-1)]
+sig   <- theta[length(theta)]
+# write objective function as *negative* log likelihood (since NLOPT minimizes)
+# loglike <- -sum(dnorm(y-X%*%beta, 0, sig, log=TRUE)) # this might seem tempting, but does not work very well
+loglike <- -sum(-.5*(log(2*pi*(sig^2)) + (crossprod(y-X%*%beta))/(sig^2)))
+return (loglike)
+}
+
+## read in the data
+y <- iris$Sepal.Length
+X <- model.matrix(~Sepal.Width+Petal.Length+Petal.Width+Species,iris)
+
+## initial values
+theta0 <- runif(dim(X)[2]+1) #start at uniform random numbers equal to number of coefficients
+theta0 <- append(as.vector(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris))$coefficients[,1]),runif(1))
+
+## Algorithm parameters
+options <- list("algorithm"="NLOPT_LN_NELDERMEAD","xtol_rel"=1.0e-6,"maxeval"=1e4)
+
+## Optimize!
+result <- nloptr( x0=theta0,eval_f=objfun,opts=options,y=y,X=X)
+print(result)
+betahat  <- result$solution[1:(length(result$solution)-1)]
+sigmahat <- result$solution[length(result$solution)]
+
+## Check solution
+print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris)))
+```
+
+## Stochastic gradient descent
+**Stochastic gradient descent (SGD)** is the most popular way to optimize a neural network. (What does "stochastic" mean, anyway, and why is it called stochastic gradient descent?)
+
+Recall regular gradient descent (often called *batch gradient descent*):
+
+- Start with some initial value (call it x0) and some step size (call it &gamma;)
+- The new guess of the solution is equal to
+
+x_n = x0 - &gamma;&nabla;f(x0)
+
+where &nabla;f(x0) is the gradient vector of our objective function f(&middot;)
+
+Repeat this process until convergence (i.e. until &nabla;f(x0) is arbitrarily close to 0, until x doesn't change across iterations, or until f(x) doesn't change across iterations
+
+## Stochastic gradient descent (continued)
+With SGD, we instead update the gradient for *each observation*.
+
+- each iteration now has N updates within it
+- we re-shuffle the data between each iteration
+
+## Let's see how it works, using OLS as our objective function.
+
+Batch gradient descent first:
+```
+# set up a stepsize
+alpha <- 0.00003
+
+# set up a number of iterations
+iter <- 5000
+
+## Our objective function
+objfun <- function(beta,y,X) {
+return ( sum((y-X%*%beta)^2) )
+}
+
+# define the gradient of our objective function
+gradient <- function(beta,y,X) {
+return ( as.vector(-2*t(X)%*%(y-X%*%beta)) )
+}
+
+## read in the data
+y <- iris$Sepal.Length
+X <- model.matrix(~Sepal.Width+Petal.Length+Petal.Width+Species,iris)
+
+## initial values
+beta <- runif(dim(X)[2]) #start at uniform random numbers equal to number of coefficients
+
+# randomly initialize a value to beta
+set.seed(100)
+
+# create a vector to contain all beta's for all steps
+beta.All <- matrix("numeric",length(beta),iter)
+
+# gradient descent method to find the minimum
+iter  <- 1
+beta0 <- 0*beta0
+while (norm(as.matrix(beta0)-as.matrix(beta))>1e-8) {
+    beta0 <- beta
+    beta <- beta0 - alpha*gradient(beta,y,X)
+    beta.All[,i] <- beta
+    if (iter%%100==0) {
+        print(beta)
+    }
+    iter <- iter+1
+}
+
+# print result and plot all xs for every iteration
+print(iter)
+print(paste("The minimum of f(beta,y,X) is ", beta, sep = ""))
+
+## Closed-form solution
+print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris)))
+```
+
+Now SGD:
+```
+# set up a stepsize
+alpha <- 0.00003
+
+## Our objective function
+objfun <- function(beta,y,X) {
+return ( sum((y-X%*%beta)^2) )
+}
+
+# define the gradient of our objective function
+gradient <- function(beta,y,X) {
+return ( as.vector(-2*X%*%(y-t(X)%*%beta)) )
+}
+
+## read in the data
+y <- iris$Sepal.Length
+X <- model.matrix(~Sepal.Width+Petal.Length+Petal.Width+Species,iris)
+
+## initial values
+beta <- runif(dim(X)[2]) #start at uniform random numbers equal to number of coefficients
+
+# randomly initialize a value to beta
+set.seed(100)
+
+# create a vector to contain all beta's for all steps
+beta.All <- matrix("numeric",length(beta),iter)
+
+# stochastic gradient descent method to find the minimum
+iter  <- 1
+beta0 <- 0*beta0
+while (norm(as.matrix(beta0)-as.matrix(beta))>1e-10) {
+    # Randomly re-order the data
+    random <- sample(nrow(X))
+    X <- X[random,]
+    y <- y[random]
+    # Update parameters for each row of data
+    for(i in 1:dim(X)[1]){
+        beta0 <- beta
+        beta <- beta0 - alpha*gradient(beta,y[i],as.matrix(X[i,]))
+        beta.All[,i] <- beta
+    }
+    alpha <- alpha/1.0005
+    if (iter%%1000==0) {
+        print(beta)
+    }
+    iter <- iter+1
+}
+
+# print result and plot all xs for every iteration
+print(iter)
+print(paste("The minimum of f(beta,y,X) is ", beta, sep = ""))
+
+## Closed-form solution
+print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris)))
+```
+
+## Why is SGD useful?
+Pros:
+
+- much faster (if properly tuned)
+- can be parallelized fairly easily
+- randomness in data across observations can help it find global optima
+
+Cons:
+
+- convergence is more complicated
+- slower in R (since loops are awful)
+- must slowly decrease `alpha` (the learning rate) to achieve convergence
 
 # Helpful resources
 

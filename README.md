@@ -150,6 +150,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 * [R tidyverse](https://www.tidyverse.org)
 * [Julia vs. Python for Data Science](https://www.infoworld.com/article/3241107/python/julia-vs-python-julia-language-rises-for-data-science.html)
 * [Machine Learning "Mind Map"](https://github.com/dformoso/machine-learning-mindmap/blob/master/Machine%20Learning.pdf)
+* [JP Morgan massive overview of Big Data & Machine Learning](http://www.valuesimplex.com/articles/JPM.pdf)
 * [Why it's becoming increasingly more difficult to learn to program](https://developers.slashdot.org/story/18/02/17/0947212/learning-to-program-is-getting-harder)
 
 ## Books ##
