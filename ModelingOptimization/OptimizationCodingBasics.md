@@ -234,4 +234,25 @@ A simplex is a multi-dimensional triangle. Rather than find the "steepest" path,
 
 The alogrithm uses the ordering of the points of the mutli-dimensional triangle to figure out which operation it should next use in order to find the minimum.
 
+## Nelder-Mead code
+```
+library(nloptr)
+## Our objective function
+objfun <- function(x) {
+return( x[1]^4 - 3*x[1]^3 + 2 )
+}
 
+## initial values
+xstart <- 5
+
+## Algorithm parameters
+options <- list("algorithm"="NLOPT_LN_NELDERMEAD","xtol_rel"=1.0e-8)
+
+## Find the optimum!
+res <- nloptr( x0=xstart,eval_f=objfun,opts=options)
+print(res)
+```
+
+# Helpful resources
+
+* [An overview of gradient descent optimization algorithms](http://ruder.io/optimizing-gradient-descent/)
