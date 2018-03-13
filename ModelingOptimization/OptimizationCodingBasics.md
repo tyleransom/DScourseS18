@@ -385,7 +385,7 @@ iter  <- 1
 beta0 <- 0*beta0
 while (norm(as.matrix(beta0)-as.matrix(beta))>1e-8) {
     beta0 <- beta
-    beta <- beta0 - alpha*gradient(beta,y,X)
+    beta <- beta0 - alpha*gradient(beta0,y,X)
     beta.All[,i] <- beta
     if (iter%%100==0) {
         print(beta)
@@ -440,7 +440,7 @@ while (norm(as.matrix(beta0)-as.matrix(beta))>1e-10) {
     # Update parameters for each row of data
     for(i in 1:dim(X)[1]){
         beta0 <- beta
-        beta <- beta0 - alpha*gradient(beta,y[i],as.matrix(X[i,]))
+        beta <- beta0 - alpha*gradient(beta0,y[i],as.matrix(X[i,]))
         beta.All[,i] <- beta
     }
     alpha <- alpha/1.0005
