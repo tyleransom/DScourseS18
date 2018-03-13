@@ -1,5 +1,5 @@
 # Basics for coding optimization problems
-This document will give the reader an introduction to numerical optimization and the various trade-offs associated with the most common optimization algorithms. We will also cover how to code and evaluate an optimization problem in R.
+This document will give the reader an introduction to numerical optimization and the various trade-offs associated with the most common optimization algorithms. We will also cover how to code and evaluate an optimization problem in R. At the end, we will discuss what the cost function looks like for the most well-known statistical models and ML algorithms
 
 ## Basics of functional optimization
 
@@ -463,13 +463,84 @@ Pros:
 
 - much faster (if properly tuned)
 - can be parallelized fairly easily
+- can be used for streaming data
 - randomness in data across observations can help it find global optima
+- Gauss-Newton, L-BFGS can't be used for Big Data sets
 
 Cons:
 
 - convergence is more complicated
 - slower in R (since loops are awful)
 - must slowly decrease `alpha` (the learning rate) to achieve convergence
+
+## Mini-batch gradient descent
+
+- combines batch gradient descent and SGD
+- loop over groups of observations (instead of each observation)
+- can improve performance
+
+# Cost functions of commonly used algorithms
+
+## Linear regression (least squares)
+
+```
+objfun <- sum((y-X%*%beta)^2) 
+objfun <- crossprod(y-X%*%beta)
+```
+
+or (if normal MLE):
+
+```
+loglike <- -sum(-.5*(log(2*pi*(sig^2)) + (crossprod(y-X%*%beta))/(sig^2)))
+```
+
+## Logistic regression (foundation of neural networks)
+
+```
+loglike <- -sum( (y==1)*(log(h(X%*%beta))) + (y==0)*(log(1-h(X%*%beta))) )
+
+where h(X%*%beta) = exp(X%*%beta)/(1+exp(X%*%beta))
+```
+
+Note: h is also known as the *sigmoid function* or the *logistic function*
+
+## Classification and Regression Trees (CARTs)
+
+The cost function for a CART is a little more complicated because it is a two-step process:
+
+1. Minimize within-leaf deviation (i.e. want all observations within a leaf to be as similar as possible)
+2. Maximize across-leaf deviation (i.e. want each leaf to be as different as possible from all other leaves)
+
+Have to try various cut points (defining leaf boundaries) and see which configuration best satisfies the above criteria
+
+## Naive Bayes (classification or regression)
+
+This is called "naive" because the researcher makes the "naive" assumption that all of the X's are independent. This is a powerful assumption because it significantly reduces the computation cost.
+
+To estimate the model, simply compute the mean and standard deviation of each X variable
+
+Then plug into the pdf of the normal distribution and create predictions of y that satisfy Bayes' rule
+
+## Support Vector Machine (SVM)
+
+The cost function is similar to least squares, except it does not count errors that are sufficiently small:
+
+```
+costfun <- sum(max(0,1-y*(w%*%X))) + lambda/(sum(w^2))
+```
+
+where `w` is the support vector which divides the sample space
+
+## Penalizing complexity
+As we will discuss in the coming lectures, prediction problems do better the more predictors there are. But we should also penalize complexity. 
+
+The three ways to penalize complexity are:
+
+1. LASSO model (aka L1 regularization) : (absolute value of each additional parameter counts agains the objective function)
+2. Ridge model (aka L2 regularization) : (squared value of each additional parameter counts agains the objective function) 
+3. Elastic net model: A weighted average of 1. and 2.
+
+To penalize complexity, just add this term to the cost function (if minimizing) or subtract from objective function (if maximizing)
 
 # Helpful resources
 
