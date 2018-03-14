@@ -38,15 +38,13 @@ print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=
 #----------------------------------
 # MLE estimation with Nelder Mead
 #----------------------------------
-
 ## Our objective function
 objfun  <- function(theta,y,X) {
 # need to slice our parameter vector into beta and sigma components
 beta    <- theta[1:(length(theta)-1)]
-sig   <- theta[length(theta)]
+sig     <- theta[length(theta)]
 # write objective function as *negative* log likelihood (since NLOPT minimizes)
-# loglike <- -sum(dnorm(y-X%*%beta, 0, sig, log=TRUE)) # this might seem tempting, but it doesn't work very well
-loglike <- -sum(-.5*(log(2*pi*(sig^2)) + (crossprod(y-X%*%beta))/(sig^2)))
+loglike <- -sum( -.5*(log(2*pi*(sig^2)) + ((y-X%*%beta)/sig)^2) ) 
 return (loglike)
 }
 
@@ -70,6 +68,50 @@ sigmahat <- result$solution[length(result$solution)]
 ## Check solution
 print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris)))
 
+
+
+#----------------------------------
+# MLE estimation with L-BFGS
+#----------------------------------
+## Our objective function
+objfun  <- function(theta,y,X) {
+# need to slice our parameter vector into beta and sigma components
+beta    <- theta[1:(length(theta)-1)]
+sig     <- theta[length(theta)]
+# write objective function as *negative* log likelihood (since NLOPT minimizes)
+loglike <- -sum( -.5*(log(2*pi*(sig^2)) + ((y-X%*%beta)/sig)^2) ) 
+return (loglike)
+}
+
+## Gradient of the objective function
+gradient <- function (theta,y,X) {
+grad     <- as.vector(rep(0,length(theta)))
+beta     <- theta [1:(length(theta)-1)]
+sig      <- theta [length(theta)]
+grad[1:(length(theta)-1)] <- -t(X)%*%(y - X%*%beta)/(sig^2)
+grad[length(theta)]       <- dim(X)[1]/sig-crossprod (y-X%*%beta)/(sig^3)
+return ( grad )
+}
+
+## read in the data
+y <- iris$Sepal.Length
+X <- model.matrix(~Sepal.Width+Petal.Length+Petal.Width+Species,iris)
+
+## initial values
+theta0 <- runif(dim(X)[2]+1) #start at uniform random numbers equal to number of coefficients
+theta0 <- append(as.vector(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris))$coefficients[,1]),runif(1))
+
+## Algorithm parameters
+options <- list("algorithm"="NLOPT_LD_LBFGS","xtol_rel"=1.0e-6,"maxeval"=1e4)
+
+## Optimize!
+result <- nloptr( x0=theta0,eval_f=objfun,eval_grad_f=gradient,opts=options,y=y,X=X)
+print(result)
+betahat  <- result$solution[1:(length(result$solution)-1)]
+sigmahat <- result$solution[length(result$solution)]
+
+## Check solution
+print(summary(lm(Sepal.Length~Sepal.Width+Petal.Length+Petal.Width+Species,data=iris)))
 
 
 #----------------------------------

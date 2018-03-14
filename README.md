@@ -127,7 +127,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Mar 15 | Th  | Debugging strategies and simulations                          |                                                                                                                                |
 | Mar 20 | T   | No class (Spring break)                                       |                                                                                                                                |
 | Mar 22 | Th  | No class (Spring break)                                       |                                                                                                                                |
-| Mar 27 | T   | Intro to Machine Learning                                     | PS 8                                                                                                                           |
+| Mar 27 | T   | Intro to Machine Learning                                     | [PS 8](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/PS8.pdf) |
 | Mar 29 | Th  | Supervised ML                                                 |                                                                                                                                |
 | Apr 3  | T   | Unsupervised ML                                               | PS 9                                                                                                                          |
 | Apr 5  | Th  | Unsupervised ML                                               |                                                                                                                                |
