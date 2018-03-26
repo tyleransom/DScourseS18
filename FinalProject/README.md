@@ -21,7 +21,7 @@ The final project will be scored according to the following guidelines:
 | Source code of report included with other code                                               | 10     |
 | *Subtotal*                                                                                   | *80*   |
 | **In-class presentation**                                                                    |        |
-| 5 slides ([Beamer](https://www.sharelatex.com/learn/Beamer) or RMarkdown), consisting of the following:                             | 5      |
+| 5 slides ([Beamer](https://www.sharelatex.com/learn/Beamer) or [RMarkdown](https://rmarkdown.rstudio.com/lesson-11.html)), consisting of the following:                             | 5      |
 | Introduction / explanation of topic                                                          | 5      |
 | Data (collection / description)                                                              | 5      |
 | Methods                                                                                      | 5      |
