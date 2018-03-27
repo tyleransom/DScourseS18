@@ -1,0 +1,72 @@
+PS8 Thatcher
+rachel.e.thatcher-1
+March 2018
+
+Question 5
+
+How does your estimate compare to the true value of Beta in (1)?
+
+My estimate was 1.500, -.991, -.247, .744, 3.504, -1.998, .502, .997, 1.256,
+1.999, which is pretty close to the original values of 1.5, -1, -.25, .75, 3.5, -2, .5,
+1, 1.25, and 2. Some of the estimates were a little more, some were a little less.
+
+Question 6
+
+How does your estimate using gradient descent compare to the true value of
+Beta in (1)?
+
+Again, it is pretty close. The values I got were 1.501, -.991, -.247, .744,
+3.504, -1.999, .502, .997, 1.256, 1.999. These were not only close to the true
+value of beta, but also very close to the values found in Question 5.
+
+Question 7
+
+Do your answers for L-BFGS and Nelder-Mead differ?
+
+The L-BFGS and Nelder-Mead actually gave pretty different answers, with
+L-BFGS giving 1.501, -.991, -.247, .744, 3.504, -1.999, .502, .997, 1.256, and
+1.999 while Nelder-Mead was farther off with 1.427, -.485, -.468, .599, 3.385,
+-2.203, .474, 1.587, .670, .982.
+
+How do these answers compare to the true value of Beta in (1)?
+
+The L-BFGS is failry close to the true value, however the Nelder-Mead is
+quite far off.
+
+Question 9
+
+How similar is the lm() estimate to the true value of Beta in (1)?
+
+The values for the built in lm() function I got are 1.501, -.991, -.247, .744,
+3.503, -1.999, .502, .998, 1.256, 1.999. So they are pretty in line with the rest of
+the methods (except Nelder-Mead) and are close to the true value of beta.
+
+Table 1:
+Dependent variable:
+Y
+X1 1.501***
+(0.002)
+X2 -0.991***
+(0.003)
+X3 -0.247***
+(0.003)
+X4 0.744***
+(0.003)
+X5 3.504***
+(0.003)
+X6 -1.999***
+(0.003)
+X7 0.502***
+(0.003)
+X8 0.997***
+(0.003)
+X9 1.256***
+(0.003)
+X10 1.999***
+(0.003)
+Observations 100,000
+R2 0.971
+Adjusted R2 0.971
+Residual Std. Error 0.500 (df = 99990)
+F Statistic 338,240.000*** (df = 10; 99990)
+Note: *p<0.1; **p<0.05; ***p<0.01
