@@ -1,0 +1,137 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Mar.27\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Mar. 27\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: March 27, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 8}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 8 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will give you practice in manipulating matrices, optimizing commonly used objective functions, and in checking your answers using simulated data.
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS8/} and name the file \texttt{PS8\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain at least three files:
+\begin{itemize}
+    \item \texttt{PS8\_LastName.R} (you can also do this in Python or Julia if you prefer)
+    \item \texttt{PS8\_LastName.tex}
+    \item \texttt{PS8\_LastName.pdf}
+\end{itemize}
+\begin{questions}
+\question Type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder to make sure your OSCER folder is synchronized with your GitHub repository. 
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. (\texttt{git merge upstream/master -m ``commit message''})
+
+\question Install the package \texttt{nloptr} if you haven't already.
+
+\question Using R, Python, or Julia, create a data set that has the following properties:
+\begin{itemize}
+    \item Set the seed of the random number generator by issuing the (R) command \texttt{set.seed(100)}\footnote{Similar commands exist in Python and Julia.}
+    \item $X$ is a matrix of dimension $N=100,000$ by $K=10$ containing normally distributed random numbers, except the first column which should be a column of $1$'s. 
+    \item $\varepsilon$ (call it \texttt{eps} in your code) is a vector of length $N$ containing random numbers distributed $N\left(0,\sigma^{2}\right)$ where $\sigma=0.5$ (so $\sigma^{2} = 0.25$).
+    \item $\beta$ (call it \texttt{beta} in your code) is a vector of length 10. Let $\beta$ have the following values:
+        \begin{equation}
+            \label{eq:1}
+           \beta = \left[\begin{array}{cccccccccc}
+            1.5 & -1 & -0.25 & 0.75 & 3.5 & -2 & 0.5 & 1 & 1.25 & 2
+            \end{array}\right]^{\prime}
+        \end{equation}
+    \item Now generate $Y$ which is a vector equal to $X\beta + \varepsilon$.
+\end{itemize}
+
+\question Using the matrices you just generated, compute $\hat{\beta}_{OLS}$, which is the OLS estimate of $\beta$ using the closed-form solution (i.e. compute $\hat{\beta}_{OLS} = \left(X^{\prime}X\right)^{-1}X^{\prime}y$). [HINT: check \href{https://www.statmethods.net/advstats/matrix.html}{here} for matrix algebra operations in R] How does your estimate compare with the true value of $\beta$ in \eqref{eq:1}?
+
+\question Compute $\hat{\beta}_{OLS}$ using gradient descent (as we went over in class). Make sure you appropriately code the gradient vector! Set the ``learning rate'' (step size) to equal 0.0000003.
+
+\question Compute $\hat{\beta}_{OLS}$ using \texttt{nloptr}'s L-BFGS algorithm. Do it again using the Nelder-Mead algorithm. Do your answers differ?
+
+\question Now compute $\hat{\beta}_{MLE}$ using \texttt{nloptr}'s L-BFGS algorithm. The code for the gradient vector of this problem is listed below:
+\begin{lstlisting}[language=R]
+gradient <- function(theta,Y,X) {
+grad     <- as.vector(rep(0,length(theta)))
+beta     <- theta[1:(length(theta)-1)]
+sig      <- theta[length(theta)]
+grad[1:(length(theta)-1)] <- -t(X)%*%(Y - X%*%beta)/(sig^2)
+grad[length(theta)]       <- dim(X)[1]/sig - crossprod(Y-X%*%beta)/(sig^3)
+return ( grad )
+}
+\end{lstlisting}
+
+\question Now compute $\hat{\beta}_{OLS}$ the easy way: using \texttt{lm()} and directly calling the matrices $Y$ and $X$ (no need to create a data frame). Make sure you tell \texttt{lm()} not to include the constant! This is done by typing \texttt{lm(Y \textasciitilde{} X -1, data=df)}
+
+Use stargazer to export the regression output to a .tex file. In your .tex file, tell me about how similar your estimates of $\hat{\beta}$ are to the ``ground truth'' $\beta$ that you used to create the data in \eqref{eq:1}.
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice (or via \texttt{scp} from your laptop terminal). You may also copy and paste your .tex file from your browser directly into your terminal via \texttt{nano} if you prefer, but you will need to use SFTP or \texttt{scp} to transer the PDF.\footnote{If you want to try out something different, you can compile your .tex file on OSCER by typing \texttt{pdflatex myfile.tex} at the command prompt of the appropriate directory. This will create the PDF directly on OSCER, removing the requirement to use SFTP or \texttt{scp} to move the file over.}
+
+\question You should turn in the following files: .tex, .pdf, and any additional scripts (e.g. .R, .py, or .jl) required to reproduce your work.  Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{\textasciitilde/DScourseS18/ProblemSets/PS8}).
+
+\question Synchronize your local git repository (in your OSCER home directory) with your GitHub fork by using the commands in Problem Set 2 (i.e. \texttt{git add}, \texttt{git commit -m ''message''}, and \texttt{git push origin master}). Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS8 files appear in the appropriate place in your other local repository.
+
+\end{questions}
+\end{document}

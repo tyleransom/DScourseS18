@@ -95,6 +95,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
     * Turn in the written summary report and a GitHub repository containing all materials required to reproduce the results
     * Summary report should be written in LaTeX or RMarkdown and turned in as a PDF (source code for the summary report should also be included in your GitHub repository)
     * An example of what the final product should look like is [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/ExampleProject.pdf), with LaTeX source code [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/ExampleProject.tex) and BibTeX source code [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/References.bib).
+    * A detailed rubric for the final project is [here](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)
 
 ## Communication ##
 
@@ -124,14 +125,14 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Mar 6  | T   | Introduction to optimization ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/OptimizationIntro.pdf)) | [PS 6](https://github.com/tyleransom/DScourseS18/blob/master/Visualization/PS6.pdf) |
 | Mar 8  | Th  | Writing and optimizing functions in R, Python, and Julia ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/OptimizationCodingBasics.md))   |    |
 | Mar 13 | T   | Writing and optimizing functions in R, Python, and Julia  ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/OptimizationCodingBasics.md))  | [PS 7](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/PS7.pdf) |
-| Mar 15 | Th  | Debugging strategies and simulations                          |                                                                                                                                |
+| Mar 15 | Th  | Debugging strategies and simulations ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/SimulationNotes.md))                           |                                                                                                                                |
 | Mar 20 | T   | No class (Spring break)                                       |                                                                                                                                |
 | Mar 22 | Th  | No class (Spring break)                                       |                                                                                                                                |
-| Mar 27 | T   | Intro to Machine Learning                                     | PS 8                                                                                                                           |
-| Mar 29 | Th  | Supervised ML                                                 |                                                                                                                                |
-| Apr 3  | T   | Unsupervised ML                                               | PS 9                                                                                                                          |
-| Apr 5  | Th  | Unsupervised ML                                               |                                                                                                                                |
-| Apr 10 | T   | Machine learning vs. econometrics                             | PS 10                                                                                                                          |
+| Mar 27 | T   | Intro to Machine Learning ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md)) | [PS 8](https://github.com/tyleransom/DScourseS18/blob/master/ModelingOptimization/PS8.pdf) |
+| Mar 29 | Th  | Supervised ML ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md)) |                                                                                                                                |
+| Apr 3  | T   | Unsupervised ML ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md)) | PS 9                                                                                                                          |
+| Apr 5  | Th  | Unsupervised ML ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md)) |                                                                                                                                |
+| Apr 10 | T   | Machine learning vs. econometrics ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md)) | PS 10                                                                                                                          |
 | Apr 12 | Th  | Evaluating ML model performance                               |                                                                                                                                |
 | Apr 17 | T   | Structural modeling                                           | PS 11                                                                                                                          |
 | Apr 19 | Th  | Structural modeling                                           |                                                                                                                                |
