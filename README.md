@@ -137,10 +137,10 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Apr 17 | T   | Structural modeling                                           | PS 11                                                                                                                          |
 | Apr 19 | Th  | Structural modeling                                           |                                                                                                                                |
 | Apr 24 | T   | Structural modeling                                           | PS 12                                                                                                                          |
-| Apr 26 | Th  | Final Project presentations                                   |                                                                                                                                |
-| May 1  | T   | Final Project presentations                                   |                                                                                                                                |
-| May 3  | Th  | Final Project presentations                                   |                                                                                                                                |
-| May 8  | T   | Final Exam (in class, 1:30-3:30pm)                            | Final project due                                                                                                              |
+| Apr 26 | Th  | Final Project presentations ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
+| May 1  | T   | Final Project presentations  ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
+| May 3  | Th  | Final Project presentations   ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) |  |
+| May 8  | T   | Final Exam (in class, 1:30-3:30pm)                            | Final project due |
 
 
 ## Helpful Links ##
