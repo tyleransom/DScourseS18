@@ -140,7 +140,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Apr 26 | Th  | Final Project presentations ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
 | May 1  | T   | Final Project presentations  ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
 | May 3  | Th  | Final Project presentations   ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) |  |
-| May 8  | T   | Final Exam (in class, 1:30-3:30pm)                            | Final project due |
+| May 8  | T   | Final Exam (in class, 1:30-3:30pm)                            | Final project due ([Scoresheet](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/Scoresheet.pdf)) |
 
 
 ## Helpful Links ##
