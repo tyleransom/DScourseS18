@@ -103,6 +103,12 @@ The way to optimally trade off bias and variance is via **regularization**
 7. Naive bayes
     * Naturally geared towards not overfitting, but can be regularized with iterative variable selection algorithms (similar to stepwise/stagewise regression)
 
+## Visualization of different predictors
+The following graphic shows a visualization of different classification algorithms, accross two features (call them X and Y). Note the stark differences in the prediction regions.
+
+![Source: Sebastian Raschka on twitter](../Graphics/DYTAagSVAAACVc7.jpg "Comparison of different machine learning classification algorithms")
+Source: [this tweet](https://twitter.com/rasbt/status/974115063308091392?s=12)
+
 ## Combined predictors
 Often you can get a better prediction by combining multiple sets of prediction. We call these **combined predictors**. 
 
@@ -115,6 +121,12 @@ You can think of the combined predictor as a "committee of experts." Each "exper
 3. Ensemble (weighted combination of different predictors)
 
 Combined predictors are regularized in the number of draws, number of iterations, or structure of the weights.
+
+## Visualization of combined predictors
+The following graphic shows a similar visualization as above, but now incorporates an ensemble prediction region. This provides some solid intuition for why ensemble predictors usually perform better than the predictions from any one algorithm.
+
+![Source: Sebastian Raschka on twitter](../Graphics/ensemble_decision_regions_2d.png "Comparison of different machine learning classification algorithms and an ensemble prediction")
+Source: [The `mlxtend` GitHub repository](https://github.com/rasbt/mlxtend)
 
 ## Cross validation
 How do we decide what level of complexity our algorithm should be, especially when we can't see out-of-sample?
