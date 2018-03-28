@@ -83,6 +83,10 @@ The **bias-variance tradeoff** refers to the fact that we need to find a model t
 
 The way to optimally trade off bias and variance is via **regularization**
 
+The following graphic from p. 194 of Hastie, Tsibshirani, and Friedman's *Elements of Statistical Learning* illustrates this tradeoff:
+
+![Source: p. 194 of *Elements of Statistical Learning*](../Graphics/biasVarianceHTFp194.png "Bias-Variance Tradeoff")
+
 ## Regularization methods
 
 1. Regression models (OLS or logistic)
@@ -107,6 +111,7 @@ The way to optimally trade off bias and variance is via **regularization**
 The following graphic shows a visualization of different classification algorithms, accross two features (call them X and Y). Note the stark differences in the prediction regions.
 
 ![Source: Sebastian Raschka on twitter](../Graphics/DYTAagSVAAACVc7.jpg "Comparison of different machine learning classification algorithms")
+
 Source: [this tweet](https://twitter.com/rasbt/status/974115063308091392?s=12)
 
 ## Combined predictors
@@ -126,6 +131,7 @@ Combined predictors are regularized in the number of draws, number of iterations
 The following graphic shows a similar visualization as above, but now incorporates an ensemble prediction region. This provides some solid intuition for why ensemble predictors usually perform better than the predictions from any one algorithm.
 
 ![Source: Sebastian Raschka on twitter](../Graphics/ensemble_decision_regions_2d.png "Comparison of different machine learning classification algorithms and an ensemble prediction")
+
 Source: [The `mlxtend` GitHub repository](https://github.com/rasbt/mlxtend)
 
 ## Cross validation
@@ -142,18 +148,20 @@ for example:
 ## Splitting the sample
 To peform cross-validation, one needs to split the sample. There are differing opinions on this:
 
-Camp A
+Camp A ("Holdout")
 
-1. Training data (70%)
-2. Test ("holdout") data (30%)
+1. Training data (~70%)
+2. Test ("holdout") data (~30%)
 
-Camp B
+Camp B ("Cross-validation")
 
-1. Training data (60%)
-2. Validation data (20%)
-3. Test data (30%)
+1. Training data (~60%)
+2. Validation data (~15%)
+3. Test data (~25%)
 
-Sample is split randomly, **or** randomly according to how it was generated (e.g. if it's panel data, sample individuals, not observations)
+Sample is split randomly, **or** randomly according to how it was generated (e.g. if it's panel data, sample *units*, not observations)
+
+It is ideal to follow the "Cross-validation" camp, but in cases where you don't have many observations (training examples), you may have to go the "Holdout" route.
 
 ## How to estimate common Machine Learning algorithms in R
 
