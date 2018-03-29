@@ -134,6 +134,41 @@ The following graphic shows a similar visualization as above, but now incorporat
 
 Source: [The `mlxtend` GitHub repository](https://github.com/rasbt/mlxtend)
 
+## Measuring prediction accuracy
+How do we measure prediction accuracy? It depends on if our target variable is continuous or categorical
+
+* **If continuous:** Use *Mean Squared Error (MSE)* which is equal to the sum of the squared differences between y and y&#770; divided by the sample size. Sometimes the *Root Mean Squared Error (RMSE)* is used, which is the square root of this quantity. You may also see the *Mean Absolute Error (MAE)* which is the sum of the absolute value of the differences between y and y&#770; divided by the sample size.
+* **If binary:** Use the *confusion matrix* which compares how often y and y&#770; agree with each other (i.e. for what fraction of cases y&#770; = 0 when y = 0)
+
+Example confusion matrix
+
+|    | y&#770; |  |
+|--------|-----|-------|
+| y | 0  | 1 |
+| 0 | True negative   | False positive |
+| 1 | False negative  |  True positive |
+
+## Using the confusion matrix
+The three most commonly used quantities that are computed from the confusion matrix are:
+
+1. **sensitivity (aka recall):** what fraction of y = 1 have y&#770; = 1 ? (What is the true positive rate?)
+2. **specificity:** what fraction of y = 0 have y&#770; = 0 ? (What is the true negative rate?)
+3. **precision:** what fraction of y&#770; = 1 have y = 1 ? (What is the rate at which positive predictions are true?)
+
+The goal is to trade off Type I and Type II errors in classification. The **F1 score** is the most common way to quantify this tradeoff.
+
+* F1 score = 2/(1/recall  +  1/precision); a number in [0,1] with 1 being best
+* It is the harmonic mean of recall and precision
+
+There are a bunch of other quantities that one could compute from the confusion matrix, but we won't cover any of those.
+
+## Why use the confusion matrix?
+When assessing the predictive accuracy of a classification problem, we want to make sure that we can't "game" the accuracy measure by always predicting "negative" (or always predicting "positive"). This is critical for cases like classifying emails as "spam" or "ham" because of the relative paucity of "spam" messages.
+
+In other words, if spam messages are only 1% of all messages seen, we don't want to be able to always predict "ham" and have that be a better measure of accuracy than actually trying to pin down the 1% of spam messages.
+
+The F1 measure attempts to quantify the tradeoff between Type I and Type II errors (false negatives and false positives) that would be rampant if we were to always predict "ham" in the email example.
+
 ## Cross validation
 How do we decide what level of complexity our algorithm should be, especially when we can't see out-of-sample?
 
@@ -156,15 +191,183 @@ Camp A ("Holdout")
 Camp B ("Cross-validation")
 
 1. Training data (~60%)
-2. Validation data (~15%)
-3. Test data (~25%)
+2. Validation data (~20%)
+3. Test data (~20%)
 
 Sample is split randomly, **or** randomly according to how it was generated (e.g. if it's panel data, sample *units*, not observations)
 
 It is ideal to follow the "Cross-validation" camp, but in cases where you don't have many observations (training examples), you may have to go the "Holdout" route.
 
-## How to estimate common Machine Learning algorithms in R
+## k-fold cross-validation
+Due to randomness in our data, it may be better to do the cross validation multiple times. To do so, we take the 80% training-plus-validation sample and randomly divide it into the 60/20 components k number of times. Typically k is between 3 and 10. (See graphic below)
 
+![Source: Brant Deppa, Winona State Univ.](../Graphics/k-foldCV.png "Illustration of k-fold cross validation")
+
+In the extreme, one can also do *nested* k-fold cross-validation, wherein the test set is shuffled some number of times and the k-fold CV is repeated each time. So we would end up with "3k" fold CV, for example. For simplicity, we'll only use simple k-fold CV in this course.
+
+## How to do all of this in R 
+There are a couple of nice packages in R that will do k-fold cross validation for you, and will work with a number of commonly used prediction algorithms
+
+1. `caret`
+2. `mlr`
+
+`caret` likely still has a strong following, but `mlr` is up-and-coming and has a better user interface. We'll be using `mlr` for the rest of this unit of the course
+
+In Python, `scikit-learn` is the workhorse machine learning frontend.
+
+## How to use `mlr`
+You need to tell `mlr` the following information before it will run:
+
+1. Training data (which will end up being split k ways when doing cross-validation)
+2. Testing data
+3. The task at hand (e.g. regression or classification)
+4. The validation scheme (e.g. 3-fold, 5-fold, or 10-fold CV)
+5. The method used to tune the parameters of the algorithm (e.g. &lambda; for LASSO)
+6. The prediction algorithm (e.g. "decision tree")
+7. The parameters of the prediction algorithm that need to be cross-validated (e.g. tree depth, &lambda;, etc.)
+
+For a complete list of prediction algorithms supported by `mlr`, see [here](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html)
+
+## Simple example
+Let's start by doing linear regression on a well-known dataset: the Boston housing data from UC Irivne:
+
+```r
+housing <- read.table("http://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data")
+names(housing) <- c("crim","zn","indus","chas","nox","rm","age","dis","rad","tax","ptratio","b","lstat","medv")
+
+# From UC Irvine's website (http://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.names)
+#    1. CRIM      per capita crime rate by town
+#    2. ZN        proportion of residential land zoned for lots over 
+#                 25,000 sq.ft.
+#    3. INDUS     proportion of non-retail business acres per town
+#    4. CHAS      Charles River dummy variable (= 1 if tract bounds 
+#                 river; 0 otherwise)
+#    5. NOX       nitric oxides concentration (parts per 10 million)
+#    6. RM        average number of rooms per dwelling
+#    7. AGE       proportion of owner-occupied units built prior to 1940
+#    8. DIS       weighted distances to five Boston employment centres
+#    9. RAD       index of accessibility to radial highways
+#    10. TAX      full-value property-tax rate per $10,000
+#    11. PTRATIO  pupil-teacher ratio by town
+#    12. B        1000(Bk - 0.63)^2 where Bk is the proportion of blacks 
+#                 by town
+#    13. LSTAT    % lower status of the population
+#    14. MEDV     Median value of owner-occupied homes in $1000's
+```
+
+## OLS
+
+```r
+# Add some other features
+housing$lmedv <- log(housing$medv)
+housing$medv <- NULL
+housing$dis2 <- housing$dis^2
+housing$chasNOX <- housing$crim * housing$nox
+
+# Break up the data:
+n <- nrow(housing)
+train <- sample(n, size = .8*n)
+test  <- setdiff(1:n, train)
+housing.train <- housing[train,]
+housing.test  <- housing[test, ]
+
+# Define the task:
+theTask <- makeRegrTask(id = "taskname", data = housing.train, target = "lmedv")
+print(theTask)
+
+# tell mlr what prediction algorithm we'll be using (OLS)
+predAlg <- makeLearner("regr.lm")
+
+# Set resampling strategy (here let's do 6-fold CV)
+resampleStrat <- makeResampleDesc(method = "CV", iters = 6)
+
+# Do the resampling
+sampleResults <- resample(learner = predAlg, task = theTask, resampling = resampleStrat, measures=list(rmse))
+
+# Mean RMSE across the 6 folds
+print(sampleResults$aggr)
+```
+
+Now, there's not much to do here, since there is no regularization in OLS. But you can see that there is quite a bit of variation in the RMSE based on which sample you use.
+
+## LASSO
+Now let's repeat but instead use the LASSO estimator from the `glmnet` package
+
+Since `mlr` is awesome, we only need to load the package, reset the `makeLearner` function, and add the tuning over the &lambda; parameter
+
+```r
+library(glmnet)
+# Tell it a new prediction algorithm
+predAlg <- makeLearner("regr.glmnet")
+
+# Search over penalty parameter lambda and force elastic net parameter to be 1 (LASSO)
+modelParams <- makeParamSet(makeNumericParam("lambda",lower=0,upper=1),makeNumericParam("alpha",lower=1,upper=1))
+
+# Take 50 random guesses at lambda within the interval I specified above
+tuneMethod <- makeTuneControlRandom(maxit = 50L)
+
+# Do the tuning
+tunedModel <- tuneParams(learner = predAlg,
+                        task = theTask,
+                        resampling = resampleStrat,
+                        measures = rmse,       # RMSE performance measure, this can be changed to one or many
+                        par.set = modelParams,
+                        control = tuneMethod,
+                        show.info = TRUE)
+```
+
+## LASSO (continued)
+The workhorse of the cross-validation is done by calling the `tuneParams` function. Once we have that, we need only to train the alogrithm with the optimal parameters and then use them for prediction
+
+```r
+# Apply the optimal algorithm parameters to the model
+predAlg <- setHyperPars(learner=predAlg, par.vals = tunedModel$x)
+
+# Verify performance on cross validated sample sets
+resample(predAlg,theTask,resampleStrat,measures=list(rmse))
+
+# Train the final model
+finalModel <- train(learner = predAlg, task = theTask)
+
+# Predict in test set!
+prediction <- predict(finalModel, newdata = housing.test)
+
+print(head(prediction$data))
+```
+
+## Ridge regression
+We could do ridge regression on the same data by instead setting `alpha` to be 0 (instead of 1). In this case, all we would need to do is adjust the `makeParamSet()` function, re-call the tuning function, re-compute the in-sample fit of the tuned model, and re-compute the out-of-sample fit of the optimally tuned model:
+
+```r
+# Search over penalty parameter lambda and force elastic net parameter to be 0 (ridge)
+modelParams <- makeParamSet(makeNumericParam("lambda",lower=0,upper=1),makeNumericParam("alpha",lower=0,upper=0))
+
+# Do the tuning again
+tunedModel <- tuneParams(learner = predAlg,
+                        task = theTask,
+                        resampling = resampleStrat,
+                        measures = rmse,       # RMSE performance measure, this can be changed to one or many
+                        par.set = modelParams,
+                        control = tuneMethod,
+                        show.info = TRUE)
+
+# Apply the optimal algorithm parameters to the model
+predAlg <- setHyperPars(learner=predAlg, par.vals = tunedModel$x)
+
+# Verify performance on cross validated sample sets
+resample(predAlg,theTask,resampleStrat,measures=list(rmse))
+
+# Train the final model
+finalModel <- train(learner = predAlg, task = theTask)
+
+# Predict in test set!
+prediction <- predict(finalModel, newdata = housing.test)
+```
+This showcases the nicest feature of the `mlr` package: we are still using the same algorithm, data, and cross-validation scheme, so we don't need to tell it those parameters again. We do, however, need to tell it to tune to the new parameter space (in this case, ridge instead of LASSO).
 
 # Helpful links
 * [Mullainathan & Spiess (2017)](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87&within%5Btitle%5D=on&within%5Babstract%5D=on&within%5Bauthor%5D=on&journal=3&q=mullainathan&from=j)
+* [Kaggle notebook by Pondering Panda, showing how to use `mlr`](https://www.kaggle.com/xanderhorn/train-r-ml-models-efficiently-with-mlr)
+* [Complete list of `mlr` algorithms](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html)
+* [Quick start `mlr` tutorial](https://mlr-org.github.io/mlr-tutorial/release/html/index.html)
+* Laurent Gatto's [*An Introduction to Machine Learning with R*](https://lgatto.github.io/IntroMachineLearningWithR/) online textbook
