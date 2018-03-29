@@ -136,7 +136,7 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Apr 12 | Th  | Machine learning vs. econometrics ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md)) |                                                                                                                                |
 | Apr 17 | T   | Structural modeling                                           | PS 11                                                                                                                          |
 | Apr 19 | Th  | Structural modeling                                           |                                                                                                                                |
-| Apr 24 | T   | Structural modeling                                           | PS 12                                                                                                                          |
+| Apr 24 | T   | Field Trip to Sonic HQ | PS 12  |
 | Apr 26 | Th  | Final Project presentations ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
 | May 1  | T   | Final Project presentations  ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
 | May 3  | Th  | Final Project presentations   ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) |  |
