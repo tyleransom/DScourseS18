@@ -75,7 +75,15 @@
 % \newcommand{\examnum}{Problem Set 9 - Solutions} % Uncomment for solutions version
 
 \begin{document}
-This problem set will give you practice in manipulating matrices, optimizing commonly used objective functions, and in checking your answers using simulated data.
+This problem set will give you practice in using cross-validation to tune linear regression prediction models via LASSO, ridge regression, and elastic net.
+
+The objective function of these models is:
+\[
+    \min_{\beta,\lambda,\alpha} \frac{1}{N}\sum_{i=1}^{N}\left(y_{i} - \hat{y}_{i}\right)^2 + \lambda\left(\alpha\sum_{k}\left| \beta_{k}\right| + \left(1-\alpha\right)\sum_{k}\beta_{k}^{2}\right)
+\]
+where $\hat{y}_{i} = x_{i}^{\prime}\beta$ and where $\lambda$ and $\alpha$ are parameters that must be \emph{tuned} using cross-validation techniques.
+
+When $\alpha=0$ we have the \textbf{ridge regression model}. When $\alpha=1$ we have the \textbf{LASSO model}. When $\alpha\in\left(0,1\right)$ we have the \textbf{elastic net model}. Importantly, $\alpha$ must be in the closed interval $\left[0,1\right]$.
 
 As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS9/} and name the file \texttt{PS9\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain at least three files:
 \begin{itemize}
