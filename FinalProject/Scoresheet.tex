@@ -1,0 +1,132 @@
+% Fonts/languages
+\documentclass[12pt,english]{article}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+\usepackage{pdflscape}
+\usepackage{booktabs}
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{\textbf{Econ 5970 - Spring 2018}} \chead{\textbf{Final Project Scoresheet}} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+% \pagestyle{head}
+% \firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{}
+% \runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{}
+% \runningheadrule
+
+% \newcommand{\class}{Econ 5970}
+% \newcommand{\term}{Spring 2018}
+
+% \newcommand{\examnum}{Final Project Scoresheet}
+
+\begin{document}
+%\begin{landscape}
+
+\title{\textbf{Final Project Scoresheet}}
+\author{}
+\date{}
+
+\maketitle
+\thispagestyle{empty}
+\bigskip{}
+
+\flushleft \textbf{Name:}\line(1,0){200}
+
+\begin{center}
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c|c}
+\hline
+                                & \textbf{Points} & \textbf{Points} \\
+\textbf{Category / Description} & \textbf{Earned} & \textbf{Possible} \\
+\hline
+\textbf{Code to reproduce results}                                                           &               &                          \\
+%\hline
+README file with directions on how to replicate the results                                  &               & 20                       \\
+Automated compilation of figures / tables / other output                                     &               & 10                       \\
+Exhibits good programming practices                                                          &               & 5                        \\
+Sanely organized                                                                             &               & 5                        \\
+\hline
+\textit{Subtotal}                                                                            &               & \textit{40}              \\
+\hline
+\textbf{Written Report}                                                                      &               &                          \\
+%\hline
+At least 10 pages (excluding References, Tables, and Figures)                                &               & 10                       \\
+At least 1 equation                                                                          &               & 10                       \\
+At least five references in the bibliography (with BibTex file)                              &               & 10                       \\
+At least 1 table and 1 graphical visualization                                               &               & 10                       \\
+Compiled in LaTeX or Rmarkdown                                                               &               & 10                       \\
+Tables and Figures appear at back of document (after References)                             &               & 10                       \\
+Contains 6 sections: intro, lit rev, data, methods, findings, conclusion                  &               & 10                       \\
+Source code of report included with other code                                               &               & 10                       \\
+\hline
+\textit{Subtotal}                                                                            &               & \textit{80}              \\
+\hline
+\textbf{In-class presentation}                                                               &               &                          \\
+%\hline
+5 slides, consisting of the following:                                                       &               & 5                        \\
+Introduction / explanation of topic                                                          &               & 5                        \\
+Data (collection / description)                                                              &               & 5                        \\
+Methods                                                                                      &               & 5                        \\
+Findings                                                                                     &               & 5                        \\
+What did we learn / why is this important?                                                   &               & 5                        \\
+\hline
+\textit{Subtotal}                                                                            &               & \textit{30}              \\
+\hline
+\textbf{Grand total}                                                                         &               & \textbf{150}            \\
+\hline
+\end{tabular}
+%}
+\end{center}
+
+%\end{landscape}
+\end{document}
