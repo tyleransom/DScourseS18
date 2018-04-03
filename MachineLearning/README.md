@@ -365,9 +365,211 @@ prediction <- predict(finalModel, newdata = housing.test)
 ```
 This showcases the nicest feature of the `mlr` package: we are still using the same algorithm, data, and cross-validation scheme, so we don't need to tell it those parameters again. We do, however, need to tell it to tune to the new parameter space (in this case, ridge instead of LASSO).
 
+# The 5 Tribes of Machine Learning
+Let's revisit the 5 Tribes of Machine Learning, according to Pedro Domingos. These "tribes" are philosophical identities associated with commonly used regression and classification algorithms in machine learning. 
+
+| Tribe Name     | World view / Goal                                  | Master Algorithm(s)                       | R package(s)     |
+|----------------|----------------------------------------------------|-------------------------------------------|------------------|
+| Symbolists     | Inverse deduction (commonly called "induction")    | Tree models                               | `rpart`          |
+| Connectionists | Re-engineering the brain                           | Neural networks                           | `nnet`           |
+| Evolutionaries | Genomic evolution                                  | Genetic algorithms                        | `GA`             |
+| Bayesians      | Probabilistic inference (via Bayes' Rule)          | Naive Bayes                               | `e1071`          |
+| Analogizers    | Matching (i.e. analogizing) different bits of data | Nearest neighbor, Support Vector Machine  | `kknn`, `e1071`  |
+
+Let's go through each of these algorithms, how they are used, and how they are regularized. We'll also use `mlr` to do a cross-validated classification example for each
+
+## Tree models
+Tree models seek to partition the data in such a way that observations are grouped according to the outcome (Y). These "groups" are called leaves. The goal of the model is twofold:
+
+1. Maximize *similarity* of outcome within leaves (i.e. minimize RMSE, maximize F1 score)
+2. Maximize *dissimilarity* of outcome across leaves
+
+![Source: J.R. Quinlan, *Induction of Decision Trees*](../Graphics/Decision_Tennis.jpg "Tennis")
+
+
+### Pros and Cons of Tree models
+- Pros:
+    * Fully nonparametric
+    * Easy to interpret decision rules
+    * Built-in searching of interaction effects among features (X's)
+    * Handles categorical features easily
+- Cons:
+    * Easy to overfit (i.e. make the tree too complex)
+
+
+### Regularizing Decision Trees
+Since decision trees are nonparametric, we can't use L1 or L2 regularization. Instead, we regularize according to the following criteria
+
+1. Depth
+2. Number of nodes or leaves
+3. Minimal leaf size
+4. Information gain at splits (i.e. how "greedy" the algorithm is)
+
+## Neural networks
+Neural networks model the brain. They work by forming "connections" across "neurons" which work together to decide whether to "fire." A given neuron only fires if it has enough "activation energy." Why is this the case? Because that's how the human brain works, and the human brain is the triumph of biology.
+
+The human brain is composed of many neurons (brain cells). Your body receives a stimulus from one of the 5 senses, which travels to the brain. Once arriving at the brain, it travels through a network of neurons until it reaches the appropriate part of the brain (e.g. the part governing thought or motor skills, or speech, etc.). Because of something known as neuroplasticity, the brain learns over time how to react to any given pattern of incoming signals.
+
+Neural networks are set up to mimic the brain's structure, although they are vastly simplified. These networks contain the following components:
+
+* Input layer / features
+    - You can think of these as external stimuli to your own brain (e.g. sound, vision, etc.)
+* Network structure
+    - You must decide a priori how many layers of neurons you'll include, and how many neurons per layer
+* Activation function
+    - This determines the circumstances under which each neuron will "fire"
+    - Main activiation functions are:
+        * Sigmoid (logistic function)
+        * Tanh (hyperbolic tangent function)
+        * ReLU (kinked line)
+        * Linear
+        * Step function
+* Output layer / outcome
+    - The outcome comes at the end and is the biological equivalent of a response to the stimulus
+
+Each of these components can drastically affect performance of the neural network. Thus, cross-validation and regularization are critical when working with neural networks. To see how this works, check out [Google's Neural Network Playground](https://www.google.com/url?q=https%3A%2F%2Fplayground.tensorflow.org%2F%23activation%3Dtanh%26regularization%3DL1%26batchSize%3D22%26dataset%3Dspiral%26regDataset%3Dreg-gauss%26learningRate%3D0.03%26regularizationRate%3D0.001%26noise%3D5%26networkShape%3D7%2C6%26seed%3D0.41460%26showTestData%3Dfalse%26discretize%3Dtrue%26percTrainData%3D70%26x%3Dtrue%26y%3Dtrue%26xTimesY%3Dtrue%26xSquared%3Dtrue%26ySquared%3Dtrue%26cosX%3Dfalse%26sinX%3Dtrue%26cosY%3Dfalse%26sinY%3Dtrue%26collectStats%3Dfalse%26problem%3Dclassification%26initZero%3Dfalse%26hideText%3Dfalse&sa=D&sntz=1&usg=AFQjCNHj4f1ROekPPItg1SLlk2FMnI6FVw).
+
+![Source: Milijkovic et al. (2011) "Using Artificial Neural Networks to Predict Professional Movements of Graduates" Croatian Journal of Education, 13(3): 117-141](../Graphics/neuralNetwork.png "Examle Neural Network Structure")
+
+### Pros and Cons of Neural Networks
+- Pros:
+    * Built in flexibility to come up with arbitrary nonlinear functions for prediction
+    * Strong performance, particularly in image recognition
+    * Takes a short time to compute on the test data
+- Cons:
+    * Can take a very long time to train
+    * Can take a lot of computational resources to train
+    * Very easy to overfit
+
+### Regularizing Neural Networks
+Regularization of neural networks comes in three forms:
+
+1. L1/L2 regularization on connections among the layers
+2. Restricting the number of neurons in a given layer
+3. Restricting the number of hidden layers
+
+### What is "Deep Learning"? 
+Deep learning refers to learning that is done using neural networks with more than one hidden layer. That's it. Don't be fooled by buzzwords!
+
+### Neural Networks and Stochastic Gradient Descent
+Due to their computational burden, SGD was invented to aid in the computation of neural networks.
+
+### Neural Networks and linear / logistic regression
+It turns out that linear regression and logistic regression each are special cases of the neural network. Thus, these two well-known algorithms can be thought of as "connectionist" algorithms.
+
+## Genetic Programming
+Genetic programming seeks to approximate an arbitrary nonlinear function by simulating genetic mutation. In each "generation" the mutation with the best "fitness" is then chosen as the next generation's parents.
+
+We won't go into the details of this approach, since it is not immediately applicable to data analysis tasks. 
+
+If you're curious about these types of algorithms, you can check out a nice primer [here](https://cran.r-project.org/web/packages/GA/vignettes/GA.html).
+
+## Naive Bayes
+Bayes' Rule is the idea that one should update one's degree of belief in a given hypothesis once she receives new evidence. If the evidence is consistent with the hypothesis, the probability of belief goes up. If not, the probability goes down. Example from *The Master Algorithm* (p. 144): "If you test positive for AIDS, your probability of having it goes up."
+
+The "updated" probability is called the **posterior probability** while the original probability is called the **prior probability**.
+
+Mathematically, Bayes' Rule states that, for any two events A and B: P(A | B) = P(A) \* P(B | A) / P(B).
+
+Maybe a better way to put it is: P(hypothesis | data) = P(hypothesis) \* P(data | hypothesis) / P(data).
+
+So what does that mean? Let's think about it with the AIDS example. We want to know the likelihood of our having AIDS given that the test returned a positive result. Let's replace "A" with "HIV" and "B" with "positive" in the above formula:
+
+P(HIV | positive) = P(HIV) \* P(positive | HIV) / P(positive)
+
+suppose P(HIV) = 0.003 in the population, that P(positive) [regardless of whether or not you actuall have HIV] is 0.01, and that, if you actually have HIV, the test would be positive with probability 0.99. Plugging this into the above formula, we get
+
+P(HIV | positive) = 0.003 \* 0.99 / 0.01 = 0.297
+
+Before getting the test, we believed we had HIV with probability 0.003 (the population rate of HIV). After getting the positive test, we update our prior to be 0.297. Why not all the way up to 0.99? Because the test could yield false positives, so we don't want to be too hasty in our belief updating.
+
+If P(positive) were equal to 0.003, then we'd be really worried because that would mean that the false positive rate of the test was much lower. If that were the case, our posterior probability would skyrocket to 0.99 from 0.297. 
+
+### Naive Bayes and Bayes Rule
+How does the above formula relate to Naive Bayes as a classification algorithm? It turns out that we can compute an observations probability of being a certain class (P(Y = y), y=0 or y=1) based on the data that we have.
+
+We want to know P(Y | X) which is our "updated" hypothesis or posterior probability. Let's say we want to classify people as college graduates or not. Our prior would be the rate of college graduates in our data set (e.g. 30%). We observe their X's (e.g. family income, parent's education, high school class rank, etc.). We want to look at a new observation's X's and make a reasonable guess as to whether they are a college graduate.
+
+The formula we would use to update this is: 
+
+P(college graduate | family income in 3rd quintile) = P(college graduate) \* P(family income in 3rd quintile | college graduate) / P(family income in 3rd quintile)
+
+= 0.30 \* 0.50 / 0.20 = 0.75
+
+What if we wanted to look at a case that had family income in 3rd quintile *and* whose father graduated from college? Here's where the "naivete" comes in handy: We assume that parental education is independent of family income (this is dumb, I know, but bear with me), which greatly simplifies the following formula:
+
+P(college graduate | family income in 3rd quintile AND father college graduate) = P(college graduate) \* P(family income in 3rd quintile | college graduate) \* P(father college graduate | college graduate)
+
+In practice, we typically ignore the denominator [P(data)] because it doesn't change with the outcome.
+
+### Regularization in Bayesian algorithms
+Bayesian algorithms actually don't use regularization in the same way as the other algorithms. Instead, the prior belief acts as a way to regularize to prevent overfitting.
+
+### Pros and Cons of Naive Bayes
+- Pros:
+    * Easy to compute in training phase
+    * Works well in high dimensions
+- Cons:
+    * Relies on the **naive** assumption that X variables are mutually indpendent
+    * Can be computationally expensive to compute in the testing phase
+
+Naive Bayes is most famous for working well with spam classification and other text classification objectives.
+
+## k Nearest Neighbors (kNN) and Support Vector Machine (SVM)
+kNN and SVM are the two workhorse algorithms of the analogizers. They seek to find commonality between different instances of data.
+
+### kNN
+kNN is a nonparametric algorithm that finds a specific observations nearest neighbor where "nearest neighbor" is defined in terms of the X's for each observation. Specifically, "nearest" is defined by some distance metric (e.g. Euclidean distance). k is the number of neighbors over which the prediction is calculated. 
+
+#### Example
+Suppose we are trying to classify a voter as being Republican or Democrat. We might look at their age, where they live, and how much education they have. To do the classification, we would follow these steps:
+
+1. Look at a given observation's five (if k=5) "nearest" observations (in terms of Euclidean distance)
+2. Compute what fraction of those neighbors are Republican
+3. The quantity in step 2 would be our predicted probability of the new observation's likelihood of being Republican.
+
+For a nice illustration of the bias-variance tradeoff in kNN, see [here](http://scott.fortmann-roe.com/docs/BiasVariance.html)
+
+Here is a [complete guide to kNN in Python and R](https://kevinzakka.github.io/2016/07/13/k-nearest-neighbor/).
+
+#### Regularization in kNN
+The regularization parameter that needs to be cross-validated in kNN models is the number of neighbors, k. If k is too small (e.g. 1 or 2) it will result in overfitting (high variance). If k is too large, it will result in underfitting (high bias).
+
+#### Pros and Cons of kNN
+- Pros:
+    * Nonparametric
+    * Easy to compute
+    * Easy to interpret
+    * Computationally light to compute in the training phase
+- Cons:
+    * Doesn't work well in large dimensions
+    * Computationally expensive to compute in the testing phase
+
+### SVM
+SVM can be thought of as a generalization of kNN. It works much better in high-dimensional spaces. The goal of SVM is to find the largest separating hyperplane between the positive and negative cases. It was originally set up to be a classification algorithm, but it can also be used for regression.
+
+Originally, SVMs were limited to hyperplanes, but due to a discovery known as the **kernel trick**, they can be used to draw arbitrarily nonlinear boundaries.
+
+We won't get into the specifics of SVM, but [here](https://www.quantstart.com/articles/Support-Vector-Machines-A-Guide-for-Beginners) is a nice primer for newbies.
+
+#### Regularization in SVMs
+The regularization parameters that needs to be cross-validated in SVM models are C, which governs the size of the margin between positive and negative examples, and other parameters that govern the complexity of the shape of the kernel function.
+
+#### Pros and Cons of SVM
+- Pros:
+    * Effective in high-dimensional settings
+    * Computationally efficient for testing
+    * Allows for non-linear decision boundaries
+- Cons:
+    * Not well suited for "Big K" data (i.e. when the number of columns of X is larger than the number of rows)
+    * It doesn't produce a probabilistic out-of-sample prediction
+
+
 # Helpful links
 * [Mullainathan & Spiess (2017)](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87&within%5Btitle%5D=on&within%5Babstract%5D=on&within%5Bauthor%5D=on&journal=3&q=mullainathan&from=j)
 * [Kaggle notebook by Pondering Panda, showing how to use `mlr`](https://www.kaggle.com/xanderhorn/train-r-ml-models-efficiently-with-mlr)
 * [Complete list of `mlr` algorithms](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html)
 * [Quick start `mlr` tutorial](https://mlr-org.github.io/mlr-tutorial/release/html/index.html)
 * Laurent Gatto's [*An Introduction to Machine Learning with R*](https://lgatto.github.io/IntroMachineLearningWithR/) online textbook
+* [Five Tribes blog post](https://medium.com/@jrodthoughts/the-five-tribes-of-machine-learning-c74d702e88da)
+* [Blog post](https://medium.com/the-theory-of-everything/understanding-activation-functions-in-neural-networks-9491262884e0): "Understanding Activation Functions in Neural Networks"
