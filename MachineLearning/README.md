@@ -502,6 +502,8 @@ P(college graduate | family income in 3rd quintile AND father college graduate) 
 
 In practice, we typically ignore the denominator [P(data)] because it doesn't change with the outcome.
 
+For a primer on Naive Bayes, consult [here](http://www.saedsayad.com/naive_bayesian.htm).
+
 ### Regularization in Bayesian algorithms
 Bayesian algorithms actually don't use regularization in the same way as the other algorithms. Instead, the prior belief acts as a way to regularize to prevent overfitting.
 
