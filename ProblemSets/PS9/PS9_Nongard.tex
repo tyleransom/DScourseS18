@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{PS9_Nongard}
+\author{nongarak }
+\date{April 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{6. LASSO}
+
+Result: lambda=0.0683
+rmse.test.rmse=0.1599564
+rmse out of sample: 0.165448
+
+\section{7. Ridge}
+
+Result: lambda=0.102
+rmse.test.rmse=0.1575116
+rmse out of sample: 0.1696113
+
+\section{8. elnet}
+
+Result: lambda=0.017
+alpha=0.808
+rmse.test.rmse=0.1635421
+rmse out of sample: 0.1688394
+
+The alpha of .8 is closer to 1, which means we should use LASSO, if chosing between the two. 
+
+\section{9. summary}
+
+We cannot use a simple linear regression because we have variables that are confirmed to be 6th degree polynomials (because we made them that way). These variables are by definition not linear, and so any standard linear model would misrepresent them greatly. 
+
+The model has a relatively low RMSE of between .15 and .21, meaning that across all models the variance is low. RMSE does not say anything about bias, however.  
+
+\end{document}
