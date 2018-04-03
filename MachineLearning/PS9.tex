@@ -1,0 +1,157 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Apr. 3\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Apr. 3\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: April 3, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 9}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 9 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will give you practice in using cross-validation to tune linear regression prediction models via LASSO, ridge regression, and elastic net.
+
+The objective function of these models is:
+\[
+    \min_{\beta,\lambda,\alpha} \frac{1}{N}\sum_{i=1}^{N}\left(y_{i} - \hat{y}_{i}\right)^2 + \lambda\left(\alpha\sum_{k}\left| \beta_{k}\right| + \left(1-\alpha\right)\sum_{k}\beta_{k}^{2}\right)
+\]
+where $\hat{y}_{i} = x_{i}^{\prime}\beta$ and where $\lambda$ and $\alpha$ are parameters that must be \emph{tuned} using cross-validation techniques.
+
+When $\alpha=0$ we have the \textbf{ridge regression model}. When $\alpha=1$ we have the \textbf{LASSO model}. When $\alpha\in\left(0,1\right)$ we have the \textbf{elastic net model}. Importantly, $\alpha$ must be in the closed interval $\left[0,1\right]$.
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS9/} and name the file \texttt{PS9\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain at least three files:
+\begin{itemize}
+    \item \texttt{PS9\_LastName.R} (you can also do this in Python or Julia if you prefer, but I think it will be much more difficult to use either of those alternative for this problem set)
+    \item \texttt{PS9\_LastName.tex}
+    \item \texttt{PS9\_LastName.pdf}
+\end{itemize}
+\begin{questions}
+\question Type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder to make sure your OSCER folder is synchronized with your GitHub repository. 
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. (\texttt{git merge upstream/master -m ``commit message''})
+
+\question Install the following machine learning packages if you haven't already:
+\begin{itemize}
+    \item \texttt{mlr}
+    %\item \texttt{rpart}
+    %\item \texttt{e1071}
+    \item \texttt{glmnet}
+    %\item \texttt{nnet}
+\end{itemize}
+
+\question Load the housing data from UCI, following the example in the lecture notes.
+
+\question Add new features to the data set by creating 6th degree polynomials of each of the features, as well as 3rd degree interactions of each. To do so, add the following code to your script.\footnote{Credit to Adam Kapelner in \href{https://github.com/mlr-org/mlr/issues/564}{this GitHub issue} for providing the following code.} What is the dimension of your training data (\texttt{housing.train})?
+\begin{lstlisting}[language=R]
+housing$lmedv    <- log(housing$medv)
+housing$medv     <- NULL # drop median value
+formula    <- as.formula(lmedv ~ .^3 +
+                         poly(crim, 6) + 
+                         poly(zn, 6) + 
+                         poly(indus, 6) + 
+                         poly(nox, 6) + 
+                         poly(rm, 6) +
+                         poly(age, 6) + 
+                         poly(dis, 6) +
+                         poly(rad, 6) + 
+                         poly(tax, 6) + 
+                         poly(ptratio, 6) + 
+                         poly(b, 6) + 
+                         poly(lstat, 6))
+mod_matrix <- data.frame(model.matrix(formula, housing))
+#now replace the intercept column by the response since MLR will do 
+#"y ~ ." and get the intercept by default
+mod_matrix[, 1] = housing$lmedv
+colnames(mod_matrix)[1] = "lmedv" #make sure to rename it otherwise MLR won't find it
+head(mod_matrix) #just make sure everything is hunky-dory
+
+# Break up the data:
+n <- nrow(mod_matrix)
+train <- sample(n, size = .8*n)
+test  <- setdiff(1:n, train)
+housing.train <- mod_matrix[train,]
+housing.test  <- mod_matrix[test, ]
+\end{lstlisting}
+
+\question Following the example from the lecture notes, estimate a LASSO model to predict log median house value, where the penalty parameter $\lambda$ is tuned by 6-fold cross validation. What is the optimal value of $\lambda$? What is the in-sample RMSE? What is the out-of-sample RMSE (i.e. the RMSE in the test data)?
+
+\question Repeat the previous question, but now estimate a ridge regression model where again the penalty parameter $\lambda$ is tuned by 6-fold CV. What is the optimal value of $\lambda$ now? What is the in-sample RMSE? What is the out-of-sample RMSE (i.e. the RMSE in the test data)? 
+
+\question Repeat the previous question, but now estimate the elastic net model. In this case, you will need to use cross validation to tune the optimal $\lambda$ and $\alpha$ (the relative weight on LASSO and ridge). What are the optimal values of $\lambda$ and $\alpha$ after doing 6-fold cross validation? What is the in-sample RMSE? What is the out-of-sample RMSE? Does the optimal value of $\alpha$ lead you to believe that you should use LASSO or ridge regression for this prediction task?
+
+\question In your .tex file, answer the questions posed in the preceding four questions. Explain why you would not be able to estimate a simple linear regression model on the \texttt{housing.train} dataframe. Using the RMSE values of each of the tuned models in the previous three questions, comment on where your model stands in terms of the bias-variance tradeoff.
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice (or via \texttt{scp} from your laptop terminal). You may also copy and paste your .tex file from your browser directly into your terminal via \texttt{nano} if you prefer, but you will need to use SFTP or \texttt{scp} to transer the PDF.\footnote{If you want to try out something different, you can compile your .tex file on OSCER by typing \texttt{pdflatex myfile.tex} at the command prompt of the appropriate directory. This will create the PDF directly on OSCER, removing the requirement to use SFTP or \texttt{scp} to move the file over.}
+
+\question You should turn in the following files: .tex, .pdf, and any additional scripts (e.g. .R, .py, or .jl) required to reproduce your work.  Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{\textasciitilde/DScourseS18/ProblemSets/PS9}).
+
+\question Synchronize your local git repository (in your OSCER home directory) with your GitHub fork by using the commands in Problem Set 2 (i.e. \texttt{git add}, \texttt{git commit -m ''message''}, and \texttt{git push origin master}). Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS9 files appear in the appropriate place in your other local repository.
+
+\end{questions}
+\end{document}

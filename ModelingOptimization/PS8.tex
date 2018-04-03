@@ -123,7 +123,7 @@ return ( grad )
 }
 \end{lstlisting}
 
-\question Now compute $\hat{\beta}_{OLS}$ the easy way: using \texttt{lm()} and directly calling the matrices $Y$ and $X$ (no need to create a data frame). Make sure you tell \texttt{lm()} not to include the constant! This is done by typing \texttt{lm(Y \textasciitilde{} X -1, data=df)}
+\question Now compute $\hat{\beta}_{OLS}$ the easy way: using \texttt{lm()} and directly calling the matrices $Y$ and $X$ (no need to create a data frame). Make sure you tell \texttt{lm()} not to include the constant! This is done by typing \texttt{lm(Y \textasciitilde{} X -1)}
 
 Use stargazer to export the regression output to a .tex file. In your .tex file, tell me about how similar your estimates of $\hat{\beta}$ are to the ``ground truth'' $\beta$ that you used to create the data in \eqref{eq:1}.
 
