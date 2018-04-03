@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{PS7_Nongard}
+\author{nongarak }
+\date{March 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 6}
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Tue, Mar 13, 2018 - 10:23:43 AM
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+\hline \\[-1.8ex] 
+logwage & 1,669 & 1.625 & 0.386 & 0.005 & 2.261 \\ 
+hgc & 2,229 & 13.101 & 2.524 & 0 & 18 \\ 
+tenure & 2,229 & 5.971 & 5.507 & 0.000 & 25.917 \\ 
+age & 2,229 & 39.152 & 3.062 & 34 & 46 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}  
+
+The rate of missingness for logwages is 560/2229 = .2512337
+I'm going to guess that the data are MCAR, for no other reason than that is the easiest data to work with. 
+
+\section{Question 7}
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Tue, Mar 13, 2018 - 10:23:50 AM
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{2}{c}{logwage} \\ 
+\\[-1.8ex] & (1) & (2)\\ 
+\hline \\[-1.8ex] 
+ hgc & 0.062$^{***}$ & 0.050$^{***}$ \\ 
+  & (0.005) & (0.004) \\ 
+  & & \\ 
+ collegenot college grad & 0.145$^{***}$ & 0.169$^{***}$ \\ 
+  & (0.034) & (0.026) \\ 
+  & & \\ 
+ tenure & 0.050$^{***}$ & 0.038$^{***}$ \\ 
+  & (0.005) & (0.004) \\ 
+  & & \\ 
+ tenure2 & $-$0.002$^{***}$ & $-$0.001$^{***}$ \\ 
+  & (0.0003) & (0.0002) \\ 
+  & & \\ 
+ age & 0.0004 & 0.0002 \\ 
+  & (0.003) & (0.002) \\ 
+  & & \\ 
+ marriedsingle & $-$0.022 & $-$0.027$^{**}$ \\ 
+  & (0.018) & (0.014) \\ 
+  & & \\ 
+ Constant & 0.534$^{***}$ & 0.708$^{***}$ \\ 
+  & (0.146) & (0.116) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+Observations & 1,669 & 2,229 \\ 
+R$^{2}$ & 0.208 & 0.146 \\ 
+Adjusted R$^{2}$ & 0.206 & 0.144 \\ 
+Residual Std. Error & 0.344 (df = 1662) & 0.309 (df = 2222) \\ 
+F Statistic & 72.917$^{***}$ (df = 6; 1662) & 63.461$^{***}$ (df = 6; 2222) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+Stargazer table on second page. 
+
+MICE regression: 
+#logwages = .52 + .06hgc + .14notcollegegrad + .05tenure - .00tenure2 + .00age - .03single 
+
+The true Beta hgc is .093, which is quite different from what we have. With Betas of .062, .05, and .06, the imputation methods appear to be clustered and underpredicting the impact of the variable. The best option was actually the standard complete cases regression, which did not actually impute data. The imputations may be good, but conservative estimates. 
+
+
+
+\section{Question 9}
+To be honest, I have not made any progress on my research. This is a goal for spring break, where I intend to gather data / figure out exactly how I'm going to approach the problem. I am going to be using spatial data on solar radiation in Oklahoma along with other variables (land use, other atmospheric variables, population) to find the best potential sites for utility scale solar energy. I'm not entirely sure how to do this yet, though. I've already done the grunt work for the biggest chunk of the interpolation modeling, using Kriging methods. 
+
+
+
+
+
+\end{document}
