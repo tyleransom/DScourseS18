@@ -566,6 +566,16 @@ The regularization parameters that needs to be cross-validated in SVM models are
     * Not well suited for "Big K" data (i.e. when the number of columns of X is larger than the number of rows)
     * It doesn't produce a probabilistic out-of-sample prediction
 
+## Using the Five Tribes' algorithms in `mlr`
+| Tribe Name     | Master Algorithm(s)     | R package | Regularization parameters | `mlr` algorithm name |
+|----------------|-------------------------|-----------|---------------------------|----------------------|
+| Symbolists     | Tree models             | `rpart`   | `minsplit` (integer), `minbucket` (integer), `cp` (numeric, typically very small) | `classif.rpart` |
+| Connectionists | Neural networks         | `nnet`    | `size` (number of neurons in hidden layer; integer), `decay` (lambda; numeric) | `classif.nnet` |
+| Evolutionaries | Genetic algorithms      | `GA`      | N/A | N/A |
+| Bayesians      | Naive Bayes             | `e1071`   | N/A | N/A |
+| Analogizers    | Nearest neighbor        | `class`   | `k` (integer) | `classif.knn` |
+|                | Support Vector Machine  | `e1071`   | `cost` (numeric ranging from 2^-10 to 2^10); `gamma` (same as `cost`) | `classif.svm` |
+
 
 # Helpful links
 * [Mullainathan & Spiess (2017)](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87&within%5Btitle%5D=on&within%5Babstract%5D=on&within%5Bauthor%5D=on&journal=3&q=mullainathan&from=j)
