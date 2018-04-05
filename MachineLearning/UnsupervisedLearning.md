@@ -85,3 +85,24 @@ A great primer on k-means clustering by Andrew Ng is available [here](https://do
 The Expectation Maximization (EM) algorithm is a generalization of k-means. It extends the concept of "best" and "similar" to other useful contexts. For example, one can use the EM algorithm to fill in missing data using likelihood-based statistical models. In my research, I use the EM alogrithm to detect unobserved types of individuals, using information on choices they've made, wages they earn, and test scores.
 
 The EM algorithm, like k-means is a sequential algorithm. In the first step, the user computes the probability of being in a given cluster. Then in the second step, the user updates the parameters of the model based on the probability given in the first step, and repeats until the cluster probabilities are stable.
+
+#### simple EM algorithm example in R
+Let's repeat our example that we did with the k-means clustering but this time with the EM algorithm
+
+```
+library(mclust)
+X <- iris[,-5]
+Y <- iris[, 5]
+
+clusters <- Mclust(X,G=3)
+clusters$parameters
+
+table(Y,clusters$classification)
+# 
+# Y             1  2  3
+#   setosa     50  0  0
+#   versicolor  0 45  5
+#   virginica   0  0 50
+```
+
+It does a better job of finding the species than does k-means!
