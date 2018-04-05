@@ -573,7 +573,7 @@ The regularization parameters that needs to be cross-validated in SVM models are
 | Connectionists | Neural networks         | `nnet`    | `size` (number of neurons in hidden layer; integer), `decay` (lambda; numeric) | `classif.nnet` |
 | Evolutionaries | Genetic algorithms      | `GA`      | N/A | N/A |
 | Bayesians      | Naive Bayes             | `e1071`   | N/A | N/A |
-| Analogizers    | Nearest neighbor        | `class`   | `k` (integer) | `classif.knn` |
+| Analogizers    | Nearest neighbor        | `kknn`    | `k` (integer) | `classif.kknn` |
 |                | Support Vector Machine  | `e1071`   | `cost` (numeric ranging from 2^-10 to 2^10); `gamma` (same as `cost`) | `classif.svm` |
 
 ## Recommender systems
