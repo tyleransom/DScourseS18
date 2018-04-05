@@ -576,6 +576,31 @@ The regularization parameters that needs to be cross-validated in SVM models are
 | Analogizers    | Nearest neighbor        | `class`   | `k` (integer) | `classif.knn` |
 |                | Support Vector Machine  | `e1071`   | `cost` (numeric ranging from 2^-10 to 2^10); `gamma` (same as `cost`) | `classif.svm` |
 
+## Recommender systems
+One commonly used application for prediction algorithms is recommender systems. For example, Netflix or YouTube want to "recommend" to you what to watch next, based on what you've shown interest in previously. The target variable here is "how much the user will like offering W" and the features are things like "list of shows the user has watched previously" or "list of shows user showed interest in previously" (e.g. by reading the overview of a video).
+
+There are three main types of ways to form a recommendation system:
+
+1. Collaborative filtering
+    * Create recommendations based on what users who are similar to you are consuming
+    * e.g. if we both like rock music, but you listen to a slightly different set of bands than I do, then the best recommendation for me are the bands that you listen to, but I don't
+    * This approach relies on having a large number of users
+    * It assumes that people who have a lot in common will continue to have a lot in common
+    * kNN is the fundamental way to pick out the new recommendations using this approach
+2. Content-based filtering
+    * Create recommendations based on quantifiable characteristics about what you are consuming
+    * e.g. come up with a way to describe each product's characteristics (e.g. a song by Rush vs. a song by Metallica, etc.)
+    * Recommend new products to users whose average description matches the new products
+    * This approach relies on coming up with a way to quantify each product's characteristics
+    * It will only recommend new products that are closely related to the user's existing portfolio
+    * Bayesian classifiers and neural networks are popular algorithms for offering new recommendations using this approach
+3. Hybrid recommender systems
+    * Because collaborative and content-based filtering each have advantages and disadvantages, it often is the case that better recommendations can be had by combining the two approaches
+
+### How to build a recommender system in R
+The simplest R package to do this is called `recommenderlab` and a step-by-step example is [here](https://www.r-bloggers.com/recommender-systems-101-a-step-by-step-practical-example-in-r/). Another walkthrough using the same library to build moving recommendations is [here](http://rstudio-pubs-static.s3.amazonaws.com/150913_3ccebcc146d84e5e98c40fc548322929.html).
+
+As far as I can tell, `mlr` does not provide an interface to the `recommenderlab` package.
 
 # Helpful links
 * [Mullainathan & Spiess (2017)](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87&within%5Btitle%5D=on&within%5Babstract%5D=on&within%5Bauthor%5D=on&journal=3&q=mullainathan&from=j)
