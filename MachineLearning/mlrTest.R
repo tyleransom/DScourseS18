@@ -1,5 +1,7 @@
 library(mlr)
 
+set.seed(100)
+
 housing <- read.table("http://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data")
 names(housing) <- c("crim","zn","indus","chas","nox","rm","age","dis","rad","tax","ptratio","b","lstat","medv")
 
@@ -89,4 +91,48 @@ finalModel <- train(learner = predAlg, task = theTask)
 prediction <- predict(finalModel, newdata = housing.test)
 
 str(prediction)
+
+# Performance
+print(performance(prediction, measures = list(rmse)))
+
+#####################
+# Classification time!
+#####################
+library(rpart)
+
+# Tell it a new task (classification instead of regression)
+theTask <- makeClassifTask(id = "taskname", data = housing.train, target = "chas")
+
+# Tell it a new prediction algorithm
+predAlg <- makeLearner("classif.rpart", predict.type = "response")
+
+# Search over complexity penalty parameters: tree depth, min leaf, etc.
+modelParams <- makeParamSet(makeIntegerParam("minsplit",lower = 10, upper = 50), makeIntegerParam("minbucket", lower = 5, upper = 50), makeNumericParam("cp", lower = 0.001, upper = 0.2))
+
+# Take 50 random guesses at each combination of penalty parameters
+tuneMethod <- makeTuneControlRandom(maxit = 100L)
+
+# Do the tuning
+tunedModel <- tuneParams(learner = predAlg,
+                        task = theTask,
+                        resampling = resampleStrat,
+                        measures = list(f1,acc,fpr,fnr),       # F1 performance measure, this can be changed to one or many
+                        par.set = modelParams,
+                        control = tuneMethod,
+                        show.info = TRUE)
+
+# Apply the optimal algorithm parameters to the model
+predAlg <- setHyperPars(learner=predAlg, par.vals = tunedModel$x)
+
+# Verify performance on cross validated sample sets
+resample(predAlg,theTask,resampleStrat,measures=list(f1,acc,fpr,fnr))
+
+# Train the final model
+finalModel <- train(learner = predAlg, task = theTask)
+
+# Predict in test set!
+prediction <- predict(finalModel, newdata = housing.test)
+
+# Performance
+print(performance(prediction, measures = list(f1,acc,fpr,fnr)))
 

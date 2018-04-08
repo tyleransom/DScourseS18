@@ -1,0 +1,165 @@
+% Fonts/languages
+\documentclass[12pt,english]{exam}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{byublue}     {RGB}{0.  ,30. ,76. }
+\definecolor{deepred}     {RGB}{190.,0.  ,0.  }
+\definecolor{deeperred}   {RGB}{160.,0.  ,0.  }
+\newcommand{\textblue}[1]{\textcolor{byublue}{#1}}
+\newcommand{\textred}[1]{\textcolor{deeperred}{#1}}
+
+% Layout
+\usepackage{setspace} %singlespacing; onehalfspacing; doublespacing; setstretch{1.1}
+\setstretch{1.2}
+\usepackage[verbose,nomarginpar,margin=1in]{geometry} % Margins
+\setlength{\headheight}{15pt} % Sufficent room for headers
+\usepackage[bottom]{footmisc} % Forces footnotes on bottom
+
+% Headers/Footers
+\setlength{\headheight}{15pt}	
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{For-Profit Notes} \chead{} \rhead{\thepage}
+%\lfoot{} \cfoot{} \rfoot{}
+
+% Useful Packages
+%\usepackage{bookmark} % For speedier bookmarks
+\usepackage{amsthm}   % For detailed theorems
+\usepackage{amssymb}  % For fancy math symbols
+\usepackage{amsmath}  % For awesome equations/equation arrays
+\usepackage{array}    % For tubular tables
+\usepackage{longtable}% For long tables
+\usepackage[flushleft]{threeparttable} % For three-part tables
+\usepackage{multicol} % For multi-column cells
+\usepackage{graphicx} % For shiny pictures
+\usepackage{subfig}   % For sub-shiny pictures
+\usepackage{enumerate}% For cusomtizable lists
+\usepackage{pstricks,pst-node,pst-tree,pst-plot} % For trees
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+
+% Bib
+\usepackage[authoryear]{natbib} % Bibliography
+\usepackage{url}                % Allows urls in bib
+
+% TOC
+\setcounter{tocdepth}{4}
+
+% Links
+\usepackage{hyperref}    % Always add hyperref (almost) last
+\hypersetup{colorlinks,breaklinks,citecolor=black,filecolor=black,linkcolor=byublue,urlcolor=blue,pdfstartview={FitH}}
+\usepackage[all]{hypcap} % Links point to top of image, builds on hyperref
+\usepackage{breakurl}    % Allows urls to wrap, including hyperref
+
+\pagestyle{head}
+\firstpageheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Apr. 10\\ beginning of class}}
+\runningheader{\textbf{\class\ - \term}}{\textbf{\examnum}}{\textbf{Due: Apr. 10\\ beginning of class}}
+\runningheadrule
+
+\newcommand{\class}{Econ 5970}
+\newcommand{\term}{Spring 2018}
+\newcommand{\examdate}{Due: April 10, 2018}
+% \newcommand{\timelimit}{30 Minutes}
+
+\noprintanswers                         % Uncomment for no solutions version
+\newcommand{\examnum}{Problem Set 10}           % Uncomment for no solutions version
+% \printanswers                           % Uncomment for solutions version
+% \newcommand{\examnum}{Problem Set 10 - Solutions} % Uncomment for solutions version
+
+\begin{document}
+This problem set will give you practice in using cross-validation to tune classification models using four of the Five Tribes of Machine Learning: trees, neural networks, naive Bayes, and k-nearest neighbor / support vector machines.
+
+As with the previous problem sets, you will submit this problem set by pushing the document to \emph{your} (private) fork of the class repository. You will put this and all other problem sets in the path \texttt{/DScourseS18/ProblemSets/PS10/} and name the file \texttt{PS10\_LastName.*}. Your OSCER home directory and GitHub repository should be perfectly in sync, such that I should be able to find these materials by looking in either place. Your directory should contain at least three files:
+\begin{itemize}
+    \item \texttt{PS10\_LastName.R} (you can also do this in Python or Julia if you prefer, but I think it will be much more difficult to use either of those alternatives for this problem set)
+    \item \texttt{PS10\_LastName.tex}
+    \item \texttt{PS10\_LastName.pdf}
+\end{itemize}
+\begin{questions}
+\question Type \texttt{git pull origin master} from your OSCER \texttt{DScourseS18} folder to make sure your OSCER folder is synchronized with your GitHub repository. 
+
+\question Synchronize your fork with the class repository by doing a \texttt{git fetch upstream} and then merging the resulting branch. (\texttt{git merge upstream/master -m ``commit message''})
+
+\question Install the following machine learning packages if you haven't already:
+\begin{itemize}
+    \item \texttt{rpart}
+    \item \texttt{e1071}
+    \item \texttt{kknn}
+    \item \texttt{nnet}
+\end{itemize}
+
+\question Start your code file by importing the starter code I have provided you at \url{https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/PS10starter.R}. This starter code reads in the adult income data from the UC Irvine datasets repository. The goal of this problem set is to compare the 5 Tribes in terms of their ability to classify whether someone is high-income or not. Thus, the target variable for this exercise will be \texttt{income\$high.earner}. 
+
+\question Using the \texttt{mlr} library, create the following objects for your cross validation exercise:
+\begin{itemize}
+\item The classification task
+\item The \textbf{3-fold} cross-validation strategy
+\item The tuning strategy (e.g. \texttt{random} with \textbf{10} guesses)
+\item Each of the six ``learners'' (algorithms):
+    \begin{enumerate}
+    \item Trees: \texttt{classif.rpart}
+    \item Logistic regression: \texttt{classif.glmnet}    
+    \item Neural network: \texttt{classif.nnet}      
+    \item Naive Bayes: \texttt{classif.naiveBayes}
+    \item kNN: \texttt{classif.kknn}       
+    \item SVM: \texttt{classif.svm}       
+    \end{enumerate}
+
+For each algorithm, add \texttt{predict.type = ``response''} as an additional argument to the \texttt{makeLearner()} function.
+
+\end{itemize}
+
+\question Now set up the hyperparameters of each algorithm that will need to be cross validated. If you aren't sure what to call them, please refer to the individual package documenation.
+\begin{itemize}
+\item Tree model
+    \begin{itemize}
+    \item \texttt{minsplit}, which is an integer ranging from 10 to 50 (governs minimum sample size for making a split)
+    \item \texttt{minbucket}, which is an integer ranging from 5 to 50 (governs minimum sample size in a leaf)
+    \item \texttt{cp}, which is a real number ranging from 0.001 to 0.2 (governs complexity of the tree)
+    \end{itemize}
+\item Logit model (this is the elastic net model from last problem set, so the two parameters are $\lambda$ and $\alpha$. For this problem set, let $\lambda\in\left[0,3\right]$ and $\alpha\in\left[0,1\right]$.
+\item Neural network model
+    \begin{itemize}
+    \item \texttt{size}, which is an integer ranging from 1 to 10 (governs number of units in hidden layer)
+    \item \texttt{decay}, which is a real number ranging from 0.1 to 0.5 (acts like $\lambda$ in the elastic net model)
+    \item \texttt{maxit}, which is an integer ranging from 1000 to 1000 (i.e. this should be fixed at 1,000 ... it governs the number of iterations the neural network takes when figuring out convergence)
+    \end{itemize}
+\item Naive Bayes
+    \begin{itemize}
+    \item There's nothing to regularize here, so you don't need to do any cross-validation or tuning for this model
+    \end{itemize}
+\item kNN
+    \begin{itemize}
+    \item \texttt{k}, which is an integer ranging from 1 to 30 (governs the number of ``neighbors'' to consider)
+    \end{itemize}
+\item SVM
+    \begin{itemize}
+    \item \texttt{kernel}, which is a string value equal to \texttt{``radial''} (program it as ``discrete'' in \texttt{mlr}'s interface) in the set $\left\{2^{-2},2^{-1},2^{0},2^{1},2^{2},2^{10}\right\}$ (governs how soft the margin of classification is)
+    \item \texttt{cost}, which is a real number (``discrete'' in \texttt{mlr}'s interface) in the set $\left\{2^{-2},2^{-1},2^{0},2^{1},2^{2},2^{10}\right\}$ (governs how soft the margin of classification is)
+    \item \texttt{gamma}, which is also a real number in the set $\left\{2^{-2},2^{-1},2^{0},2^{1},2^{2},2^{10}\right\}$ (governs the shape [variance] of the Gaussian kernel) 
+    \end{itemize}
+\end{itemize}
+
+
+\question Now tune the models. Use the F1 score and the G-measure as criteria for tuning (these are \texttt{f1} and \texttt{gmean}, respectively). Remember that you don't need to tune the Naive Bayes model.
+
+\question Once tuned, apply the optimal tuning parameters to each of the algorithms (again, you don't need to do this for Naive Bayes since there was no tuning done previously). Then train the models, generate predictions, and assess performance.
+
+\question As a \textbf{table} in your .tex file, report the optimal values of the tuning parameters for each of the algorithms. How does each algorithm's out-of-sample performance compare with each of the other algorithms?
+
+\question Compile your .tex file, download the PDF and .tex file, and transfer it to your cloned repository on OSCER using your SFTP client of choice (or via \texttt{scp} from your laptop terminal). You may also copy and paste your .tex file from your browser directly into your terminal via \texttt{nano} if you prefer, but you will need to use SFTP or \texttt{scp} to transer the PDF.\footnote{If you want to try out something different, you can compile your .tex file on OSCER by typing \texttt{pdflatex myfile.tex} at the command prompt of the appropriate directory. This will create the PDF directly on OSCER, removing the requirement to use SFTP or \texttt{scp} to move the file over.}
+
+\question You should turn in the following files: .tex, .pdf, and any additional scripts (e.g. .R, .py, or .jl) required to reproduce your work.  Make sure that these files each have the correct naming convention (see top of this problem set for directions) and are located in the correct directory (i.e. \texttt{\textasciitilde/DScourseS18/ProblemSets/PS10}).
+
+\question Synchronize your local git repository (in your OSCER home directory) with your GitHub fork by using the commands in Problem Set 2 (i.e. \texttt{git add}, \texttt{git commit -m ''message''}, and \texttt{git push origin master}). Once you have done this, issue a \texttt{git pull} from the location of your other local git repository (e.g. on your personal computer). Verify that the PS10 files appear in the appropriate place in your other local repository.
+
+\end{questions}
+\end{document}
