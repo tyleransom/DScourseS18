@@ -1,4 +1,3 @@
-
 ######################
 # Load packages
 ######################
@@ -36,6 +35,7 @@ names(income) <- c("age","workclass","fnlwgt","education","education.num","marit
 #   hours-per-week: continuous.
 #   native-country: United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands.
 
+
 ######################
 # Clean up the data
 ######################
@@ -69,6 +69,7 @@ test         <- setdiff(1:n, train)
 income.train <- income[train,]
 income.test  <- income[test, ]
 
+
 ######################
 # Create Objects
 ######################
@@ -95,7 +96,6 @@ alg.knn   <- makeLearner("classif.kknn", predict.type = "response")
 alg.svm   <- makeLearner("classif.svm", predict.type = "response")
 
 
-
 ######################
 # Set up hyperparameters
 ######################
@@ -109,15 +109,13 @@ params.nn   <- makeParamSet(makeIntegerParam("size", lower = 1, upper = 10),
                             makeNumericParam("decay", lower = 0.1, upper = 0.5), 
                             makeIntegerParam("maxit", lower = 1000, upper = 1000))
 params.knn  <- makeParamSet(makeIntegerParam("k", lower = 1, upper = 30))
-params.svm  <- makeParamSet(makeDiscreteParam("radial", values = 2^c(-2, -1, 0, 1, 2, 10)), 
-                            makeDiscreteParam("cost", values = 2^c(2^-2, -1, 0, 1, 2, 10)), 
+params.svm  <- makeParamSet(makeDiscreteParam("cost", values = 2^c(2^-2, -1, 0, 1, 2, 10)), 
                             makeDiscreteParam("gamma", values = 2^c(-2, -1, 0, 1, 2, 10)))
 
 
 ######################
 # Tune the models
 ######################
-
 
 tuned.tree    <- tuneParams(learner = alg.tree,
                             task = the.task,
@@ -159,6 +157,7 @@ tuned.svm     <- tuneParams(learner = alg.svm,
 ######################
 # Results
 ######################
+
 
 # Apply the optimal algorithm parameters to the model
 
