@@ -92,14 +92,14 @@ Our objective is to compute the posterior (or "updated") probability of a given 
 ##### Prior probability
  Our prior probability is simply the probabity of seeing in the data our target variable Y take on the value y
 
-Pr(Y=0) = `mean(Y==0)`
-Pr(Y=1) = `mean(Y==1)`
+* Pr(Y=0) = `mean(Y==0)`
+* Pr(Y=1) = `mean(Y==1)`
 
 ##### Marginal probabilities
 The marginal probabilities are naively assumed to be independent of each other. So,
 
-Pr(X<sub>k</sub>=m | Y=0) = `mean(X[Y==0,k]==m)` if X<sub>k</sub> is discrete
-Pr(X<sub>k</sub>=m | Y=0) = `dnorm(m,mean=mu.k,sd=sd.k)` if X<sub>k</sub> is continuous, where `mu.k = mean(X[Y==0,k])` and `sd.k = sd(X[Y==0,k])`
+* Pr(X<sub>k</sub>=m | Y=0) = `mean(X[Y==0,k]==m)` if X<sub>k</sub> is discrete
+* Pr(X<sub>k</sub>=m | Y=0) = `dnorm(m,mean=mu.k,sd=sd.k)` if X<sub>k</sub> is continuous, where `mu.k = mean(X[Y==0,k])` and `sd.k = sd(X[Y==0,k])`
 
 ##### Posterior probability
 The posterior probability is then as written above:
@@ -121,26 +121,27 @@ It turns out that we can indeed obtain the posterior probabilities, if we follow
 ##### EM steps in detail
 **Step 1:** Simply initialize Pr(Y=y) for each y and each training example. Probabilities must be non-negative and sum to 1. Denote these probabilities q<sub>ic</sub>.
 
-**Step 2:** 
+**Step 2:** Update prior and marginals.
+
 *Prior probability*
-Instead of `mean(Y==0)` we compute Pr(Y=0) as the average of the q<sub>ic</sub> values, e.g. `mean(q0)`
+Instead of `mean(Y==0)` we compute Pr(Y=0) as the average of the q<sub>ic</sub> values
+
+* e.g. `mean(q0)`
 
 *Marginal probabilities*
 For the marginals, we can't subset on values of Y (since we don't observe them), so we instead compute *probabilistic* values like so:
 
-Pr(X<sub>k</sub>=m | Y=0) = `wtd.mean(X[ ,k]==m,q0)` if X<sub>k</sub> is discrete
-Pr(X<sub>k</sub>=m | Y=0) = `dnorm(m,mean=mu.k,sd=sd.k)` if X<sub>k</sub> is continuous, where `mu.k = wtd.mean(X[ ,k],q0)` and `sd.k = wtd.sd(X[ ,k],q0)`
-
-*Posterior probabilities*
+* Pr(X<sub>k</sub>=m | Y=0) = `wtd.mean(X[ ,k]==m,q0)` if X<sub>k</sub> is discrete
+* Pr(X<sub>k</sub>=m | Y=0) = `dnorm(m,mean=mu.k,sd=sd.k)` if X<sub>k</sub> is continuous, where `mu.k = wtd.mean(X[ ,k],q0)` and `sd.k = wtd.sd(X[ ,k],q0)`
 
 **Step 3:** Update posterior probabilities q<sub>ic</sub>. Once we have the prior and the marginals computed, we apply the Bayes Rule formula to get the updated values of q<sub>ic</sub>.
 
-**Step 4:** Iterate until convergence in the q<sub>ic</sub>'s.
+**Step 4:** Repeat Step 2 and Step 3 until convergence in the q<sub>ic</sub>'s.
 
 #### More general applications of the EM algorithm
 Naive Bayes is the simplest form of the EM algorithm, but the true power behind it is that it can be used for any likelihood-based model. In my research, I use the EM alogrithm to detect unobserved types of individuals, using information on choices they've made, wages they earn, and other measures (like test scores).
 
-#### simple EM algorithm example in R
+#### Simple EM algorithm example in R
 Let's repeat our example that we did with the k-means clustering but this time with the EM algorithm. The package `mclust` does all of the work for us, but it will only work for X matrices that are continuous.
 
 ```
