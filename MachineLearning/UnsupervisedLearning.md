@@ -82,12 +82,66 @@ If we chose `k=2` we would get a WCSS (`between / total`) of 77.6% instead of 88
 A great primer on k-means clustering by Andrew Ng is available [here](https://docs.opencv.org/3.2.0/de/d4d/tutorial_py_kmeans_understanding.html). For an application to the fashion world, see [here](http://blog.fitrrati.com/science-behind-sizes-in-fashion-clustering-size-related-brand-data/). There are great visualizations of the process at both.
 
 ### The EM algorithm
-The Expectation Maximization (EM) algorithm is a generalization of k-means. It extends the concept of "best" and "similar" to other useful contexts. For example, one can use the EM algorithm to fill in missing data using likelihood-based statistical models. In my research, I use the EM alogrithm to detect unobserved types of individuals, using information on choices they've made, wages they earn, and test scores.
+The Expectation Maximization (EM) algorithm is a generalization of k-means. It extends the concept of "best" and "similar" to other useful contexts. The most common use of the EM algorithm is in missing data situations. The simplest form is a naive Bayes classification setting where the class labels are unobserved.
 
-The EM algorithm, like k-means is a sequential algorithm. In the first step, the user computes the probability of being in a given cluster. Then in the second step, the user updates the parameters of the model based on the probability given in the first step, and repeats until the cluster probabilities are stable.
+#### Quick review of naive Bayes
+In the naive Bayes model, we *naively* assume that the joint probability Pr(Y=y, X<sub>1</sub>=x<sub>1</sub>, X<sub>2</sub>=x<sub>2</sub>, ..., X<sub>k</sub>=x<sub>k</sub>) is equal to the product of the marginal probabilities Pr(Y=y) * Pr(X<sub>1</sub>=x<sub>1</sub> | Y=y) * Pr(X<sub>2</sub>=x<sub>2</sub> | Y=y) * ... * Pr(X<sub>k</sub>=x<sub>k</sub> | Y=y).
+
+Our objective is to compute the posterior (or "updated") probability of a given case being labeled as y, after seeing more data (the X's).
+
+##### Prior probability
+ Our prior probability is simply the probabity of seeing in the data our target variable Y take on the value y
+
+Pr(Y=0) = `mean(Y==0)`
+Pr(Y=1) = `mean(Y==1)`
+
+##### Marginal probabilities
+The marginal probabilities are naively assumed to be independent of each other. So,
+
+Pr(X<sub>k</sub>=m | Y=0) = `mean(X[Y==0,k]==m)` if X<sub>k</sub> is discrete
+Pr(X<sub>k</sub>=m | Y=0) = `dnorm(m,mean=mu.k,sd=sd.k)` if X<sub>k</sub> is continuous, where `mu.k = mean(X[Y==0,k])` and `sd.k = sd(X[Y==0,k])`
+
+##### Posterior probability
+The posterior probability is then as written above:
+
+Pr(Y=y | X=m) = Pr(Y=y) * Pr(X<sub>1</sub>=x<sub>1</sub> | Y=y) * Pr(X<sub>2</sub>=x<sub>2</sub> | Y=y) * ... * Pr(X<sub>k</sub>=x<sub>k</sub> | Y=y).
+
+recall that, for discrete X's, the information required to calculate the posterior probability can be looked up from a two-way contingency table between Y and each X<sub>k</sub>.
+
+#### Back to the EM
+So, the question the EM algorithm seeks to answer is: can we compute posterior probabilities of the naive Bayes classifier even if we don't observe the Y variable? In this way, the EM algorithm, in its simplest case, can be thought of as an unsupervised version of naive Bayes.
+
+It turns out that we can indeed obtain the posterior probabilities, if we follow an iterative two-step algorithm (steps 2-3 below):
+
+1. Start with a guess of the unobserved class probability for each training example, e.g. Pr(Y=y | X<sub>i</sub>)
+2. Using the information in the previous step, update your guess of the prior probabilities Pr(Y=y) and marginals Pr(X=x | Y=y)
+3. Given the updated information, compute unobserved class probabilities using Bayes Rule
+4. Repeat steps 2-3 until convergence in the posterior probabilities across iterations
+
+##### EM steps in detail
+**Step 1:** Simply initialize Pr(Y=y) for each y and each training example. Probabilities must be non-negative and sum to 1. Denote these probabilities q<sub>ic</sub>.
+
+**Step 2:** 
+*Prior probability*
+Instead of `mean(Y==0)` we compute Pr(Y=0) as the average of the q<sub>ic</sub> values, e.g. `mean(q0)`
+
+*Marginal probabilities*
+For the marginals, we can't subset on values of Y (since we don't observe them), so we instead compute *probabilistic* values like so:
+
+Pr(X<sub>k</sub>=m | Y=0) = `wtd.mean(X[ ,k]==m,q0)` if X<sub>k</sub> is discrete
+Pr(X<sub>k</sub>=m | Y=0) = `dnorm(m,mean=mu.k,sd=sd.k)` if X<sub>k</sub> is continuous, where `mu.k = wtd.mean(X[ ,k],q0)` and `sd.k = wtd.sd(X[ ,k],q0)`
+
+*Posterior probabilities*
+
+**Step 3:** Update posterior probabilities q<sub>ic</sub>. Once we have the prior and the marginals computed, we apply the Bayes Rule formula to get the updated values of q<sub>ic</sub>.
+
+**Step 4:** Iterate until convergence in the q<sub>ic</sub>'s.
+
+#### More general applications of the EM algorithm
+Naive Bayes is the simplest form of the EM algorithm, but the true power behind it is that it can be used for any likelihood-based model. In my research, I use the EM alogrithm to detect unobserved types of individuals, using information on choices they've made, wages they earn, and other measures (like test scores).
 
 #### simple EM algorithm example in R
-Let's repeat our example that we did with the k-means clustering but this time with the EM algorithm
+Let's repeat our example that we did with the k-means clustering but this time with the EM algorithm. The package `mclust` does all of the work for us, but it will only work for X matrices that are continuous.
 
 ```
 library(mclust)
@@ -95,9 +149,32 @@ X <- iris[,-5]
 Y <- iris[, 5]
 
 clusters <- Mclust(X,G=3)
-clusters$parameters
 
-table(Y,clusters$classification)
+clusters$parameters$pro # list posterior probabilities of Pr(Y=y)
+# [1] 0.3333333 0.3005423 0.3661243
+
+table(Y) # list frequencies of each species in iris data
+# Y
+#     setosa versicolor  virginica 
+#         50         50         50 
+
+clusters$parameters$mean # list average of X's conditional on being in class y
+#               [,1]     [,2]     [,3]
+# Sepal.Length 5.006 5.915044 6.546807
+# Sepal.Width  3.428 2.777451 2.949613
+# Petal.Length 1.462 4.204002 5.482252
+# Petal.Width  0.246 1.298935 1.985523
+
+head(clusters$z) # list posterior class probabilities for each observation in our training data
+#      [,1]         [,2]         [,3]
+# [1,]    1 4.916819e-40 3.345948e-29
+# [2,]    1 5.846760e-29 1.599452e-23
+# [3,]    1 2.486168e-33 2.724243e-25
+# [4,]    1 2.050996e-28 2.180764e-22
+# [5,]    1 8.283066e-42 8.710458e-30
+# [6,]    1 2.118466e-41 1.791499e-29
+
+table(Y,clusters$classification) # compare EM classes with actual classes
 # 
 # Y             1  2  3
 #   setosa     50  0  0
