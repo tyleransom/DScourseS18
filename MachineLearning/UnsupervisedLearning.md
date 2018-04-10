@@ -44,7 +44,7 @@ It turns out that the optimal number of clusters is the number that minimizes th
 #### k-means clustering in R
 How to do k-means clustering in R? You can use the `mlr` package (learner `cluster.kmeans`), but you can also just do it in base R (function: `kmeans(X,k)`). For example, let's see if we can use the `iris` dataset to classify the flowers looking only at the petal and sepal information (code taken from [here](http://rischanlab.github.io/Kmeans.html)):
 
-```
+```r
 X <- iris[,-5]
 Y <- iris[, 5]
 
@@ -115,7 +115,7 @@ It turns out that we can indeed obtain the posterior probabilities, if we follow
 
 1. Start with a guess of the unobserved class probability for each training example, e.g. Pr(Y=y | X<sub>i</sub>)
 2. Using the information in the previous step, update your guess of the prior probabilities Pr(Y=y) and marginals Pr(X=x | Y=y)
-3. Given the updated information, compute unobserved class probabilities using Bayes Rule
+3. Given the updated information, compute the posterior probabilities of belonging to each (unobserved) class, using Bayes Rule
 4. Repeat steps 2-3 until convergence in the posterior probabilities across iterations
 
 ##### EM steps in detail
@@ -144,7 +144,7 @@ Naive Bayes is the simplest form of the EM algorithm, but the true power behind 
 #### Simple EM algorithm example in R
 Let's repeat our example that we did with the k-means clustering but this time with the EM algorithm. The package `mclust` does all of the work for us, but it will only work for X matrices that are continuous.
 
-```
+```r
 library(mclust)
 X <- iris[,-5]
 Y <- iris[, 5]
@@ -184,3 +184,142 @@ table(Y,clusters$classification) # compare EM classes with actual classes
 ```
 
 It does a better job of finding the species than does k-means!
+
+## Dimensionality reduction
+Aside from clustering, another branch of unsupervised learning is **dimensionality reduction** which simply means that there may be a way to simplify our data while preserving almost all of the variation among our variables.
+
+### Principal-component analysis (PCA)
+
+> "PCA is to unsupervised learning what linear regression is to the supervised variety." -- Pedro Domingos, *The Master Algorithm* p. 214.
+
+As alluded in the quote above, PCA is the workhorse algorithm of dimensionality reduction, and probably the most popular unsupervised learning algorithm out there.
+
+#### Intuition
+The idea behind PCA is that we can preserve the "picture" of our data by removing multiple columns and adjusting the remaining columns accordingly. To visualize this, see [here](http://setosa.io/ev/principal-component-analysis/). Intuitively, if X and Y are highly correlated, then we don't have to worry about analyzing both of them; we can look at either X or Y alone.
+
+#### Math
+The math behind PCA is based on **eigen values** of a linear transformation of our data. Eigen values are basically numbers -- unique to our data -- that tell us which variables can be dropped, and in which ways the rest of our variables need to be transformed to preserve the variation in the data.
+
+* Why do we care about the matrix X<sup>'</sup>X? Because it's what holds the variation in our data. (And because eigen values require a square matrix.)
+* Why do we need eigen values? Because they tell us how to transform our data to preserve the variation. 
+
+The eigen vector of linear transformation matrix A is the vector &lambda; that satisfies
+
+Ax = &lambda;x
+
+or
+
+(A-&lambda;I)x = 0
+
+The elements of the vector &lambda; are known as **eigen values**, or characteristic roots, of the linear transformation A.
+
+* The linear transformation we are interested in is a rotation of our data such that one of our variables vanishes.
+
+As a side note, there is an alternative way to get the eigen values of the transformation which is called **Singular Value Decomposition (SVD)** which you might hear about. It's a slightly different method to get to the same answer.
+
+#### Uses of PCA
+PCA is quite useful, particularly in the following areas:
+
+* Text analysis (text meaning)
+* Image recognition (facial expressions -- see also [Eigenfaces](https://en.wikipedia.org/wiki/Eigenface))
+* Recommender systems (compress clicks and likes into "tastes")
+* Many others
+
+#### Pros and Cons of PCA
+
+* Pros
+    - Fairly easy to compute
+    - Intuitive
+    - Massively popular
+* Cons
+    - New variables are much less interpretable
+    - Restricted to linear transformations
+    - May not improve performance of a classification or regression task, since there may be nonlinear relationships that PCA will destroy
+
+#### How to do PCA in R
+There are many possible ways to do PCA in R. For today, we will use the `princomp` function included in base R.
+
+First, we will do the computation "brute force" and then we will use the built-in function which automates a lot of the process for us.
+
+```r
+# computing eigen values of correlation matrix
+cormat <- X %>% cor(.)
+print(cormat)
+#              Sepal.Length Sepal.Width Petal.Length Petal.Width
+# Sepal.Length    1.0000000  -0.1175698    0.8717538   0.8179411
+# Sepal.Width    -0.1175698   1.0000000   -0.4284401  -0.3661259
+# Petal.Length    0.8717538  -0.4284401    1.0000000   0.9628654
+# Petal.Width     0.8179411  -0.3661259    0.9628654   1.0000000
+
+print(eigen(cormat)$values)
+# [1] 2.91849782 0.91403047 0.14675688 0.02071484
+
+# compute eigen vectors
+v <- eigen(cormat)$vectors
+#            [,1]        [,2]       [,3]       [,4]
+# [1,]  0.5210659 -0.37741762  0.7195664  0.2612863
+# [2,] -0.2693474 -0.92329566 -0.2443818 -0.1235096
+# [3,]  0.5804131 -0.02449161 -0.1421264 -0.8014492
+# [4,]  0.5648565 -0.06694199 -0.6342727  0.5235971
+
+print(crossprod(v)) # should be identity matrix
+#               [,1]          [,2]          [,3]          [,4]
+# [1,]  1.000000e+00  1.316246e-16 -6.015309e-17  3.731518e-17
+# [2,]  1.316246e-16  1.000000e+00 -1.138979e-16  4.413915e-17
+# [3,] -6.015309e-17 -1.138979e-16  1.000000e+00 -1.679304e-16
+# [4,]  3.731518e-17  4.413915e-17 -1.679304e-16  1.000000e+00
+
+# do PCA using base R function prcomp. this function automatically scales the data for you
+prin.comp <- prcomp(X, scale. = T)
+
+# show eigen vectors (will be same as v)
+print(prin.comp$rotation)
+# Rotation (n x k) = (4 x 4):
+#                     PC1         PC2        PC3        PC4
+# Sepal.Length  0.5210659 -0.37741762  0.7195664  0.2612863
+# Sepal.Width  -0.2693474 -0.92329566 -0.2443818 -0.1235096
+# Petal.Length  0.5804131 -0.02449161 -0.1421264 -0.8014492
+# Petal.Width   0.5648565 -0.06694199 -0.6342727  0.5235971
+
+# show eigen values
+print(prin.comp$sdev^2)
+# Standard deviations (1, .., p=4):
+# [1] 2.91849782 0.91403047 0.14675688 0.02071484
+
+# which components explain the most variance?
+prop.var.explained <- prin.comp$sdev^2/sum(prin.comp$sdev^2)
+print(prop.var.explained)
+# [1] 0.729624454 0.228507618 0.036689219 0.005178709
+
+# keep only the first three components (since these explain 99.5% of the variance)
+reducedX <- prin.comp$x[,-4]
+```
+
+### Isomap: Dimensionality reduction for nonlinear relationships
+PCA is great, but only works well for relationships that are linear. As an example, *The Master Algorithm* discusses finding the principal component of latitude and longitude of cities along San Francisco Bay -- from San Francisco, moving southeast to San Jose, then moving northwest to Oakland. These cities are all more or less on the same road (see picture below)
+
+![Source: Google Maps](../Graphics/bayCities.png "Bay-Area Cities")
+
+If we use PCA in this example, it will draw a line right down the middle of SF bay, which will no be useful for us. The true level of dimension reduction would have us express the distance from San Francisco along the one major road. It just so happens that that road is non-linear, so PCA won't be of much help to us.
+
+**Isometric Feature Mapping (Isomap)** provides a way to do non-linear dimension reduction.
+
+#### How Isomap works
+Isomap is built on the k-nearest neighbor principle. Each data point is linked to its k-nearest neighbors and the distance between them is recorded. Then, Isomap finds a reduced set of coordinates that best preserves the distances between nodes (groups of k-nearest neighbors).
+
+#### Pros and Cons of Isomap
+* Pros
+    - Works well if relationships in the data are not *too* nonlinear
+* Cons
+    - In many cases will not outperform PCA
+    - More vulnerable to outliers and other abnormalities of the data
+
+#### Using Isomap in R
+
+
+# Useful links
+* Nice [intro](https://docs.opencv.org/3.2.0/de/d4d/tutorial_py_kmeans_understanding.html) to k-means clustering
+* Technical [writeup](http://www.cs.columbia.edu/~mcollins/em.pdf) of EM algorithm for naive Bayes classification
+* Great [summary of PCA](https://towardsdatascience.com/a-one-stop-shop-for-principal-component-analysis-5582fb7e0a9c) from the *Towards Data Science* blog
+* More detailed [summary](https://www.analyticsvidhya.com/blog/2016/03/practical-guide-principal-component-analysis-python/) of how to do PCA in R and Python
+* [R script](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/unsupervisedLearning.R) with all of the code contained in these notes
