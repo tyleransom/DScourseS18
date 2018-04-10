@@ -1,8 +1,7 @@
 library(magrittr)
 library(mclust)
 library(mlr)
-library(vegan)
-library(dimRed)
+library(RDRToolbox)
 
 # Set up the data we'll be using
 X <- iris[,-5]
@@ -159,3 +158,33 @@ pred.nb    <- predict(final.nb,    newdata = iris.test)
 
 # Assess performance
 print(performance(pred.nb,    measures = list(kappa)))
+
+
+#-------------------------------
+# Nonlinear Dimension Reduction
+#-------------------------------
+# Use RDRToolbox package
+isomapped <- Isomap(data=as.matrix(X), dims=3, k=5)
+XreducedNL <- isomapped$dim3
+
+## try EM clustering on reduced data ... can we still get the same answer?
+#-------------------------------
+clustersNLDR <- XreducedNL %>% Mclust(G=3)
+# equivalently: clusters <- Mclust(X,G=3)
+
+# list inferred probabilities of Pr(Y=y)
+print(clustersNLDR$parameters$pro)
+
+# list frequencies of each species in iris data
+print(table(Y))
+
+# list average of X's conditional on being in class y
+print(clustersNLDR$parameters$mean)
+
+# list posterior class probabilities for each observation in our training data
+head(clustersNLDR$z)
+
+# compare EM classes with actual classes
+print(table(Y,clustersNLDR$classification))
+
+
