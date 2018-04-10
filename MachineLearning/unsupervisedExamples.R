@@ -2,6 +2,7 @@ library(magrittr)
 library(mclust)
 library(mlr)
 library(vegan)
+library(dimRed)
 
 # Set up the data we'll be using
 X <- iris[,-5]

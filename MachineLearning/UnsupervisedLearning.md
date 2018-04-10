@@ -311,15 +311,24 @@ Isomap is built on the k-nearest neighbor principle. Each data point is linked t
 * Pros
     - Works well if relationships in the data are not *too* nonlinear
 * Cons
-    - In many cases will not outperform PCA
+    - In many cases will not outperform PCA (see [here](http://www.whuang.org/papers/whuang2012_ivc.pdf))
     - More vulnerable to outliers and other abnormalities of the data
 
 #### Using Isomap in R
 
+```r
+
+```
+
+### Other resources
+There are many other non-linear dimensionality reduction methods, see [here](https://en.wikipedia.org/wiki/Nonlinear_dimensionality_reduction) for a complete list. Most popular are:
+
+- Kernel PCA (where we apply a nonlinear function to our data before doing PCA)
+- Local-linear embedding (LLE) which operates similarly to Isomap, but may have different properties
 
 # Useful links
 * Nice [intro](https://docs.opencv.org/3.2.0/de/d4d/tutorial_py_kmeans_understanding.html) to k-means clustering
 * Technical [writeup](http://www.cs.columbia.edu/~mcollins/em.pdf) of EM algorithm for naive Bayes classification
 * Great [summary of PCA](https://towardsdatascience.com/a-one-stop-shop-for-principal-component-analysis-5582fb7e0a9c) from the *Towards Data Science* blog
 * More detailed [summary](https://www.analyticsvidhya.com/blog/2016/03/practical-guide-principal-component-analysis-python/) of how to do PCA in R and Python
-* [R script](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/unsupervisedLearning.R) with all of the code contained in these notes
+* [R script](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/unsupervisedExamples.R) with all of the code contained in these notes
