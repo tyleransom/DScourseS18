@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {c:/Users/User/Documents/Spring 2018/COMM Stats/ } }
+\usepackage{dcolumn}
+
+\title{Fretland Problem Set 7}
+\author{efretland }
+\date{March 2018}
+
+\begin{document}
+\maketitle
+
+\section{Wages Summary Statistics Table}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+\hline \\[-1.8ex] 
+logwage & 1,669 & 1.625 & 0.386 & 0.005 & 2.261 \\ 
+hgc & 2,229 & 13.101 & 2.524 & 0 & 18 \\ 
+tenure & 2,229 & 5.971 & 5.507 & 0.000 & 25.917 \\ 
+age & 2,229 & 39.152 & 3.062 & 34 & 46 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+logwage is missing at a 25.123 percent rate.
+
+
+It seems likely that logwage values are missing not at random, due to the less accurate reporting that comes with lower paying jobs.
+
+\section{Regression Comparison}
+
+\begin{table}[!htbp] \centering 
+  \caption{Regression Comparison} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-3} D{.}{.}{-3} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{1}{c}{logwage} & \multicolumn{1}{c}{logwage} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{(1)} & \multicolumn{1}{c}{(2)}\\ 
+\hline \\[-1.8ex] 
+ hgc & 0.062^{***} & 0.050^{***} \\ 
+  & (0.005) & (0.004) \\ 
+  & & \\ 
+ collegenot college grad & 0.145^{***} & 0.168^{***} \\ 
+  & (0.034) & (0.026) \\ 
+  & & \\ 
+ tenure & 0.050^{***} & 0.038^{***} \\ 
+  & (0.005) & (0.004) \\ 
+  & & \\ 
+ tenuresq & -0.002^{***} & -0.001^{***} \\ 
+  & (0.0003) & (0.0002) \\ 
+  & & \\ 
+ age & 0.0004 & 0.0002 \\ 
+  & (0.003) & (0.002) \\ 
+  & & \\ 
+ marriedsingle & -0.022 & -0.027^{**} \\ 
+  & (0.018) & (0.014) \\ 
+  & & \\ 
+ Constant & 0.534^{***} & 0.708^{***} \\ 
+  & (0.146) & (0.116) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{1,669} & \multicolumn{1}{c}{2,229} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.208} & \multicolumn{1}{c}{0.147} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.206} & \multicolumn{1}{c}{0.145} \\ 
+Residual Std. Error & \multicolumn{1}{c}{0.344 (df = 1662)} & \multicolumn{1}{c}{0.308 (df = 2222)} \\ 
+F Statistic & \multicolumn{1}{c}{72.917$^{***}$ (df = 6; 1662)} & \multicolumn{1}{c}{63.973$^{***}$ (df = 6; 2222)} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+The second regression (mean value imputation) is closer to the true value than the complete cases regression. The mice regression is even closer, at 0.063. This tells me that the logwage values that are missing are from the lower end of the income spectrum. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Data Project Update}
+
+Conceptually, my project is coming along well. I will be using data from the last 6-8 years of the NFL draft and it will essentially be an analysis of which players are better values in certain rounds. I will be looking at the expected value of drafting certain positions in certain slots of the draft, where talent dropoffs are, where steals and high value players can be found at a lower price, what percentage of draft picks at each position and in each round "bust", et cetera. I will be looking to answer questions pertinent to NFL team building, for example what is the latest you can draft a quarterback and expect him to become a franchise quarterback, where the talent dropoffs are in other key positions such as OT, DE and CB, and where it may be worth trading back in order to maximize expected value by adding a higher number of players even though the individual value of the draft picks are lower, et cetera.
+
+\end{document}
