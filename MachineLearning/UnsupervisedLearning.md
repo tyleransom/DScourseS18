@@ -317,8 +317,13 @@ Isomap is built on the k-nearest neighbor principle. Each data point is linked t
 #### Using Isomap in R
 
 ```r
+library(RDRToolbox)
 
+isomapped <- Isomap(data=as.matrix(X), dims=3, k=5)
+XreducedNL <- isomapped$dim3
 ```
+
+You can then do analysis on the non-linearly reduced data as you would anything else.
 
 ### Other resources
 There are many other non-linear dimensionality reduction methods, see [here](https://en.wikipedia.org/wiki/Nonlinear_dimensionality_reduction) for a complete list. Most popular are:
@@ -326,9 +331,64 @@ There are many other non-linear dimensionality reduction methods, see [here](htt
 - Kernel PCA (where we apply a nonlinear function to our data before doing PCA)
 - Local-linear embedding (LLE) which operates similarly to Isomap, but may have different properties
 
+## Reinforcement learning
+**Reinforcement learning** provides a framework by which computers can learn strategies in games. This presents a more general definition of the word "learn" than we have been talking about in this course (we've mainly focused on out-of-sample prediction as "learning").
+
+The reinforcement learning framework has its roots in optimal control theory (think: optimal stopping problem) and is composed of the following:
+
+* an agent
+* an environment
+* a set of actions that the agent can perform (e.g. move bishop 3 spaces)
+* states of the world (e.g. set of spaces agent can move to; set of spaces occupied by opponent)
+* reward (e.g. win / lose)
+* rules specific to the task being performed
+
+The goal of the algorithm is to maximize the reward.
+
+### Example: chess
+In chess:
+
+* **reward:** only comes at the end of the game: +1 for a win, 0 for a draw, -1 for a loss. The agent is one of the players, and the en
+* **agent:** one of the players
+* **environment:** chess board, rules of the game
+* **set of actions:** all possible moves available to the agent when it is her turn
+* **states:** the current position of all pieces on the board; the number of moves that have already taken place; etc.
+
+- Because the reward only comes at the end of the game, the algorithm may need to make "now-for-later" choices that appear to be costly, but in actuality result in a higher likelihood of reward. The agent may need to discount the future reward by some amount when deciding which action to take because the reward only happens at the very end.
+- Put another way, the agent may be better off assigning some amount of **expected reward** to each possible action and maximizing that. (In the chess example, you can think of "one move away from checkmate" as having a 100% likelihood of reward, "two moves away from checkmate" as also having a high reward, etc.)
+
+### Solving a reinforcement learning problem
+How does one actually *solve* a reinforcement learning problem? Following up on the previous note about working backwards from the reward, reinforcement learning problems are best solved by working backward from the reward and choosing the actions that yield highest expected value.
+
+There are advanced mathematical techniques that simplify the number of states that need to be visited to find the path of maximum reward, but we won't cover these in this class. If you're curious, Google "Bellman Equation."
+
+There is also a lesson in life from this, in the following quote by S&oslash;ren Kierkegaard:
+> Life can only be understood backwards; but it must be lived forwards
+
+### Example: going to college
+Each of you has made a decision to attend college and enroll in the Master's program. Why did you do it? Because your expected reward from doing so exceeds your expected reward from not doing so. In living your life, you have begun solving your own reinforcement learning problem.
+
+The same logic applies to 
+
+### Other applications
+Reinforcement learning most naturally applies to any game of strategy. AlphaGo and AlphaZero employ reinforcement learning to build world-beating Go and Chess bots. In sports, teams can figure out better strategies and play-calling by engaging in reinforcement learning (though I'm not sure how often they actually do this!). For example, the "3-point revolution" in the NBA came about because some teams realized that 3 points is more than 2 so that the expected reward can be greatly increased by attempting (and practicing) more 3-point shots.
+
+### Exploration-Exploitation
+Along with reinforcement learning, you'll also hear something called the "exploration-exploitation tradeoff." This simply means that, by taking actions you know to be the highest-reward, you may be leaving left untaken actions that could lead to an even *higher* reward. Thus, the optimal strategy is to randomly deviate from the observed best path and further "explore" the state space (rather than continuing to "exploit" the states that you know about).
+
+The exploration-exploitation tradeoff also has many applications to real life AI development. It has been used to get robots to:
+
+* self-driving cars
+* balance poles
+* manage automated telephone dialogues
+* many, many others
+
+Many of our day-to-day activities are also the result of our human brain's innate ability to engage in reinforcement learning.
+
 # Useful links
 * Nice [intro](https://docs.opencv.org/3.2.0/de/d4d/tutorial_py_kmeans_understanding.html) to k-means clustering
 * Technical [writeup](http://www.cs.columbia.edu/~mcollins/em.pdf) of EM algorithm for naive Bayes classification
 * Great [summary of PCA](https://towardsdatascience.com/a-one-stop-shop-for-principal-component-analysis-5582fb7e0a9c) from the *Towards Data Science* blog
 * More detailed [summary](https://www.analyticsvidhya.com/blog/2016/03/practical-guide-principal-component-analysis-python/) of how to do PCA in R and Python
+* Installation [instructions](https://rdrr.io/bioc/RDRToolbox/) for the `RDRToolbox` package (not available on CRAN)
 * [R script](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/unsupervisedExamples.R) with all of the code contained in these notes
