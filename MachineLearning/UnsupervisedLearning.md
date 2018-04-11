@@ -205,7 +205,7 @@ The math behind PCA is based on **eigen values** of a linear transformation of o
 
 The eigen vector of linear transformation matrix A is the vector &lambda; that satisfies
 
-Ax = &lambda;x
+Ax = &lambda;Ix
 
 or
 

@@ -133,10 +133,10 @@ Final grades will be assigned according to the standard cutoffs (90%+ for an A, 
 | Apr 3  | T   | Supervised ML: The 5 Tribes of Machine Learning ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/README.md#the-5-tribes-of-machine-learning)) | [PS 9](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/PS9.pdf) |
 | Apr 5  | Th  | Unsupervised ML: Clustering ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/UnsupervisedLearning.md)) |                                                                                                                                |
 | Apr 10 | T   | Unsupervised ML: Dimensionality reduction and reinforcement learning ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/UnsupervisedLearning.md)) | [PS 10](https://github.com/tyleransom/DScourseS18/blob/master/MachineLearning/PS10.pdf) 
-| Apr 12 | Th  | Machine learning vs. econometrics ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/StructuralModeling/README.md)) | |
-| Apr 17 | T   | Structural modeling ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/StructuralModeling/README.md)) | [PS 11](https://github.com/tyleransom/DScourseS18/blob/master/Structural/PS11.pdf) 
+| Apr 12 | Th  | Machine learning vs. econometrics ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Structural/README.md)) | |
+| Apr 17 | T   | Structural modeling ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Structural/README.md)) | [PS 11](https://github.com/tyleransom/DScourseS18/blob/master/Structural/PS11.pdf) 
 | Apr 19 | Th  | Field Trip to Sonic HQ |                                                                                                                                |
-| Apr 24 | T   | Structural modeling ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/StructuralModeling/README.md)) | PS 12  |
+| Apr 24 | T   | Structural modeling ([Notes](https://github.com/tyleransom/DScourseS18/blob/master/Structural/README.md)) | PS 12  |
 | Apr 26 | Th  | Final Project presentations ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
 | May 1  | T   | Final Project presentations  ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) | |
 | May 3  | Th  | Final Project presentations   ([Rubric](https://github.com/tyleransom/DScourseS18/blob/master/FinalProject/README.md)) |  |
