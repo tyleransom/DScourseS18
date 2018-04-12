@@ -67,9 +67,29 @@ Econometric methods were designed to measure causal effects under varying degree
     * Estimate primitives of an economic model (e.g. costs, consumer preferences, production technology)
     * Use the estimated primitives to predict what would happen under a counterfactual scenario
 
+__Primary statistical concern of econometrics__
+
+The primary statistical concern of econometrics is sampling error. In other words, the goal is to quantify the uncertainty around &beta; hat due to randomness in the sampling of the population. (This is the infamous standard error that econometricians obsess over.)
+
+One sort of crazy thing about econometrics is that there is no format attention paid to model misspecification error! The functional form and specification of the model are assumed to be 100% correct, such that the only error that remains is the sampling error.
+
 ### Goal of machine learning
-In contrast, the goal of machine learning is to come up with the best possible out-of-sample prediction.
+In contrast, the goal of machine learning is to come up with the best possible out-of-sample prediction. (in previous lectures we referred to this as the primary concern of machine learning being "y hat")
 
 * To get this prediction, a lot of effort is spent on validating many possible models.
 * However, if the world changes in a fundamental way, the trained predictive model is no longer useful
+
+__Primary statistical concern of machine learning__
+
+The primary statistical concern of machine learning is model misspecification error. The goal is to make sure that the best prediction is had by tuning and validating many different kinds of models. This is what cross-validation is all about, and it is what machine learning practitioners obsess about.
+
+### What econometrics and machine learning can learn from each other
+
+| Econometrics                                                 | Machine Learning |
+|--------------------------------------------------------------|------------------|
+| Less emphasis on standard errors, more emphasis on model misspecification and model selection | Find ways to obtain causal estimates from observational data that still predict well out-of-sample |
+| Do more model validation (e.g. [Delavande and Zafar, 2017](https://drive.google.com/open?id=12Ew6KK0oMoOin_TBQdj9KHI9aVPMbZZi))    | Figure out how to implement methods like instrumental variables in machine learning models |
+| Use more types of data   | (e.g. better click prediction leveraging quasi-experimental or experimental data) |
+| Test assumptions that come baked-in to models                |  |
+
 
