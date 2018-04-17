@@ -1,0 +1,80 @@
+---
+title: "Problem Set 7"
+author: "Rachel Thatcher"
+date: "March 10, 2018"
+output: pdf_document
+---
+
+Question 3
+```{r}
+#read in programs
+library("MixedDataImpute")
+library("mice")
+library("stargazer")
+```
+
+Question 4
+```{r}
+#get the wages file
+Wages <- read.csv("wages.csv")
+Wages
+```
+
+Question 5
+```{r}
+#omit rows in which there is no data for hgc or tenure
+Wages <- Wages[!is.na(Wages$hgc) & !is.na(Wages$tenure),]
+
+#Check to make sure it worked
+Wages
+```
+
+Question 6
+```{r}
+#create a summary table using stargazer
+stargazer(Wages)
+```
+
+Question 7
+```{r}
+#delete logwage rows with NA
+LogWage.Complete <- Wages[!is.na(Wages$logwage),]
+
+#Regression for MCAR
+LogWage.Regression <- lm(logwage ~. , data=Wages)
+LogWage.Regression
+```
+
+```{r}
+#mean imputation
+Wages$logwage[is.na(Wages$logwage)] <- mean(Wages$logwage)
+
+#check to see if it worked
+Wages
+
+#regression 
+LogWage.Regression.2 <- lm(logwage ~. , data=Wages)
+LogWage.Regression.2
+```
+
+```{r}
+#missing at random
+Wages$logwage[is.na(Wages$logwage)] <- predict(LogWage.Regression)
+
+#regression for MAR
+LogWage.Regression.3 <- lm(logwage ~. , data=Wages)
+LogWage.Regression.3
+```
+
+
+```{r}
+#use mice to perform multiple imputation regression model
+Wages.imp <- mice(Wages, seed = 12345)
+summary(Wages.imp)
+fit <- with(Wages.imp, lm(logwage ~ hgc + college + tenure + age + married))
+round(summary(pool(fit)),2)
+```
+
+```{r}
+stargazer(LogWage.Regression, LogWage.Regression.2, LogWage.Regression.3)
+```
