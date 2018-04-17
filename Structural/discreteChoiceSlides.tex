@@ -1,0 +1,671 @@
+%==========================================================
+% Preamble
+%==========================================================
+% Fonts/languages
+\documentclass[english,aspectratio=169,12pt,xcolor=dvipsnames]{beamer}
+%\usepackage[orientation=landscape,size=custom,width=16,height=9,scale=0.45,debug]{beamerposter} % change to 16x9 aspect ratio from default 4x3
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}            % For bibliographies
+
+\usepackage[scaled]{beramono}  % Load typewriter font first, since Arial doesn't have one
+\usepackage{helvet}            % For Arial font
+\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\ttfamily}{beramono}
+
+%\usepackage{mathpazo}         % For Palatino font
+%%\usepackage{mathptmx}         % For Times New Roman font
+%\usefonttheme{serif}          % To have a serif font (instead of Beamer's default sans serif)
+
+% Colors: see  http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-25.html
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+\definecolor{forest}{RGB}{34.,139.,34.}
+\definecolor{byublue}{RGB}{0.,30.,76.}
+\definecolor{dukeblue}{RGB}{0.,0.,156.}
+\definecolor{oucrimson}{RGB}{132.,22.,23.}
+
+% Beamer Themes
+%\usetheme{Ilmenau}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTE: With Ilmenau style, to get the bullets %
+% looking right, do one section and one sub-   %
+% section for each set of bullets              %
+% This is not necessary with Frankfurt         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme{CapeTown}
+\setbeamercolor{section in head/foot}{bg=oucrimson,fg=white}  % use this to adjust the coloring of CapeTown
+\setbeamercolor{frametitle}{bg=white,fg=oucrimson}            % use this to adjust the coloring of CapeTown
+\setbeamercolor{alerted text}{fg=oucrimson}
+\usecolortheme[named=oucrimson]{structure}                   % change the color theme
+%\usecolortheme[named=RawSienna]{structure}                  % change the color theme
+%\usecolortheme[named=byublue]{structure}                    % change the color theme
+%\setbeamertemplate{itemize items}[default]                  % change bullet style. options are: default (triangle), square, circle, ball
+\setbeamercovered{invisible}
+
+%\usetheme{Frankfurt}
+%\setbeamercolor{section in head/foot}{fg=white,bg=byublue}  % use this to adjust the coloring of Frankfurt
+%\usecolortheme[named=dukeblue]{structure}                   % change the color theme
+%%\usecolortheme[named=RawSienna]{structure}                 % change the color theme
+%%\usecolortheme[named=byublue]{structure}                   % change the color theme
+%\setbeamertemplate{navigation symbols}{}                    % remove annoying navigation symbols
+%%\setbeamertemplate{headline}{}                             % remove header line
+%\setbeamertemplate{footline}{}                              % remove footer line
+%\setbeamercovered{invisible}                                % transparent shows bullets in gray; invisible hides bullets
+%
+%\usepackage{remreset}                                       % For FRANKFURT (and ILMENAU) style
+%\makeatletter                                               % to allow circles
+%\@removefromreset{subsection}{section}                      % to appear by frame
+%\makeatother                                                % instead of by
+%\setcounter{subsection}{1}                                  % subsection.
+
+% Layout
+%\usepackage[bottom]{footmisc}                         % Forces footnotes on bottom
+
+% Useful Packages
+%\usepackage{bookmark}                                              % For speedier bookmarks
+\usepackage{booktabs}                                              % For more professional tables
+\usepackage{babel}                                                 % For multilingual output
+\usepackage{amsthm}                                                % For detailed theorems
+\usepackage{amssymb}                                               % For fancy math symbols
+\usepackage{amsmath}                                               % For awesome equations/equation arrays
+\usepackage{float}                                                 % For improved float manipulation
+\usepackage{prettyref}                                             % For pretty references
+\usepackage{array}                                                 % For tubular tables
+\usepackage{longtable}                                             % For long tables
+\usepackage[flushleft]{threeparttable}                             % For three-part tables
+\usepackage{multicol}                                              % For multi-column cells
+\usepackage{graphicx}                                              % For shiny pictures
+\usepackage{subfig}                                                % For sub-shiny pictures
+\usepackage{enumerate}                                             % For cusomtizable lists
+\usepackage{listings}                                              % For ``verbatim'' code
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+%\usepackage{outline}                                               % For an outline environment (similar to enumerate, but can go six levels deep)
+\usepackage{pdflscape}                                             % For landscape-oriented pages
+%\usepackage{pstricks,pst-node,pst-tree,moredefs}                   % For trees
+%\usepackage{tikz,pgfplots}                                         % For tikz figures
+%\pgfplotsset{compat=1.7}
+%\pgfplotsset{scaled y ticks=base 10:2}
+
+% Custom operators for variance, covariance, and correlation
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+
+% Bib
+\usepackage[authoryear]{natbib}                                    % Bibliography
+\renewcommand{\bibsection}{\subsubsection*{\bibname } }            % Allows Bibliographies in Beamer
+\usepackage{url}                                                   % Allows urls in bib
+
+% Links
+\usepackage{hyperref}                                              % Always add hyperref (almost) last
+%\hypersetup{unicode=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=4,
+% breaklinks=true,pdfborder={0 0 0},colorlinks=false,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black}
+\hypersetup{unicode=true,breaklinks=true,pdfborder={0 0 0},colorlinks=true,urlcolor=oucrimson,linkcolor=oucrimson}
+
+% Julia definition (c) 2014 Jubobs
+%\lstdefinelanguage{Julia}%
+%  {morekeywords={abstract,begin,break,case,catch,const,continue,do,else,elseif,%
+%      end,export,false,for,function,immutable,import,importall,if,in,%
+%      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+%      using,while},%
+%   sensitive=true,%
+%   alsoother={$},%
+%   morecomment=[l]\#,%
+%   morecomment=[n]{\#=}{=\#},%
+%   morestring=[s]{"}{"},%
+%   morestring=[m]{'}{'},%
+%}[keywords,comments,strings]%
+
+%\lstset{%
+%    language         = Julia,
+%    basicstyle       = \ttfamily,
+%    keywordstyle     = \bfseries\color{blue},
+%    stringstyle      = \color{magenta},
+%    commentstyle     = \color{ForestGreen},
+%    showstringspaces = false,
+%}
+
+%%==========================================================
+%%Change bullet spacing Chetty-style:
+%\makeatletter
+%\newcommand{\setlistspacing}[2]{\def\@ld{#1}\expandafter\def\csname
+%@list\romannumeral\@ld \endcsname{\leftmargin\csname
+%leftmargin\romannumeral\@ld \endcsname
+              %\topsep    #2
+              %\parsep    0\p@   \@plus\p@
+              %\itemsep   #2}}
+%\makeatother
+%\setlistspacing{1}{2.5ex}
+%%==========================================================
+
+%==========================================================
+% How to cite an author using BibTeX:
+% \citet{hotz_et_al2002} --> Hotz et al. (2002)
+% \citeauthor{hotz_et_al2002} ---> Hotz et al.
+% \citep{hotz_et_al2002} --> (Hotz et al., 2002)
+% \citealp{hotz_et_al2002} --> Hotz et al., 2002
+% \citealt{hotz_et_al2002} --> Hotz et al. 2002
+% \citeyear{hotz_et_al2002} --> 2002
+% \citeyearpar{hotz_et_al2002} --> (2002)
+% \nocite{hotz_et_al2002} --> [only shows up in bibliography]
+%
+% If you add a "*" to the command, it will list all authors:
+% \citet*{hotz_et_al2002} --> Hotz, Xu, Tienda, and Ahituv (2002)
+% \citeauthor*{hotz_et_al2002} ---> Hotz, Xu, Tienda, and Ahituv
+% \vdots
+% etc.
+%==========================================================
+
+%==========================================================
+% How to use overlay specifications in Beamer:
+%
+% Overlay speciﬁcations are given in pointed brackets (<,>) and
+% indicate which slide the corresponding information should appear
+% on.
+% The speciﬁcation <1-> means ``display from slide 1 on.'' <1-3>
+% means ``display from slide 1 to slide 3.'' <-3,5-6,8-> means
+% ``display on all slides except slides 4 and 7.''
+% Here is an example:
+% \begin{itemize}
+% \item<1> $abcadcabca$
+% \item<1-2> $abcabcabca$
+% \item<1-2> $accaccacca$
+% \item<1> $bacabacaba$
+% \item<1,3> $cacdaccacc$
+% \item<1-2> $caccaccacc$
+% \end{itemize}
+%==========================================================
+
+%==========================================================
+% How to add ToC before each section:
+\AtBeginSection[]{
+ \frame<beamer>{ 
+   \frametitle{Outline}   
+   \tableofcontents[currentsection] 
+}
+}
+%==========================================================
+
+\title{Structural Models of Utility Maximization}
+\author{Tyler Ransom}
+\institute[OU Econ]{\normalsize{University of Oklahoma, Dept. of Economics}}
+\date{April 17, 2018}
+
+\begin{document}
+
+{
+\setbeamertemplate{footline}{} 
+\frame[noframenumbering]{\titlepage}
+}
+
+\AtBeginSection[] {
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+\section{Intro}
+\begin{frame}{Today's plan}
+\begin{enumerate}
+\item Describe static discrete choice models
+\item How do they fit in with other data science models we've talked about in this class?
+\item Derive logit/probit probabilities from intermediate microeconomic theory
+\item Go through examples of how to estimate
+\item How discrete choice models relate to sample selection bias
+\end{enumerate}
+
+\bigskip{}
+\bigskip{}
+
+\footnotesize{Note: These slides are based on the introductory lecture of a PhD course taught at Duke University by Peter Arcidiacono, and are used with permission. That course is based on Kenneth Train's book \emph{Discrete Choice Methods with Simulation}, which is freely available \href{https://eml.berkeley.edu/books/train1201.pdf}{here} (PDF).}
+\end{frame}
+
+
+
+\section{Discrete choice models}
+\begin{frame}{What are discrete choice models?}
+\begin{itemize}
+\item Discrete choice models are one of the workhorses of structural economics
+\item Deeply tied to economic theory:
+    \begin{itemize}
+    \item utility maximization
+    \item revealed preference
+    \end{itemize}
+\item Used to model ``utility'' (broadly defined), for example:
+    \begin{itemize}
+    \item consumer product purchase decisions
+    \item firm market entry decisions
+    \item investment decisions
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Why use discrete choice models?}
+\begin{itemize}
+\item Provides link between human optimization behavior and economic theory
+\item Parameters of these models map directly to economic theory
+\item Parameter values can quantify a particular policy
+\item Can be used to form counterfactual predictions (e.g. by adjusting certain parameter values)
+\item Allows a research to quantify ``tastes''
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Why \textbf{not} use discrete choice models?}
+\begin{itemize}
+\item They're not the best predictive models
+    \begin{itemize}
+    \item Trade-off between out-of-sample prediction and counterfactual prediction
+    \end{itemize}
+\item You don't want to form counterfactual predictions, you just want to be able to predict handwritten digits
+\item You aren't interested in economic theory
+\item The math really scares you
+\item You don't like making assumptions
+    \begin{itemize}
+    \item e.g. that decision-makers are rational
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Example of a discrete choice model}
+\begin{itemize}
+\item Cities in the Bay Area are interested in how the introduction of rideshare services will impact ridership on Bay Area Rapid Transit (BART)
+\item Questions that cities need to know the answers to:
+    \begin{itemize}
+    \item Is rideshare a substitute for public transit or a complement?
+    \item How inelastic is demand for BART? Should fares be $\uparrow$ or $\downarrow$?
+    \item Should BART services be scaled up to compete with rideshares?
+    \item Will the influx of rideshare vehicles increase traffic congestion / pollution?
+    \end{itemize}
+\item Each of these questions requires making a counterfactual prediction
+\item In particular, need a way to make such a prediction confidently and in a way that is easy to understand
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Properties of discrete choice models}
+\begin{enumerate}
+\item Agents choose from among a \textbf{finite} set of alternatives (called the \emph{choice set})
+\item Alternatives in choice set are \textbf{mutually exclusive}
+\item Choice set is \textbf{exhaustive}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}{Example illustrating these properties}
+\begin{itemize}
+\item In San Francisco, people can commute to work by the following (and \emph{only} the following) methods:
+    \begin{itemize}
+    \item Drive a personal vehicle (incl. motorcycle)
+    \item Carpool in a personal vehicle
+    \item Use taxi/rideshare service (incl. Uber, Lyft, UberPool, LyftLine, etc.)
+    \item BART (bus, train, or both)
+    \item Bicycle
+    \item Walk
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\section{Math foundation}
+\begin{frame}{Mathematically representing utility}
+Let $d_i$ indicate the choice individual (or decision-maker) $i$ makes where $d_i\in\{1,\cdots, J\}$.
+Individuals choose $d$ to maximize their utility, $U$.  $U$ generally is written as:
+\begin{equation}
+U_{ij}=u_{ij}+\varepsilon_{ij}
+\end{equation}
+where:
+\begin{enumerate}
+\item  $u_{ij}$ relates observed factors to the utility individual $i$ receives from choosing option $j$
+\item $\varepsilon_{ij}$ are unobserved to the researcher but observed to the individual
+\item $d_{ij}=1$ if $u_{ij}+\varepsilon_{ij}>u_{ij'}+\varepsilon_{ij'}$ for all $j'\neq j$
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}{Breakdown of the assumptions}
+\begin{itemize}
+\item Examples of what's in $\varepsilon$
+    \begin{itemize}
+    \item Person's mental state when making the decision
+    \item Choices of friends or relatives (maybe, depends on the data)
+    \item $\vdots$
+    \item Anything else about the person that is not in our data
+    \end{itemize}
+\item Reasonable to assume additive separability?
+    \begin{itemize}
+    \item This is a big assumption: that there are no interactive effects between unobservable and observable factors
+    \item This results in linear separation regions and may be too restrictive
+    \item For now, go with it, and remember that there are no free lunches
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Probabilistic choice}
+With the $\varepsilon$'s unobserved, we must consider choices as probabilistic instead of certain. The Probability that $i$ chooses alternative $j$ is:
+\begin{align}
+P_{ij}&=\Pr(u_{ij}+\varepsilon_{ij}>u_{ij'}+\varepsilon_{ij'}  \,\,\forall\,\,  j'\neq j)\\
+&=\Pr(\varepsilon_{ij'}-\varepsilon_{ij}<u_{ij}-u_{ij'}  \,\,\forall\,\,  j'\neq j)\\
+&=\int_{\varepsilon}I(\varepsilon_{ij'}-\varepsilon_{ij}<u_{ij}-u_{ij'}  \,\,\forall\,\,  j'\neq j)f(\varepsilon)d\varepsilon
+\end{align}
+\end{frame}
+
+
+
+\begin{frame}{Transformations of utility}
+Note that, regardless of what distributional assumptions are made on the $\varepsilon$'s, the probability of choosing a particular option does not change when we:
+\begin{enumerate}
+\item Add a constant to the utility of all options (utility is relative to one of the options, only differences in utility matter)
+\item Multiply by a positive number (need to scale something, generally the variance of the $\varepsilon$'s)
+\end{enumerate}
+This is just like in consumer choice theory: utility is ordinal, and so is invariant to the above two transformations
+\end{frame}
+
+
+
+\begin{frame}{Variables}
+Suppose we have:
+\begin{align*}
+u_{i1}&=\alpha Male_i+\beta_1 X_i + \gamma Z_1\\
+u_{i2}&=\alpha Male_i+\beta_2 X_i+\gamma Z_2
+\end{align*}
+Since only differences in utility matter:
+\begin{equation*}
+u_{i1}-u_{i2}=(\beta_1-\beta_2)X_i+\gamma (Z_1-Z_2)
+\end{equation*}
+\begin{itemize}
+\item Thus, we cannot tell whether men are happier than women, but can tell whether men have a preference for a particular option over another. 
+\item We can only obtain \textbf{differenced} coefficient estimates on $X$'s, and can obtain an estimate of a coefficient that is constant across choices only if the variable it is multiplying varies by choice.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Number of error terms}
+Similar to socio-demographic characteristics, there are restrictions on the number of error terms.
+\bigskip
+Recall that he probability $i$ will choose $j$ is given by:
+\begin{eqnarray*}
+P_{ij}&=&\Pr(u_{ij}+\varepsilon_{ij}>u_{ij'}+\varepsilon_{ij'}  \,\,\forall\,\,   j'\neq j)\\
+&=&\Pr(\varepsilon_{ij'}-\varepsilon_{ij}<u_{ij}-u_{ij'}  \,\,\forall\,\,   j'\neq j)\\
+&=&\int_{\varepsilon}I(\varepsilon_{ij'}-\varepsilon_{ij}<u_{ij}-u_{ij'}  \,\,\forall\,\,   j'\neq j)f(\varepsilon)d\varepsilon
+\end{eqnarray*}
+where the integral is $J$-dimensional.
+\end{frame}
+
+
+
+\begin{frame}{Number of error terms (cont'd)}
+But we can rewrite the last line as $J-1$ dimensional integral over the differenced $\varepsilon$'s:
+\begin{displaymath}
+P_{ij}=\int_{\tilde{\varepsilon}}I(\tilde{\varepsilon}_{ij'}<\tilde{u}_{ij'}  \,\,\forall\,\,   j'\neq j)g(\tilde{\varepsilon})d\tilde{\varepsilon}
+\end{displaymath}
+Note that this means one dimension of $f(\varepsilon)$ is not identified and must therefore be normalized.
+\end{frame}
+
+
+
+\begin{frame}{Derivation of Logit Probability}
+Consider the case when the choice set is $\{1,2\}$.  The Type 1 extreme value cdf for $\varepsilon_2$ is:
+\begin{displaymath}
+F(\varepsilon_2)=e^{-e^{(-\varepsilon_2)}}
+\end{displaymath}
+To get the probability of choosing $1$, substitute in for $\varepsilon_2$ with $\varepsilon_1+u_1-u_2$:
+\begin{displaymath}
+Pr(d_1=1|\varepsilon_1)=e^{-e^{-(\varepsilon_1+u_1-u_2)}}
+\end{displaymath}
+But $\varepsilon_1$ is unobserved so we need to integrate it out (see Appendix to these slides if you want the math steps)
+\end{frame}
+
+
+
+\begin{frame}{Derivation of Logit Probability}
+In the end, we can show that, for any model where there are two choice alternatives and $\varepsilon$ is drawn from the Type 1 extreme value distribution,
+
+\begin{displaymath}
+P_{i1}=\frac{\exp(u_{i1}-u_{i2})}{1+\exp(u_{i1}-u_{i2})},P_{i2}=\frac{1}{1+\exp(u_{i1}-u_{i2})}
+\end{displaymath}
+
+Suppose we have a data set with $N$ observations. The log likelihood function we maximize is then:
+\begin{displaymath}
+\ell(\beta,\gamma)=\sum_{i=1}^N(d_{i1}=1)(u_{i1}-u_{i2})-\ln\left(1+\exp(u_{i1}-u_{i2})\right)
+\end{displaymath}
+
+\end{frame}
+
+
+
+\begin{frame}{Derivation of Probit Probability}
+In the probit model, we assume that $\varepsilon$ is Normally distributed. So for a binary choice we have:
+
+\begin{displaymath}
+P_{i1}=\Phi\left(u_{i1}-u_{i2}\right),P_{i2}=1-\Phi\left(u_{i1}-u_{i2}\right)
+\end{displaymath}
+where $\Phi\left(\cdot\right)$ is the standard normal cdf
+
+The log likelihood function we maximize is then:
+\begin{displaymath}
+\ell(\beta,\gamma)=\sum_{i=1}^N(d_{i1}=1)\ln\left(\Phi\left(u_{i1}-u_{i2}\right)\right)+(d_{i2}=1)\ln\left(1-\Phi\left(u_{i1}-u_{i2}\right)\right)
+\end{displaymath}
+
+\end{frame}
+
+
+
+\begin{frame}{Pros \& Cons of Logit \& Probit}
+Logit model:
+\begin{itemize}
+\item Has a much simpler objective function 
+\item Is by far most popular
+\item ... but has more restrictive assumptions about how people substitute choices
+\item (this is known as the Independence of Irrelevant Alternatives or IIA assumption)
+\end{itemize}
+
+Probit model:
+\begin{itemize}
+\item Much more difficult to estimate 
+\item ... but can accommodate more realistic choice patterns
+\end{itemize}
+
+\end{frame}
+
+
+
+\section{Estimation}
+\begin{frame}[fragile]{Estimation in \texttt{R}}
+The R function \texttt{glm} is the easiest way to estimate a binomial logit or probit model:
+
+\begin{lstlisting}[language=R]
+library(mlogit)
+data(Heating) # load data on residential heating choice in CA
+levels(Heating$depvar) <- c("gas","gas","elec","elec","elec")
+estim <- glm(depvar ~ income+agehed+rooms+region,
+             family=binomial(link='logit'),data=Heating))
+print(summary(estim))
+\end{lstlisting}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Interpreting the coefficients}
+Estimated coefficients using the code in the previous slide:
+
+\begin{lstlisting}[language=R]
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)
+(Intercept)  -0.599142   0.252032  -2.377   0.0174 *
+income        0.015579   0.027905   0.558   0.5766
+agehed       -0.006535   0.003342  -1.955   0.0505 .
+rooms         0.024291   0.026916   0.902   0.3668
+regionscostl -0.053096   0.126665  -0.419   0.6751
+regionmountn  0.041827   0.169787   0.246   0.8054
+regionncostl -0.219136   0.137692  -1.591   0.1115
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}{Interpreting the coefficients}
+\begin{itemize}
+\item Positive coefficients $\Rightarrow$ household more likely to choose the non-baseline alternative (in this case: electric)
+    \begin{itemize}
+    \item Whatever the first \texttt{level} of the factor dependent variable is will be the "baseline" alternative
+    \end{itemize}
+\item Negative coefficients imply the reverse
+\item Coefficients \textbf{not} linked to changes in probability of choosing the alternative (since probability is a nonlinear function of $X$)
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Forming predictions}
+To get predicted probabilities for each observation in the data:
+
+\begin{lstlisting}[language=R]
+Heating$predLogit <- predict(estim, newdata = Heating, type = "response")
+print(summary(Heating$predLogit))
+\end{lstlisting}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]{Estimating a probit model}
+For the probit model, we repeat the same code, except change the ``link'' function from ``logit'' to ``probit''
+
+\begin{lstlisting}[language=R]
+estim2 <- glm(depvar ~ income+agehed+rooms+region,
+             family=binomial(link='probit'),data=Heating))
+print(summary(estim2))
+Heating$predProbit <- predict(estim2, newdata = Heating, type = "response")
+print(summary(Heating$predProbit))
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}{A simple counterfactual simulation}
+\begin{itemize}
+\item We talked a lot about doing counterfactual comparisons, but how do we \emph{actually} do it?
+\item Let's show how to do this on a previous example. Suppose that we introduce a policy that makes richer people more likely to use electric heating.
+\item Mathematically, what does this look like?
+\item It would correspond to an increase in the parameter in front of \emph{income} in our regression
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{A simple counterfactual simulation}
+\begin{itemize}
+\item Suppose the coefficient increased by a factor of 4. What is the new share of gas vs. electricity usage?
+\end{itemize}
+
+\begin{lstlisting}[language=R]
+estim$coefficients["income"] <- 4*estim$coefficients["income"]
+Heating$predLogitCfl <- predict(estim, newdata = Heating, type = "response")
+print(summary(Heating$predLogitCfl))
+\end{lstlisting}
+
+This policy would increase electric usage by 7 percentage points (from 22\% to 29\%)
+
+\end{frame}
+
+
+
+
+\section{Sample selection}
+\begin{frame}[fragile]{Discrete choice models and sample selection bias}
+\begin{itemize}
+\item Discrete choice models are common tools used to evaluate sample selection bias
+\item Why? Because variables that are MNAR can be thought of as following a utility-maximizing process
+\item Examples:
+    \begin{itemize}
+    \item Suppose you want to know what the returns to schooling are, but you only observe wages for those who currently hold jobs
+    \item As a result, your estimate of the returns to schooling might be invalidated by the non-randomness of the sample of people who are currently working
+    \item How to get around this? Use a discrete choice model (This was the problem we ran into in PS7, if you recall)
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Heckman selection correction}
+The Heckman selection model specifies two equations:
+\begin{align*}
+u_{i}&= \beta x_{i} + \nu \\
+y_{i} &= \gamma z_{i} + \varepsilon 
+\end{align*}
+
+The first equation is a utility maximization problem, determining if the person is in the labor force.
+
+
+The second equation is the log wage equation, where $y_i$ is only observed for people who are in the labor force.
+
+
+To solve the model, one needs to use the so-called ``Heckit'' model, which involves adding a correction term in the wage equation which accounts for the fact that workers are not randomly selected.
+\end{frame}
+
+
+
+\appendix
+
+\section*{Bonus slides}
+
+\begin{frame}[noframenumbering]{Derivation of Logit Probability}
+\begin{eqnarray*}
+Pr(d_1=1)&=&\int_{-\infty}^{\infty}\left(e^{-e^{-(\varepsilon_1+u_1-u_2)}}\right)f(\varepsilon_1)d\varepsilon_1\\
+&=&\int_{-\infty}^{\infty}\left(e^{-e^{-(\varepsilon_1+u_1-u_2)}}\right)e^{-\varepsilon_1}e^{-e^{-\varepsilon_1}}d\varepsilon_1\\
+&=&\int_{-\infty}^{\infty}\exp\left(-e^{-\varepsilon_1}-e^{-(\varepsilon_1+u_1-u_2)}\right)e^{-\varepsilon_1}d\varepsilon_1\\
+&=&\int_{-\infty}^{\infty}\exp\left(-e^{-\varepsilon_1}\left[1+e^{u_2-u_1}\right]\right)e^{-\varepsilon_1}d\varepsilon_1
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Derivation of Logit Probability}
+Now need to do the substitution rule where $t=\exp(-\varepsilon_1)$ and $dt=-\exp(-\varepsilon_1)d\varepsilon_1$.  
+
+\bigskip
+
+Note that we need to do the same transformation of the bounds as we do to $\varepsilon_1$ to get $t$.  Namely, $\exp(-\infty)=0$ and $\exp(\infty)=\infty$.
+\end{frame}
+
+\begin{frame}[noframenumbering]{Derivation of Logit Probability}
+Substituting in then yields:
+\begin{eqnarray*}
+Pr(d_1=1)&=&\int_{\infty}^0\exp\left(-t\left[1+e^{(u_2-u_1)}\right]\right)(-dt)\\
+&=&\int_0^{\infty}\exp\left(-t\left[1+e^{(u_2-u_1)}\right]\right)dt\\
+&=&\begin{array}{c|}\frac{\exp\left(-t\left[1+e^{(u_2-u_1)}\right]\right)}{-\left[1+e^{(u_2-u_1)}\right]}\end{array}^{\infty}_{0}\\
+&=&0-\frac{1}{-\left[1+e^{(u_2-u_1)}\right]}=\frac{\exp(u_1)}{\exp(u_1)+\exp(u_2)}
+\end{eqnarray*}
+\end{frame}
+
+%\begin{frame}[noframenumbering]{References}
+%\bibliographystyle{jpe}
+%\bibliography{biblio}
+%\end{frame}
+
+\end{document}
+
