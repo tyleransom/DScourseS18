@@ -486,7 +486,7 @@ Before getting the test, we believed we had HIV with probability 0.003 (the popu
 If P(positive) were equal to 0.003, then we'd be really worried because that would mean that the false positive rate of the test was much lower. If that were the case, our posterior probability would skyrocket to 0.99 from 0.297. 
 
 ### Naive Bayes and Bayes Rule
-How does the above formula relate to Naive Bayes as a classification algorithm? It turns out that we can compute an observations probability of being a certain class (P(Y = y), y=0 or y=1) based on the data that we have.
+How does the above formula relate to Naive Bayes as a classification algorithm? It turns out that we can compute an observation's probability of being a certain class (P(Y = y), y=0 or y=1) based on the data that we have.
 
 We want to know P(Y | X) which is our "updated" hypothesis or posterior probability. Let's say we want to classify people as college graduates or not. Our prior would be the rate of college graduates in our data set (e.g. 30%). We observe their X's (e.g. family income, parent's education, high school class rank, etc.). We want to look at a new observation's X's and make a reasonable guess as to whether they are a college graduate.
 
@@ -515,7 +515,7 @@ Bayesian algorithms actually don't use regularization in the same way as the oth
     * Relies on the **naive** assumption that X variables are mutually indpendent
     * Can be computationally expensive to compute in the testing phase
 
-Naive Bayes is most famous for working well with spam classification and other text classification objectives.
+Naive Bayes is most famous for working well with spam classification and other text classification objectives (e.g. document classification).
 
 ## k Nearest Neighbors (kNN) and Support Vector Machine (SVM)
 kNN and SVM are the two workhorse algorithms of the analogizers. They seek to find commonality between different instances of data.
