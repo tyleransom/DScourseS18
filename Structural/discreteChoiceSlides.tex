@@ -25,6 +25,7 @@
 \definecolor{byublue}{RGB}{0.,30.,76.}
 \definecolor{dukeblue}{RGB}{0.,0.,156.}
 \definecolor{oucrimson}{RGB}{132.,22.,23.}
+\definecolor{whitey}{RGB}{255.,255.,255.}
 
 % Beamer Themes
 %\usetheme{Ilmenau}
@@ -36,8 +37,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usetheme{CapeTown}
-\setbeamercolor{section in head/foot}{bg=oucrimson,fg=white}  % use this to adjust the coloring of CapeTown
-\setbeamercolor{frametitle}{bg=white,fg=oucrimson}            % use this to adjust the coloring of CapeTown
+\setbeamercolor{section in head/foot}{bg=oucrimson,fg=whitey}  % use this to adjust the coloring of CapeTown
+\setbeamercolor{frametitle}{bg=whitey,fg=oucrimson}            % use this to adjust the coloring of CapeTown
 \setbeamercolor{alerted text}{fg=oucrimson}
 \usecolortheme[named=oucrimson]{structure}                   % change the color theme
 %\usecolortheme[named=RawSienna]{structure}                  % change the color theme
@@ -46,7 +47,7 @@
 \setbeamercovered{invisible}
 
 %\usetheme{Frankfurt}
-%\setbeamercolor{section in head/foot}{fg=white,bg=byublue}  % use this to adjust the coloring of Frankfurt
+%\setbeamercolor{section in head/foot}{fg=whitey,bg=byublue}  % use this to adjust the coloring of Frankfurt
 %\usecolortheme[named=dukeblue]{structure}                   % change the color theme
 %%\usecolortheme[named=RawSienna]{structure}                 % change the color theme
 %%\usecolortheme[named=byublue]{structure}                   % change the color theme
@@ -228,7 +229,7 @@
 
 
 
-\section{Discrete choice models}
+\section{Discrete choice}
 \begin{frame}{What are discrete choice models?}
 \begin{itemize}
 \item Discrete choice models are one of the workhorses of structural economics
@@ -321,7 +322,7 @@
 
 
 
-\section{Math foundation}
+\section{Math}
 \begin{frame}{Mathematically representing utility}
 Let $d_i$ indicate the choice individual (or decision-maker) $i$ makes where $d_i\in\{1,\cdots, J\}$.
 Individuals choose $d$ to maximize their utility, $U$.  $U$ generally is written as:
@@ -616,18 +617,306 @@ This policy would increase electric usage by 7 percentage points (from 22\% to 2
 \begin{frame}{Heckman selection correction}
 The Heckman selection model specifies two equations:
 \begin{align*}
-u_{i}&= \beta x_{i} + \nu \\
-y_{i} &= \gamma z_{i} + \varepsilon 
+    u_{i}&= \beta x_{i} + \nu_{i} \\
+    y_{i} &= \gamma z_{i} + \varepsilon_{i}
 \end{align*}
-
-The first equation is a utility maximization problem, determining if the person is in the labor force.
-
-
-The second equation is the log wage equation, where $y_i$ is only observed for people who are in the labor force.
-
-
-To solve the model, one needs to use the so-called ``Heckit'' model, which involves adding a correction term in the wage equation which accounts for the fact that workers are not randomly selected.
+\begin{itemize}
+    \item The first equation is a utility maximization problem, determining if the person is in the labor force. Can think of $\nu_{i}$ as ``desire to work''
+    \item $x_{i}$ may include: number of children in the household
+    \item The second equation is the log wage equation, where $y_i$ is only observed for people who are in the labor force.
+    \item To solve the model, one needs to use the so-called ``Heckit'' model, which involves adding a correction term in the wage equation which accounts for the fact that workers are not randomly selected.
+\end{itemize}
 \end{frame}
+
+
+
+
+\begin{frame}[fragile]{Estimating Heckman selection in \texttt{R}}
+    \texttt{R} has a package called \texttt{sampleSelection} which incorporates the Heckman selection model\footnote{This code taken from Garrett Glasgow's website: \url{http://www.polsci.ucsb.edu/faculty/glasgow/ps207/ps207_class6.r}}
+
+\begin{lstlisting}[language=R]
+library(sampleSelection)
+data('Mroz87')
+Mroz87$kids <- (Mroz87$kids5 + Mroz87$kids618) > 0
+# Comparison of linear regression and selection model
+outcome1 <- lm(wage ~ exper, data = Mroz87)
+summary(outcome1)
+selection1 <- selection(selection = lfp ~ age + I(age^2) + faminc + kids + educ,
+outcome = wage ~ exper, data = Mroz87, method = '2step')
+summary(selection1)
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Estimation output}
+    Output from a regression of wage on experience:
+
+\begin{lstlisting}[language=R]
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  1.30434    0.18937   6.888 1.20e-11 ***
+exper        0.10067    0.01419   7.093 3.03e-12 ***
+---
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Estimation output}
+    Output from the Heckman selection model: (edited for length)
+
+\begin{lstlisting}[language=R]
+Probit selection equation:
+               Estimate Std. Error t value Pr(>|t|)
+(Intercept) -4.157e+00  1.402e+00  -2.965 0.003126 **
+kidsTRUE    -4.490e-01  1.309e-01  -3.430 0.000638 ***
+Outcome equation:
+               Estimate Std. Error t value Pr(>|t|)
+(Intercept)  7.12492    0.80425   8.859   <2e-16 ***
+exper        0.02962    0.02059   1.439    0.151
+Multiple R-Squared:0.0823,      Adjusted R-Squared:0.0779
+Error terms:
+                Estimate Std. Error t value Pr(>|t|)
+invMillsRatio   -5.075      1.108  -4.581 5.42e-06 ***
+sigma            4.977         NA      NA       NA
+rho             -1.020         NA      NA       NA
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\begin{frame}{Reading the output}
+\begin{itemize}
+    \item Because there are two equations, there are now more parameters
+    \item Using just the regression on workers led us to believe the returns to experience were $\approx 10\%$
+    \item Taking into account the selectivity of labor force participants leads us to conclude the returns to experience are much lower ($\approx 3\%$ and not statistically different from zero)
+    \item Viability of the model depends on the assumption that's made: in this case, that having children only affects labor supply preferences and doesn't affect wages
+    \begin{itemize}
+        \item Wage discrimination against mothers in the labor market would invalidate this assumption
+        \item Back to the idea that to get causal inference we have to impose more assumptions
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\section{Dynamic Discrete Choice}
+\begin{frame}{The optimal stopping problem}
+\begin{itemize}
+\item Much of life is concerned with knowing when to stop:
+    \begin{itemize}
+    \item How many people to date before making/accepting a marriage proposal
+    \item How much to study for upcoming exams
+    \item How long to ``hodl'' an asset
+    \end{itemize}
+\item All of the above cases involve forming expectations about:
+    \begin{enumerate}
+    \item The long-run value of making a particular choice
+    \item ... relative to the long-run value of alternatives
+    \end{enumerate}
+\item Expectations about the future imply that we need to think ``dynamically'' (i.e. think over the longterm)
+\item Today we'll go through the math on how to do this
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Relation to reinforcement learning}
+\begin{itemize}
+\item Reinforcement learning is based on the optimal stopping problem
+\item At each state $X$ (e.g. game board configuration), observe reward $y$ (e.g. win probability)
+\item In each period (i.e. gameplay turn), choose the decision that maximizes the (present value) expected reward
+\item With structural models, ``reward'' is utility
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Dynamic discrete choice models}
+With \emph{dynamic} models, need a way to quantify present value of utility
+
+Individual $i$'s \textbf{flow utility} for option $j$ at time $t$ is:
+\begin{eqnarray*}
+    U_{ijt}&=&u_{ijt}+\varepsilon_{ijt}\\
+           &=&X_{it}\alpha_j+\varepsilon_{ijt}
+\end{eqnarray*}
+Individual chooses $d_{it}$ to maximize \textbf{expected lifetime utility}
+\begin{displaymath}
+    \max_{d_{it}} V = E\left\{\sum_{\tau=t}^T\sum_j\beta^{\tau-t}(d_{it}=j)U_{ijt}\right\}
+\end{displaymath} 
+\begin{itemize}
+    \item $V$ is the \emph{value function}
+    \item $\beta\in\left(0,1\right)$ is the \emph{discount factor}
+    \item $T$ is the \emph{time horizon}
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Expectations}
+\begin{itemize}
+\item Expectations taken over future states ($X$'s) \textbf{and} errors
+\item $\varepsilon$'s are iid over time
+\item Future states are not affected by $\varepsilon$'s except through current and past choices:
+    \begin{displaymath}
+        E\left(X_{t+1}|d_t,...,d_1,\varepsilon_t,...,\varepsilon_{1}\right)=E\left(X_{t+1}|d_t,...,d_1\right)
+    \end{displaymath}
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Human behavior vs. reinforcement learning}
+\begin{itemize}
+\item In reinforcement learning, we typically don't have $\varepsilon$, unless we want to allow for ``curiosity''
+\item Transitions in $X$ much more dominant factor (e.g. if I move here, opponent will move there, ...)
+\item Real-life example of uncertainty in $\varepsilon$'s:
+    \begin{itemize}
+        \item ``My significant other might take a job in another city next year, so if I want to move with him/her, I may not want to take this job offer today.''
+    \end{itemize}
+\item Real-life example of uncertainty in $X$'s:
+    \begin{itemize}
+        \item ``I might get laid off next year, which will influence my ability to pay off my car loan, so I might want not want to buy this Mercedes today, since my (expected) permanent income might be lower than my current income.''
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Dynamic programming \& the Bellman equation}
+\begin{itemize}
+\item We want to maximize the value function $V$
+\item It's helpful to write the value function as a recursive expression, where we separate out today's decision from all future decisions (this is called the \emph{Bellman equation}, or the \emph{dynamic programming problem})
+\item The payoff from choosing alternative $j$ today is the \emph{flow utility} $= u_{ijt}$ from earlier in these slides
+\item The payoff from choosing alternative $j$ in the future is the expected future utility conditional on choosing $j$ today
+\end{itemize}
+How do we solve the Bellman equation?
+\begin{itemize}
+\item Requires solving backwards, just like in a dynamic game (cf. subgame perfect Nash equilibrium)
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Two Period Example}
+    Consider the utility of choice $j$ in the last period:
+    \begin{align*}
+        U_{ijT}&=u_{ijT}+\varepsilon_{ijT}\\
+               &=X_{iT}\alpha_j+\varepsilon_{ijT}
+    \end{align*}
+    Define the \textbf{conditional valuation function} for choice $j$ as the flow utility of $j$ minus the associated $\varepsilon$ plus the expected value of future utility conditional on $j$:
+    \begin{displaymath}
+        v_{ijT-1}=u_{ijT-1}+\beta E\max_{k\in J}\left\{u_{ikT}+\varepsilon_{ikT}|d_{iT-1}=j\right\}
+    \end{displaymath} 
+    where $\beta$ is the discount factor.
+
+    \bigskip
+    Suppose $X_{iT}$ was deterministic given $X_{iT-1}$ and $d_{T-1}$ and the $\varepsilon$'s are Type 1 extreme value. What would the $E\max$ expression be? $\left[\ln\sum_{k}\exp\left(u_{ikT}\right)\right]$
+\end{frame}
+
+
+
+
+\begin{frame}{Two Period Example (cont'd)}
+    For $J=2$ the log likelihood would then look like:
+
+    \begin{displaymath}
+        L(\alpha)=\sum_{i=1}^N\sum_{t=1}^T(d_{i1t}=1)(v_{i1t}-v_{i2t})-\ln\left(1+\exp(v_{i1t}-v_{i2t})\right)
+    \end{displaymath}
+
+    where 
+
+    \begin{displaymath}
+        v_{ijt}=u_{ijt}+\beta E\max_{k\in J}\left\{v_{ikt+1}+\varepsilon_{ikt+1}|d_{it}=j\right\}
+    \end{displaymath}
+
+    and where
+
+    \begin{displaymath}
+        u_{ijt}=X_{it}\alpha_{j}
+    \end{displaymath}
+
+    Note: if $T=2$ then $v_{ikt+1} = u_{ikT}$
+
+\end{frame}
+
+
+
+
+\begin{frame}{Estimating a dynamic discrete choice model in \texttt{R}}
+\begin{itemize}
+    \item Because we have to loop backwards through time, we can't use a canned function like \texttt{lm()}
+    \item Requires us to write a custom likelihood function
+    \item This is because the flow utility parameters ($\alpha_j$) appear in the flow utility function in \emph{each} period
+        \begin{itemize}
+            \item Side note: We don't typically estimate the discount factor ($\beta$) but instead assume a fixed value (most common: 0.90 or 0.95)
+        \end{itemize}
+    \item To do this, write down an objective function (i.e. log likelihood function) and use \texttt{nloptr} to estimate the $\alpha$'s
+    \item Once you have the $\alpha$'s you can do counterfactual simulations
+    \item These simulations are likely to be more realistic because the model has incorporated forward-looking behavior
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Objective function}
+\begin{lstlisting}[language=R]
+objfun <- function(alpha,Choice,age) {
+    J <- 2
+    a  <- alpha[3]*(1-diag(J))
+    
+    u1 <- matrix(0, N, T)
+    u2 <- matrix(0, N, T)
+    for (t in 1:T) {
+        u1[ ,t] <- 0*age[ ,t]
+        u2[ ,t] <- alpha[1] + alpha[2]*age[ ,t]
+    }
+
+\end{lstlisting}
+(continued on next slide)
+\end{frame}
+
+
+\begin{frame}[fragile,plain]
+\begin{lstlisting}[language=R]
+    Like <- 0
+    for (t in T:1) {
+        for (j in 1:J) {
+            # Generate FV
+            dem <- exp(u1[ ,t] + a[1,j]+fv[ ,1,t+1])+
+                   exp(u2[ ,t] + a[2,j]+fv[ ,2,t+1])
+            fv[ ,j,t] <- beta*(log(dem)-digamma(1))
+            p1 <- exp(u1[ ,t] + a[1,j] + fv[ ,1,t+1])/dem
+            p2 <- exp(u2[ ,t] + a[2,j] + fv[ ,2,t+1])/dem
+            Like <- Like - (LY[ ,t]==j)*((Choice[ ,t]==1)*log(p1)+(Choice[ ,2]==2)*log(p2))
+        }
+    }
+    return ( sum(Like) )
+}
+\end{lstlisting}
+\end{frame}    
+
+
+
+\begin{frame}[fragile]{Calling \texttt{nloptr}}
+\begin{lstlisting}[language=R]
+## initial values
+theta0 <- runif(3) #start at uniform random numbers equal to number of coefficients
+
+## Algorithm parameters
+options <- list("algorithm"="NLOPT_LN_NELDERMEAD","xtol_rel"=1.0e-6,"maxeval"=1e4)
+
+## Optimize!
+result <- nloptr( x0=theta0,eval_f=objfun,opts=options,Choice=Choice,age=age)
+print(result)
+\end{lstlisting}
+\end{frame}    
 
 
 

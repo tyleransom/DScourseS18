@@ -1,60 +1,58 @@
- 
 \mode<presentation>
 
 \useoutertheme[subsection=false]{smoothbars}
 
 \setbeamertemplate{frametitle}
 {%
-	  \nointerlineskip%
-	    \usebeamerfont{headline}%
-	      % \begin{beamercolorbox}[wd=\paperwidth,ht=1.5ex,dp=0ex,vmode]{empty}
-	        % \pgfuseshading{beamer@aboveframetitle}%
-	      % \end{beamercolorbox}%
-	      \vskip-.1ex%
-	        \nointerlineskip%
-		  \begin{beamercolorbox}[wd=\paperwidth,leftskip=0cm plus1fill,rightskip=1cm,vmode]{frametitle} % adding "rightskip=1cm plus1fil" makes this left-aligned. adding "leftskip=1cm plus1fil" makes it centered. adding "leftskip=0cm plus1fill" makes it right-aligned.
-			      \vskip4ex % adjust this number to increase/decrease the space between the Rob bar (see below) and the frametitle text
-			          \usebeamerfont*{frametitle}\insertframetitle%
-				          \strut\par%
-					      \usebeamerfont{headline}%
-					          \vskip.5ex  
-						    \end{beamercolorbox}%
-						      \nointerlineskip
-					      }
-					      \setbeamertemplate{navigation symbols}{}
-					      \setbeamertemplate{section in toc}[sections numbered]
-					      \setbeamertemplate{enumerate items}[circle] % change bullet style. options are: default (triangle), square, circle, ball
+  \nointerlineskip%
+  \usebeamerfont{headline}%
+  % \begin{beamercolorbox}[wd=\paperwidth,ht=1.5ex,dp=0ex,vmode]{empty}
+    % \pgfuseshading{beamer@aboveframetitle}%
+  % \end{beamercolorbox}%
+  \vskip-.1ex%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth,leftskip=0cm plus1fill,rightskip=1cm,vmode]{frametitle} % adding "rightskip=1cm plus1fil" makes this left-aligned. adding "leftskip=1cm plus1fil" makes it centered. adding "leftskip=0cm plus1fill" makes it right-aligned.
+    \vskip4ex % adjust this number to increase/decrease the space between the Rob bar (see below) and the frametitle text
+    \usebeamerfont*{frametitle}\insertframetitle%
+        \strut\par%
+    \usebeamerfont{headline}%
+    \vskip.5ex  
+  \end{beamercolorbox}%
+  \nointerlineskip
+}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{enumerate items}[circle] % change bullet style. options are: default (triangle), square, circle, ball
 
-					      % The Rob bar (only works with default frametitle template)
-					      \setbeamertemplate{headline}
-					      {%
-						        \pgfuseshading{beamer@barshade}%
-							    \vskip-7ex%
-							      \begin{beamercolorbox}[ignorebg,ht=3.5ex,dp=1.25ex]{section in head/foot}
-								          \insertsectionnavigationhorizontal{\paperwidth}{}{\hfill\hfill}
-									    \end{beamercolorbox}%
-								    }%
+% The Rob bar (only works with default frametitle template)
+\setbeamertemplate{headline}
+{%
+  \pgfuseshading{beamer@barshade}%
+    \vskip-7ex%
+  \begin{beamercolorbox}[ignorebg,ht=3.5ex,dp=1.25ex]{section in head/foot}
+    \insertsectionnavigationhorizontal{\paperwidth}{}{\hfill\hfill}
+  \end{beamercolorbox}%
+}%
 
-								    % Footer bar with slide counter
-								      \setbeamertemplate{footline}%{miniframes theme}
-								        {%
-										    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
-											        \end{beamercolorbox}
-												    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
-													          {\usebeamerfont{title in head/foot}}\insertshortauthor~~(\insertshortinstitute) \hfill \insertshorttitle \hfill \hfill     \insertframenumber\, / \inserttotalframenumber%
-														      \end{beamercolorbox}%
-														          \begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
-																      \end{beamercolorbox}
-																        }
-																	  
-																	\setbeamerfont{block title}{size={}}
-																	\setbeamerfont{section in toc}{series=\bfseries}
-																	\setbeamerfont{title}{series=\bfseries}
-																	\setbeamerfont{alerted text}{series=\bfseries}
-																	\setbeamerfont{institute}{size=\small}
-																	\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
-																	\setbeamerfont{section in head/foot}{size=\small} %series=\bfseries,size=\footnotesize
+% Footer bar with slide counter
+  \setbeamertemplate{footline}%{miniframes theme}
+  {%
+    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+      {\usebeamerfont{title in head/foot}}\insertshortauthor~~(\insertshortinstitute) \hfill \insertshorttitle \hfill \hfill     \insertframenumber\, / \inserttotalframenumber%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
+    \end{beamercolorbox}
+  }
+  
+\setbeamerfont{block title}{size={}}
+\setbeamerfont{section in toc}{series=\bfseries}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamerfont{section in head/foot}{size=\small} %series=\bfseries,size=\footnotesize
 
-																	\mode
-																	<all>
-
+\mode
+<all>

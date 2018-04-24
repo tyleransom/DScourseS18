@@ -93,3 +93,5 @@ The primary statistical concern of machine learning is model misspecification er
 | Test assumptions that come baked-in to models                |  |
 
 
+# Useful links
+* Simon Quinn's (U of Oxford) [notes](http://www.simonrquinn.com/teaching/LectureNotesLDV.pdf) on structural econometrics (limited dependent variables)
