@@ -12,8 +12,9 @@ The final project will be scored according to the following guidelines:
 | *Subtotal*                                                                                   | *40*   |
 | **Written Report**                                                                           |        |
 | At least 10 pages (excluding References, Tables, and Figures)                                | 10     |
-| At least 1 equation                                                                          | 10     |
+| At least 1 **properly formatted** equation                                                   | 5      |
 | At least five references in the bibliography                                                 | 10     |
+| Properly include in-text citations (using `citet{bibkey}`)                                   | 5      |
 | At least 1 table and 1 graphical visualization                                               | 10     |
 | Compiled in LaTeX or Rmarkdown                                                               | 10     |
 | Tables and Figures appear at back of document (after References)                             | 10     |
