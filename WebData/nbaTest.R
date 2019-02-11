@@ -3,15 +3,25 @@ library(tibble)
 library(dplyr)
 
 # Collect coaching staff info
-coaches <- get_coaching_staffs()
+coaches <- coaching_staffs()
 print(coaches)
 
-print(filter(coaches, nameCollegeCoach == "Duke"))
-print(filter(coaches, nameTeam == "San Antonio Spurs"))
+coaches %>% filter(nameCollegeCoach == "Duke") %>% print
+coaches %>% filter(nameTeam == "San Antonio Spurs") %>% print
 
-thunder_contracts <- get_nba_team_salaries(team_name = "Oklahoma City Thunder", team_slug = NA)
-print(thunder_contracts)
-thunder_contracts$value <- thunder_contracts$value/1e6
-print(thunder_contracts$value)
-current_thunder <- filter(thunder_contracts,slugSeason=="2017-18") %>% select(slugSeason,nameTeam, namePlayer, isFinalSeason, value) 
-print(current_thunder)
+# Player-agent relationships
+agents <- players_agents()
+agents %>% filter(nameAgent=="Rich Paul") %>% print
+
+# Player salary data
+payroll <- hoopshype_salaries()
+payroll %<>% mutate(amountContract = amountContract/1e6) # convert to millions of dollars (from dollars)
+payroll %>% filter(slugSeason=="2018-19") %>% 
+            filter(namePlayer %in% c("Russell Westbrook","Carmelo Anthony","Paul George")) %>% 
+            print
+
+payroll %>% filter(namePlayer %in% c("Alex Abrines")) %>% print
+
+payroll %>% filter(namePlayer %in% c("Kawhi Leonard")) %>% 
+            select(namePlayer,slugSeason,amountContract,typeOption,isFinalSeason) %>% 
+            print
